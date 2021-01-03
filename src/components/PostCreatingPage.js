@@ -1,7 +1,7 @@
 import React from "react";
 
 function PostCreatingPage() {
-  return <div>게시글작성페이지</div>;
+  return <h1>게시글작성페이지</h1>;
 }
 
 export default PostCreatingPage;

@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter, Route, Link } from "react-router-dom";
+import { BrowserRouter, Route, NavLink, Link, Switch } from "react-router-dom";
 import {
   NavBar,
   BoardPage,
@@ -13,6 +13,28 @@ function App() {
   return (
     <div className="App">
       <NavBar></NavBar>
+
+      <NavLink to="/BoardPage"></NavLink>
+      <NavLink to="/PostPage"></NavLink>
+      <NavLink to="/SearchPage"></NavLink>
+
+      <Switch>
+        <Route path="/BoardPage">
+          <BoardPage />
+        </Route>
+        <Route path="/PostCreatingPage">
+          <PostCreatingPage />
+        </Route>
+        <Route path="/PostPage">
+          <PostPage />
+        </Route>
+        <Route path="/SearchPage">
+          <SearchPage />
+        </Route>
+        <Route path="/">
+          <HomePage />
+        </Route>
+      </Switch>
     </div>
   );
 }

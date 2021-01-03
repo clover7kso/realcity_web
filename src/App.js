@@ -2,6 +2,7 @@ import "./App.css";
 import { BrowserRouter, Route, NavLink, Link, Switch } from "react-router-dom";
 import {
   NavBar,
+  Footer,
   BoardPage,
   HomePage,
   PostCreatingPage,
@@ -35,6 +36,8 @@ function App() {
           <HomePage />
         </Route>
       </Switch>
+
+      <Footer></Footer>
     </div>
   );
 }

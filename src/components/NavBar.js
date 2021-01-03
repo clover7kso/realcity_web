@@ -7,7 +7,7 @@ function NavBar() {
   return (
     <div>
       <div className="NavBar">
-        <h1>
+        <h1 className="Logo">
           <NavLink to="/" activeClassName="LogoLink">
             <span className="LogoColorRed">CAR</span>MUNITY
           </NavLink>

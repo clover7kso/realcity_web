@@ -26,9 +26,9 @@
 
 .LogoExplain {
   /* background-color: green; */
-  width: 22.3%;
+  width: 80%;
   height: 24.8%;
-  margin: 10% 30% 5% 0%;
+  margin: 10% 0% 5% 0%;
   font-family: Roboto;
   font-size: 0.3em;
   text-align: left;
@@ -63,7 +63,7 @@
 
 a button {
   width: 150%;
-  height: 50%;
+  height: 60%;
   margin: 50% 0% 5% 0%;
   background-color: #e00000;
   color: #fff;

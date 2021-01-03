@@ -2,6 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, NavLink, Link, Switch } from "react-router-dom";
 import "./NavBar.css";
 import { PostCreatingPage } from "./Page";
+import styled from "styled-components";
 
 function NavBar() {
   return (

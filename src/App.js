@@ -1,5 +1,13 @@
 import "./App.css";
-import NavBar from "./components/NavBar";
+import { BrowserRouter, Route, Link } from "react-router-dom";
+import {
+  NavBar,
+  BoardPage,
+  HomePage,
+  PostCreatingPage,
+  PostPage,
+  SearchPage,
+} from "./components/Page";
 
 function App() {
   return (

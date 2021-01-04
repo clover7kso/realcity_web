@@ -109,3 +109,29 @@ export const BtnWrite = ({ size = 12 }) => (
     />
   </svg>
 );
+
+export const SearchIcon = () => (
+  <svg
+    width="37"
+    height="37"
+    viewBox="0 0 37 37"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <circle
+      cx="15.1996"
+      cy="15.1996"
+      r="13.6996"
+      stroke="black"
+      stroke-width="3"
+    />
+    <line
+      x1="25.7922"
+      y1="25.7319"
+      x2="35.5818"
+      y2="35.5214"
+      stroke="black"
+      stroke-width="3"
+    />
+  </svg>
+);

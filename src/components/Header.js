@@ -1,8 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
-import Input from "./Input";
-import { Logo, BtnWrite } from "./Icons";
+import { Logo } from "./Icons";
 
 const Button = styled.button`
   width: 130px;
@@ -51,20 +50,6 @@ const HeaderColumn = styled.div`
   &:last-child {
     margin-left: auto;
     text-align: right;
-  }
-`;
-
-const SearchInput = styled(Input)`
-  background-color: ${(props) => props.theme.bgColor};
-  padding: 5px;
-  font-size: 14px;
-  border-radius: 3px;
-  height: auto;
-  text-align: center;
-  width: 70%;
-  &::placeholder {
-    opacity: 0.8;
-    font-weight: 200;
   }
 `;
 

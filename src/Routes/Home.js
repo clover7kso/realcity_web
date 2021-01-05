@@ -88,20 +88,30 @@ const MoreView = styled.button`
   margin: auto auto auto 50%;
 `;
 
+const NormalMoreView = styled.button`
+  font-size: 18px;
+  font-weight: bold;
+  text-align: right;
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  margin: auto auto auto 15%;
+`;
+
 const TopPost = styled.div`
   width: 100%;
 `;
 
-const TopPostList = styled.div`
-  display: flex;
-  flex-direction: column;
+const NormalPost = styled.div`
+  width: 50%;
+  height: 15%;
+  padding: 1%;
+  flex: 1 1 40%;
 `;
 
-const PostList = styled.div`
-  position: relative;
-  padding-top: 10px;
-  font-size: 18px;
-  text-align: left;
+const NormalPostWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
 `;
 
 class PostInfo extends React.Component {
@@ -148,6 +158,12 @@ class List extends React.Component {
           like: 4,
           view: 4,
         },
+        {
+          title: "악5",
+          catecory: "5",
+          like: 5,
+          view: 5,
+        },
       ],
     };
   }
@@ -173,11 +189,73 @@ export default () => {
       <PostZzalDivider>
         <PostWrapper>
           <TopPost>
-            <Title>👑오늘 이 글 잘나가네</Title>
+            <Title>👑 오늘 이 글 잘나가네</Title>
             <MoreView>더보기 &gt;</MoreView>
             <hr></hr>
             <List></List>
           </TopPost>
+          <NormalPostWrapper>
+            <NormalPost>
+              <Title>🐶 자유롭게멍멍</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title> 🏎 애마자랑</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title>🔫 나때는군대</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title>📈 주식투자</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title>🚘 시승후기</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title>✈️ 여행먹방</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title>💼 보험후기</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title>🚓️ 사고후기</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title>🏻‍ 결혼이야기</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+            <NormalPost>
+              <Title>🚗 차Q&A</Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <hr></hr>
+              <List></List>
+            </NormalPost>
+          </NormalPostWrapper>
         </PostWrapper>
         <ZzalWrapper>
           <Title>오늘 짤방 TOP</Title>

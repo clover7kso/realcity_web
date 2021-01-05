@@ -5,12 +5,14 @@ import Auth from "../Routes/Auth";
 import Home from "../Routes/Home";
 import WritePost from "../Routes/WritePost";
 import Search from "../Routes/Search";
+import Board from "../Routes/Board";
 
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/WritePost" component={WritePost} />
     <Route path="/Search" component={Search} />
+    <Route path="/Board" component={Board} />
     <Redirect from="*" to="/" />
   </Switch>
 );

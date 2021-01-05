@@ -1,6 +1,27 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Menu, MyScrollMenu } from "../Components/MyScrollMenu";
+import { useQuery } from "react-apollo-hooks";
+import InfiniteScroll from "../Components/InfiniteScroll";
+import { gql } from "apollo-boost";
+
+const BOARD_QUERY = gql`
+  query postMany($cursor: String, $category: String) {
+    postMany(cursor: $cursor, category: $category) {
+      cursor
+      posts {
+        id
+        title
+        content
+        timeFromToday
+        comments {
+          content
+        }
+        thumbnail
+      }
+    }
+  }
+`;
 
 // list of items
 const list = [
@@ -16,8 +37,6 @@ const list = [
   { name: "👰🏻‍♀️ 결혼이야기" },
   { name: "🚗 차Q&A" },
 ];
-
-const selected = "👑 오늘 이 글 잘나가네";
 
 const Wrapper = styled.div`
   display: flex;
@@ -45,39 +64,65 @@ const Title = styled.span`
   text-align: center;
 `;
 
-export default class Board extends Component {
-  constructor(props) {
-    super(props);
-    // call it again if items count changes
-    this.menuItems = Menu(list, selected);
-  }
+export default () => {
+  const selectedFirst = "👑 오늘 이 글 잘나가네";
+  const menuItems = Menu(list, selectedFirst);
+  const [selected, setSelected] = useState(selectedFirst);
 
-  state = {
-    selected,
+  const onSelect = (key) => {
+    setSelected(key);
   };
 
-  onSelect = (key) => {
-    this.setState({ selected: key });
-  };
+  const { data, loading, error, fetchMore } = useQuery(BOARD_QUERY, {
+    notifyOnNetworkStatusChange: true,
+  });
 
-  render() {
-    const { selected } = this.state;
-    // Create menu from items
-    const menu = this.menuItems;
+  return (
+    <Wrapper>
+      <BoardWrapper>
+        <MyScrollMenu
+          data={menuItems}
+          selected={selected}
+          onSelect={onSelect}
+        />
 
-    return (
-      <Wrapper>
-        <BoardWrapper>
-          <MyScrollMenu
-            data={menu}
-            selected={selected}
-            onSelect={this.onSelect}
+        {error ? (
+          <p>{error.message}</p>
+        ) : (
+          <InfiniteScroll
+            loading={loading}
+            data={data}
+            onLoadMore={() => {
+              if (!loading && data.postMany.cursor === "end") {
+                console.log("nice");
+                return;
+              } else {
+                fetchMore({
+                  variables: {
+                    category: selected.substring(3),
+                    cursor:
+                      data.postMany !== undefined ? data.postMany.cursor : null,
+                  },
+                  updateQuery: (prevResult, { fetchMoreResult }) => {
+                    const newEdges = fetchMoreResult.postMany.posts;
+
+                    return {
+                      postMany: {
+                        __typename: prevResult.postMany.__typename,
+                        cursor: fetchMoreResult.postMany.cursor,
+                        posts: [...prevResult.postMany.posts, ...newEdges],
+                      },
+                    };
+                  },
+                });
+              }
+            }}
           />
-        </BoardWrapper>
-        <ZzalWrapper>
-          <Title>오늘 짤방 TOP</Title>
-        </ZzalWrapper>
-      </Wrapper>
-    );
-  }
-}
+        )}
+      </BoardWrapper>
+      <ZzalWrapper>
+        <Title>오늘 짤방 TOP</Title>
+      </ZzalWrapper>
+    </Wrapper>
+  );
+};

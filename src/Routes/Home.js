@@ -4,7 +4,7 @@ import styled from "styled-components";
 import Button from "../Components/Button";
 import Input from "../Components/Input";
 import { Link, withRouter } from "react-router-dom";
-import { SearchIcon } from "./../Components/Icons";
+import { SearchIcon, Ddabong, View } from "./../Components/Icons";
 import { render } from "react-dom";
 
 const Wrapper = styled.div`
@@ -52,6 +52,7 @@ const SearchButton = styled.button`
   border-color: transparent;
   margin: auto auto auto 2%;
   cursor: pointer;
+  outline: 0;
 `;
 
 const PostZzalDivider = styled.div`
@@ -73,6 +74,11 @@ const ZzalWrapper = styled.div`
   padding: 5% 0% 0% 0%;
 `;
 
+const TitleBar = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
 const Title = styled.span`
   font-size: 24px;
   font-weight: bold;
@@ -85,7 +91,7 @@ const MoreView = styled.button`
   background-color: transparent;
   border-color: transparent;
   cursor: pointer;
-  margin: auto auto auto 50%;
+  outline: 0;
 `;
 
 const NormalMoreView = styled.button`
@@ -95,7 +101,7 @@ const NormalMoreView = styled.button`
   background-color: transparent;
   border-color: transparent;
   cursor: pointer;
-  margin: auto auto auto 15%;
+  outline: 0;
 `;
 
 const TopPost = styled.div`
@@ -114,63 +120,181 @@ const NormalPostWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-class PostInfo extends React.Component {
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  width: 70%;
+  height: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+  }
+`;
+
+const TextBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 18px;
+  margin: 1% auto auto auto;
+`;
+
+const CategoryBox = styled(Link)`
+  text-decoration: none;
+  font-size: 13px;
+  color: #818181;
+  border: 1px solid #cecece;
+  margin: 0 3% 0 0;
+`;
+
+const CategoryTitleWrapper = styled.div`
+  display: flex;
+  width: 80%;
+`;
+
+class TopPostInfo extends React.Component {
   render() {
     return (
-      <div>
-        <span>Title : {this.props.post.title}</span>
-        <span>catecory : {this.props.post.catecory}</span>
-        <span>like : {this.props.post.like}</span>
-        <span>view : {this.props.post.view}</span>
+      <TextBox>
+        <CategoryTitleWrapper>
+          <CategoryBox to="">{this.props.post.category}</CategoryBox>
+          <StyledLink to="/:catecory/:id">{this.props.post.title}</StyledLink>
+        </CategoryTitleWrapper>
+        <span>
+          <Ddabong></Ddabong>
+          {this.props.post.like}
+        </span>
+        &nbsp;&nbsp;
+        <span>
+          <View></View>
+          {this.props.post.view}
+        </span>
         <br />
-        <br />
-      </div>
+      </TextBox>
     );
   }
 }
 
-class List extends React.Component {
+class TopPostList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       postData: [
         {
           title: "악1",
-          catecory: "1",
+          category: "자유롭게멍멍",
           like: 1,
           view: 1,
         },
         {
           title: "악2",
-          catecory: "2",
+          category: "애마자랑",
           like: 2,
           view: 2,
         },
         {
           title: "악3",
-          catecory: "3",
+          category: "주식투자",
           like: 3,
           view: 3,
         },
         {
           title: "악4",
-          catecory: "4",
+          category: "나때는군대",
           like: 4,
           view: 4,
         },
         {
           title: "악5",
-          catecory: "5",
+          category: "시승후기",
+          like: 5,
+          view: 5,
+        },
+      ],
+    };
+    this.state.postData.sort(function (a, b) {
+      return a.view > b.view ? -1 : a.view < b.view ? 1 : 0;
+    }); //조회수순 정렬
+  }
+  render() {
+    const mapToComponent = (data) => {
+      return data.map((post, i) => {
+        return <TopPostInfo post={post} key={i} />;
+      });
+    };
+    return <div>{mapToComponent(this.state.postData)}</div>;
+  }
+}
+
+class NormalPostInfo extends React.Component {
+  render() {
+    return (
+      <TextBox>
+        <StyledLink to="/">{this.props.post.title}</StyledLink>
+        <span>
+          <Ddabong></Ddabong> {this.props.post.like}
+        </span>
+        &nbsp;
+        <span>
+          <View></View> {this.props.post.view}
+        </span>
+        <br />
+        <br />
+      </TextBox>
+    );
+  }
+}
+
+class NormalPostList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      postData: [
+        {
+          title: "악dfsfdsfssssssssssssssssssssssssssss1",
+          category: "1",
+          like: 1,
+          view: 1,
+        },
+        {
+          title: "악2",
+          category: "2",
+          like: 2,
+          view: 2,
+        },
+        {
+          title: "악3",
+          category: "3",
+          like: 3,
+          view: 3,
+        },
+        {
+          title: "악4",
+          category: "4",
+          like: 4,
+          view: 4,
+        },
+        {
+          title: "악5",
+          category: "5",
           like: 5,
           view: 5,
         },
       ],
     };
   }
+
   render() {
     const mapToComponent = (data) => {
       return data.map((post, i) => {
-        return <PostInfo post={post} key={i} />;
+        return <NormalPostInfo post={post} key={i} />;
       });
     };
     return <div>{mapToComponent(this.state.postData)}</div>;
@@ -189,71 +313,97 @@ export default () => {
       <PostZzalDivider>
         <PostWrapper>
           <TopPost>
-            <Title>👑 오늘 이 글 잘나가네</Title>
-            <MoreView>더보기 &gt;</MoreView>
+            <TitleBar>
+              <Title>👑 오늘 이 글 잘나가네</Title>
+              <MoreView>더보기 &gt;</MoreView>
+            </TitleBar>
             <hr></hr>
-            <List></List>
+            <TopPostList></TopPostList>
           </TopPost>
+          &nbsp;
           <NormalPostWrapper>
             <NormalPost>
-              <Title>🐶 자유롭게멍멍</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>🐶 자유롭게멍멍</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title> 🏎 애마자랑</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title> 🏎 애마자랑</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
+
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title>🔫 나때는군대</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>🔫 나때는군대</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title>📈 주식투자</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>📈 주식투자</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
+
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title>🚘 시승후기</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>🚘 시승후기</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
+
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title>✈️ 여행먹방</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>✈️ 여행먹방</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title>💼 보험후기</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>💼 보험후기</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title>🚓️ 사고후기</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>🚓️ 사고후기</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title>🏻‍ 결혼이야기</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>🏻‍ 결혼이야기</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
-              <Title>🚗 차Q&A</Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <TitleBar>
+                <Title>🚗 차Q&A</Title>
+                <NormalMoreView>더보기 &gt;</NormalMoreView>
+              </TitleBar>
               <hr></hr>
-              <List></List>
+              <NormalPostList></NormalPostList>
             </NormalPost>
           </NormalPostWrapper>
         </PostWrapper>

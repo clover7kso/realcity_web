@@ -42,7 +42,7 @@ class InfiniteScroll extends Component {
             <p>{item.timeFromToday}</p>
           </li>
         ))}
-        {this.props.loading && <h2>Loading...</h2>}
+        {this.props.loading && <Loader />}
       </ul>
     );
   }

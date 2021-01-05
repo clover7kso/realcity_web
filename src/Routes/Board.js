@@ -64,18 +64,23 @@ const Title = styled.span`
   text-align: center;
 `;
 
+const selectedFirst = "👑 오늘 이 글 잘나가네";
+const menuItems = Menu(list, selectedFirst);
+
 export default () => {
-  const selectedFirst = "👑 오늘 이 글 잘나가네";
-  const menuItems = Menu(list, selectedFirst);
   const [selected, setSelected] = useState(selectedFirst);
+
+  const { data, loading, error, refetch, fetchMore } = useQuery(BOARD_QUERY, {
+    variables: {
+      category: selected.substring(3),
+    },
+    notifyOnNetworkStatusChange: true,
+  });
 
   const onSelect = (key) => {
     setSelected(key);
+    refetch();
   };
-
-  const { data, loading, error, fetchMore } = useQuery(BOARD_QUERY, {
-    notifyOnNetworkStatusChange: true,
-  });
 
   return (
     <Wrapper>
@@ -94,7 +99,6 @@ export default () => {
             data={data}
             onLoadMore={() => {
               if (!loading && data.postMany.cursor === "end") {
-                console.log("nice");
                 return;
               } else {
                 fetchMore({
@@ -105,7 +109,6 @@ export default () => {
                   },
                   updateQuery: (prevResult, { fetchMoreResult }) => {
                     const newEdges = fetchMoreResult.postMany.posts;
-
                     return {
                       postMany: {
                         __typename: prevResult.postMany.__typename,

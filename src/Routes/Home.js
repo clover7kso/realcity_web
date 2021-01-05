@@ -36,14 +36,14 @@ const SearchInput = styled(Input)`
   background-color: ${(props) => props.theme.bgColor};
   padding: 15px;
   font-size: 30px;
-  height: 50px;
+  height: 70px;
   text-align: left;
   padding-left:10px
   border-radius: 50px;
   width: 90%;
   &::placeholder {
     color:black
-    font-weight: 200;
+    font-weight: 550;
   }
 `;
 
@@ -77,6 +77,9 @@ const ZzalWrapper = styled.div`
 const TitleBar = styled.div`
   display: flex;
   justify-content: space-between;
+  border-bottom: 1px solid #cecece;
+  padding: 10px;
+  margin: 0 0 2% 0;
 `;
 
 const Title = styled.span`
@@ -85,8 +88,7 @@ const Title = styled.span`
 `;
 
 const MoreView = styled.button`
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 15px;
   text-align: right;
   background-color: transparent;
   border-color: transparent;
@@ -95,8 +97,7 @@ const MoreView = styled.button`
 `;
 
 const NormalMoreView = styled.button`
-  font-size: 18px;
-  font-weight: bold;
+  font-size: 15px;
   text-align: right;
   background-color: transparent;
   border-color: transparent;
@@ -106,12 +107,13 @@ const NormalMoreView = styled.button`
 
 const TopPost = styled.div`
   width: 100%;
+  padding: 3%;
 `;
 
 const NormalPost = styled.div`
   width: 50%;
   height: 15%;
-  padding: 1%;
+  padding: 3%;
   flex: 1 1 40%;
 `;
 
@@ -120,30 +122,74 @@ const NormalPostWrapper = styled.div`
   flex-wrap: wrap;
 `;
 
-const StyledLink = styled(Link)`
+const TopStyledLink = styled(Link)`
   text-decoration: none;
   color: black;
   font-size: 18px;
-  width: 70%;
+  width: 75%;
   height: 18px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  font-family: Roboto;
   &:focus,
   &:hover,
   &:visited,
   &:link,
   &:active {
     text-decoration: none;
+    color: black;
+    font-size: 18px;
+    width: 75%;
+    height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: Roboto;
   }
 `;
 
-const TextBox = styled.div`
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  width: 55%;
+  height: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-family: Roboto;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    color: black;
+    font-size: 18px;
+    width: 55%;
+    height: 18px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-family: Roboto;
+  }
+`;
+
+const TopTextBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
   height: 18px;
-  margin: 1% auto auto auto;
+  margin: 2% auto 2% auto;
+`;
+
+const NormalTextBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 18px;
+  margin: 4% 0 4% 0;
 `;
 
 const CategoryBox = styled(Link)`
@@ -152,32 +198,57 @@ const CategoryBox = styled(Link)`
   color: #818181;
   border: 1px solid #cecece;
   margin: 0 3% 0 0;
+  padding: 1%;
+  height: 25px;
+  width: 10%;
+  &:focus,
+  &:hover,
+  &:visited,
+  &:link,
+  &:active {
+    text-decoration: none;
+    font-size: 13px;
+    color: #818181;
+    border: 1px solid #cecece;
+    margin: 0 3% 0 0;
+    padding: 1%;
+    height: 25px;
+    width: auto;
+  }
 `;
 
 const CategoryTitleWrapper = styled.div`
   display: flex;
   width: 80%;
+  height: 100%;
+`;
+
+const TopLikeView = styled.span`
+  min-width: 10%;
+  color: #818181;
+`;
+
+const LikeView = styled.span`
+  min-width: 20%;
+  color: #818181;
 `;
 
 class TopPostInfo extends React.Component {
   render() {
     return (
-      <TextBox>
+      <TopTextBox>
         <CategoryTitleWrapper>
-          <CategoryBox to="">{this.props.post.category}</CategoryBox>
-          <StyledLink to="/:catecory/:id">{this.props.post.title}</StyledLink>
+          <CategoryBox to="/:catecory">{this.props.post.category}</CategoryBox>
+          <TopStyledLink to="/:catecory/:id">{this.props.post.title}</TopStyledLink>
         </CategoryTitleWrapper>
-        <span>
-          <Ddabong></Ddabong>
-          {this.props.post.like}
-        </span>
-        &nbsp;&nbsp;
-        <span>
-          <View></View>
-          {this.props.post.view}
-        </span>
-        <br />
-      </TextBox>
+        <TopLikeView>
+          <Ddabong></Ddabong> <TopLikeView>{this.props.post.like}</TopLikeView>
+        </TopLikeView>
+        &nbsp;
+        <TopLikeView>
+          <View></View> <TopLikeView>{this.props.post.view}</TopLikeView>
+        </TopLikeView>
+      </TopTextBox>
     );
   }
 }
@@ -188,34 +259,34 @@ class TopPostList extends React.Component {
     this.state = {
       postData: [
         {
-          title: "악1",
+          title: "술 한잔 마셨습니다...",
           category: "자유롭게멍멍",
-          like: 1,
-          view: 1,
+          like: 6342,
+          view: 46342,
         },
         {
-          title: "악2",
+          title: "내일 DMC파인시티 계약금 내러 갈 생각에 신나네요",
           category: "애마자랑",
-          like: 2,
-          view: 2,
+          like: 6342,
+          view: 46342,
         },
         {
-          title: "악3",
+          title: "진학사 채용해요~",
           category: "주식투자",
-          like: 3,
-          view: 3,
+          like: 6342,
+          view: 46342,
         },
         {
-          title: "악4",
+          title: "엔드르 영차",
           category: "나때는군대",
-          like: 4,
-          view: 4,
+          like: 6342,
+          view: 46342,
         },
         {
-          title: "악5",
+          title: "차 공부중이야 벤츠 BMW 볼보 제네시스 구경했어",
           category: "시승후기",
-          like: 5,
-          view: 5,
+          like: 6342,
+          view: 46342,
         },
       ],
     };
@@ -236,18 +307,16 @@ class TopPostList extends React.Component {
 class NormalPostInfo extends React.Component {
   render() {
     return (
-      <TextBox>
-        <StyledLink to="/">{this.props.post.title}</StyledLink>
-        <span>
-          <Ddabong></Ddabong> {this.props.post.like}
-        </span>
+      <NormalTextBox>
+        <StyledLink to="/:catecory/:id">{this.props.post.title}</StyledLink>
+        <LikeView>
+          <Ddabong></Ddabong> <LikeView>{this.props.post.like}</LikeView>
+        </LikeView>
         &nbsp;
-        <span>
-          <View></View> {this.props.post.view}
-        </span>
-        <br />
-        <br />
-      </TextBox>
+        <LikeView>
+          <View></View> <LikeView>{this.props.post.view}</LikeView>
+        </LikeView>
+      </NormalTextBox>
     );
   }
 }
@@ -258,34 +327,34 @@ class NormalPostList extends React.Component {
     this.state = {
       postData: [
         {
-          title: "악dfsfdsfssssssssssssssssssssssssssss1",
+          title: "여친이 나 몰래 필러맞고 숨기는...",
           category: "1",
-          like: 1,
-          view: 1,
+          like: 16342,
+          view: 46342,
         },
         {
-          title: "악2",
+          title: "소유욕으로 주식하는 새끼 없제?..",
           category: "2",
-          like: 2,
-          view: 2,
+          like: 6342,
+          view: 46342,
         },
         {
-          title: "악3",
+          title: "이제 34살의 고민은? 탈모?",
           category: "3",
-          like: 3,
-          view: 3,
+          like: 6342,
+          view: 46342,
         },
         {
-          title: "악4",
+          title: "대외적인 회계사 이미지는 꽝임",
           category: "4",
-          like: 4,
-          view: 4,
+          like: 6342,
+          view: 46342,
         },
         {
-          title: "악5",
+          title: "이 경우 손해배상 가능한가요??",
           category: "5",
-          like: 5,
-          view: 5,
+          like: 6342,
+          view: 46342,
         },
       ],
     };
@@ -317,7 +386,6 @@ export default () => {
               <Title>👑 오늘 이 글 잘나가네</Title>
               <MoreView>더보기 &gt;</MoreView>
             </TitleBar>
-            <hr></hr>
             <TopPostList></TopPostList>
           </TopPost>
           &nbsp;
@@ -327,7 +395,7 @@ export default () => {
                 <Title>🐶 자유롭게멍멍</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-              <hr></hr>
+
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -336,7 +404,6 @@ export default () => {
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
 
-              <hr></hr>
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -344,7 +411,7 @@ export default () => {
                 <Title>🔫 나때는군대</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-              <hr></hr>
+
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -353,7 +420,6 @@ export default () => {
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
 
-              <hr></hr>
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -362,7 +428,6 @@ export default () => {
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
 
-              <hr></hr>
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -370,7 +435,7 @@ export default () => {
                 <Title>✈️ 여행먹방</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-              <hr></hr>
+
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -378,7 +443,7 @@ export default () => {
                 <Title>💼 보험후기</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-              <hr></hr>
+
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -386,7 +451,7 @@ export default () => {
                 <Title>🚓️ 사고후기</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-              <hr></hr>
+
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -394,7 +459,7 @@ export default () => {
                 <Title>🏻‍ 결혼이야기</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-              <hr></hr>
+
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -402,7 +467,7 @@ export default () => {
                 <Title>🚗 차Q&A</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-              <hr></hr>
+
               <NormalPostList></NormalPostList>
             </NormalPost>
           </NormalPostWrapper>

@@ -63,15 +63,17 @@ const PostZzalDivider = styled.div`
 const PostWrapper = styled.div`
   width: 80%;
   height: 100%;
+  min-height: 100%;
   padding: 5% 5% 0% 0%;
 `;
 
 const ZzalWrapper = styled.div`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 20%;
   height: 100%;
-  padding: 5% 0% 0% 0%;
+  min-height: 100%;
+  padding: 8% 0 0 0;
 `;
 
 const TitleBar = styled.div`
@@ -113,6 +115,7 @@ const TopPost = styled.div`
 const NormalPost = styled.div`
   width: 50%;
   height: 15%;
+  min-height: 15%;
   padding: 3%;
   flex: 1 1 40%;
 `;
@@ -231,6 +234,34 @@ const TopLikeView = styled.span`
 const LikeView = styled.span`
   min-width: 20%;
   color: #818181;
+`;
+
+const ZzalBox = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: 20%;
+`;
+
+const Zzal = styled.img`
+  border-radius: 50px;
+  padding: 10% 0 10% 0;
+`;
+
+const ZzalTitle = styled(Link)`
+  min-width: 100%;
+  font-size: 18px;
+  color: black;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding: 0 0 5% 0;
+`;
+
+const ZzalView = styled.span`
+  min-width: 100%;
+  font-size: 13px;
+  color: #818181;
+  text-align: right;
 `;
 
 class TopPostInfo extends React.Component {
@@ -370,6 +401,66 @@ class NormalPostList extends React.Component {
   }
 }
 
+class ZzalInfo extends React.Component {
+  render() {
+    return (
+      <ZzalBox>
+        <Zzal src={this.props.post.zzal}></Zzal>
+        <ZzalTitle to="/">{this.props.post.title}</ZzalTitle>
+        <ZzalView>
+          <View></View> {this.props.post.view}
+        </ZzalView>
+      </ZzalBox>
+    );
+  }
+}
+
+class ZzalList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      ZzalData: [
+        {
+          zzal: "https://placeimg.com/187/187/any",
+          title: "엄마한테 등짝 맞기.jpg",
+          view: 46342,
+        },
+        {
+          zzal: "https://placeimg.com/187/187/any",
+          title: "거북이의 자연은 아름답다",
+          view: 46342,
+        },
+        {
+          zzal: "https://placeimg.com/187/187/any",
+          title: "지랄궁상떠는 그지 사진임",
+          view: 46342,
+        },
+        {
+          zzal: "https://placeimg.com/187/187/any",
+          title: "오늘자 손흥민 실시간",
+          view: 46342,
+        },
+        {
+          zzal: "https://placeimg.com/187/187/any",
+          title: "분노한 개구리 짤",
+          view: 46342,
+        },
+      ],
+    };
+    this.state.ZzalData.sort(function (a, b) {
+      return a.view > b.view ? -1 : a.view < b.view ? 1 : 0;
+    }); //조회수순 정렬
+  }
+  render() {
+    const mapToComponent = (data) => {
+      return data.map((post, i) => {
+        return <ZzalInfo post={post} key={i} />;
+      });
+    };
+    return <div>{mapToComponent(this.state.ZzalData)}</div>;
+  }
+}
+
 export default () => {
   return (
     <Wrapper>
@@ -395,7 +486,6 @@ export default () => {
                 <Title>🐶 자유롭게멍멍</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -403,7 +493,6 @@ export default () => {
                 <Title> 🏎 애마자랑</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -411,7 +500,6 @@ export default () => {
                 <Title>🔫 나때는군대</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -419,7 +507,6 @@ export default () => {
                 <Title>📈 주식투자</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -427,7 +514,6 @@ export default () => {
                 <Title>🚘 시승후기</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -435,7 +521,6 @@ export default () => {
                 <Title>✈️ 여행먹방</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -443,7 +528,6 @@ export default () => {
                 <Title>💼 보험후기</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -451,7 +535,6 @@ export default () => {
                 <Title>🚓️ 사고후기</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -459,7 +542,6 @@ export default () => {
                 <Title>🏻‍ 결혼이야기</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
             <NormalPost>
@@ -467,13 +549,13 @@ export default () => {
                 <Title>🚗 차Q&A</Title>
                 <NormalMoreView>더보기 &gt;</NormalMoreView>
               </TitleBar>
-
               <NormalPostList></NormalPostList>
             </NormalPost>
           </NormalPostWrapper>
         </PostWrapper>
         <ZzalWrapper>
           <Title>오늘 짤방 TOP</Title>
+          <ZzalList></ZzalList>
         </ZzalWrapper>
       </PostZzalDivider>
       <SideWrapper></SideWrapper>

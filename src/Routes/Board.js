@@ -13,11 +13,12 @@ const BOARD_QUERY = gql`
         id
         title
         content
+        author
         timeFromToday
-        comments {
-          content
-        }
+        commentCount
         thumbnail
+        viewAll
+        likeAll
       }
     }
   }

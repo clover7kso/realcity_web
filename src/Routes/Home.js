@@ -1,11 +1,10 @@
-import { syntaxError } from "graphql/error";
 import React from "react";
 import styled from "styled-components";
-import Button from "../Components/Button";
 import Input from "../Components/Input";
-import { Link, withRouter } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { SearchIcon, Ddabong, View } from "./../Components/Icons";
-import { render } from "react-dom";
+import { gql } from "apollo-boost";
+import { useQuery } from "react-apollo-hooks";
 
 const Wrapper = styled.div`
   display: flex;
@@ -264,77 +263,6 @@ const ZzalView = styled.span`
   text-align: right;
 `;
 
-class TopPostInfo extends React.Component {
-  render() {
-    return (
-      <TopTextBox>
-        <CategoryTitleWrapper>
-          <CategoryBox to="/:catecory">{this.props.post.category}</CategoryBox>
-          <TopStyledLink to="/:catecory/:id">{this.props.post.title}</TopStyledLink>
-        </CategoryTitleWrapper>
-        <TopLikeView>
-          <Ddabong></Ddabong> <TopLikeView>{this.props.post.like}</TopLikeView>
-        </TopLikeView>
-        &nbsp;
-        <TopLikeView>
-          <View></View> <TopLikeView>{this.props.post.view}</TopLikeView>
-        </TopLikeView>
-      </TopTextBox>
-    );
-  }
-}
-
-class TopPostList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      postData: [
-        {
-          title: "술 한잔 마셨습니다...",
-          category: "자유롭게멍멍",
-          like: 6342,
-          view: 46342,
-        },
-        {
-          title: "내일 DMC파인시티 계약금 내러 갈 생각에 신나네요",
-          category: "애마자랑",
-          like: 6342,
-          view: 46342,
-        },
-        {
-          title: "진학사 채용해요~",
-          category: "주식투자",
-          like: 6342,
-          view: 46342,
-        },
-        {
-          title: "엔드르 영차",
-          category: "나때는군대",
-          like: 6342,
-          view: 46342,
-        },
-        {
-          title: "차 공부중이야 벤츠 BMW 볼보 제네시스 구경했어",
-          category: "시승후기",
-          like: 6342,
-          view: 46342,
-        },
-      ],
-    };
-    this.state.postData.sort(function (a, b) {
-      return a.view > b.view ? -1 : a.view < b.view ? 1 : 0;
-    }); //조회수순 정렬
-  }
-  render() {
-    const mapToComponent = (data) => {
-      return data.map((post, i) => {
-        return <TopPostInfo post={post} key={i} />;
-      });
-    };
-    return <div>{mapToComponent(this.state.postData)}</div>;
-  }
-}
-
 class NormalPostInfo extends React.Component {
   render() {
     return (
@@ -461,7 +389,75 @@ class ZzalList extends React.Component {
   }
 }
 
+const HOMETOP_QUERY = gql`
+  query homeTop {
+    homeTop {
+      id
+      category
+      title
+      likeAll
+      viewAll
+    }
+  }
+`;
+
+const HOMENORMAL_QUERY = gql`
+  query homeNormal {
+    homeNormal {
+      id
+      category
+      title
+      likeAll
+      viewAll
+    }
+  }
+`;
+
+const list = [
+  { name: "🐶 자유롭게멍멍" },
+  { name: "🏎 애마자랑" },
+  { name: "🔫 나때는군대" },
+  { name: "📈 주식투자" },
+  { name: "🚘 시승후기" },
+  { name: "✈️ 여행먹방" },
+  { name: "💼 보험후기" },
+  { name: "🚓️ 사고후기" },
+  { name: "👰🏻‍♀️ 결혼이야기" },
+  { name: "🚗 차Q&A" },
+];
+
 export default () => {
+  const { data, loading, error } = useQuery(HOMETOP_QUERY, {
+    notifyOnNetworkStatusChange: true,
+  });
+
+  // const { data, loading, error } = useQuery(HOMENORMAL_QUERY, {
+  //   notifyOnNetworkStatusChange: true,
+  // });
+
+  // const postShow = () => {
+  //   list.map(item, idx);
+  //   {
+  //     <NormalPost key={idx}>
+  //       <TitleBar>
+  //         <Title>{list.name}</Title>
+  //         <NormalMoreView>더보기 &gt;</NormalMoreView>
+  //       </TitleBar>
+  //       <NormalTextBox>
+  //         <StyledLink to="/:catecory/:id">{this.props.post.title}</StyledLink>
+  //         <LikeView>
+  //           <Ddabong></Ddabong> <LikeView>{this.props.post.like}</LikeView>
+  //         </LikeView>
+  //         &nbsp;
+  //         <LikeView>
+  //           <View></View> <LikeView>{this.props.post.view}</LikeView>
+  //         </LikeView>
+  //       </NormalTextBox>
+  //     </NormalPost>;
+  //   }
+  // };
+
+  console.log(data.homeTop);
   return (
     <Wrapper>
       <SearchWrapper>
@@ -477,7 +473,25 @@ export default () => {
               <Title>👑 오늘 이 글 잘나가네</Title>
               <MoreView>더보기 &gt;</MoreView>
             </TitleBar>
-            <TopPostList></TopPostList>
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              data.homeTop.map((item, idx) => (
+                <TopTextBox key={idx}>
+                  <CategoryTitleWrapper>
+                    <CategoryBox to="/:catecory">{item.category}</CategoryBox>
+                    <TopStyledLink to="/:catecory/:id">{item.title}</TopStyledLink>
+                  </CategoryTitleWrapper>
+                  <TopLikeView>
+                    <Ddabong></Ddabong> <TopLikeView>{item.likeAll}</TopLikeView>
+                  </TopLikeView>
+                  &nbsp;
+                  <TopLikeView>
+                    <View></View> <TopLikeView>{item.viewAll}</TopLikeView>
+                  </TopLikeView>
+                </TopTextBox>
+              ))
+            )}
           </TopPost>
           &nbsp;
           <NormalPostWrapper>

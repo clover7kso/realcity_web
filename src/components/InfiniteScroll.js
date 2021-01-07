@@ -4,18 +4,31 @@ import styled from "styled-components";
 import { CommentsIcon, LikesIcon, ViewsIcon } from "./Icons";
 
 const Wrapper = styled.div`
+  height:150px
   display: flex;
   flex-direction: column;
   font-family: Roboto;
+  justify-content: space-around;
 `;
 
 const Title = styled.span`
   font-size: 24px;
   font-weight: bold;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 `;
 
 const Content = styled.span`
   font-size: 20px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 라인수 */
+  -webkit-box-orient: vertical;
+  word-wrap: break-word;
+  line-height: 1.2em;
+  height: 2.4em;
 `;
 
 const InfoWrapper = styled.div`
@@ -31,7 +44,7 @@ const InfoInWrapper = styled.div`
   font-family: Roboto;
 `;
 
-const InfoGrey = styled.span`
+const InfoGrey1 = styled.span`
   color: #8c8c8c;
   font-size: 15px;
   display: flex;
@@ -39,6 +52,16 @@ const InfoGrey = styled.span`
 `;
 
 const InfoBlack = styled.span`
+  margin-left: 20px;
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+`;
+
+const InfoGrey2 = styled.span`
+  margin-left: 20px;
+  margin-right: 20px;
+  color: #8c8c8c;
   font-size: 15px;
   display: flex;
   align-items: center;
@@ -86,16 +109,16 @@ class InfiniteScroll extends Component {
               <Content>{item.content}</Content>
               <InfoWrapper>
                 <InfoInWrapper>
-                  <InfoGrey>{item.timeFromToday}</InfoGrey>
+                  <InfoGrey1>{item.timeFromToday}</InfoGrey1>
                   <InfoBlack>{item.author}</InfoBlack>
                 </InfoInWrapper>
                 <InfoInWrapper>
                   <CommentsIcon />
-                  <InfoGrey>{item.commentCount}</InfoGrey>
+                  <InfoGrey2>{item.commentCount}</InfoGrey2>
                   <LikesIcon />
-                  <InfoGrey>{item.likeAll}</InfoGrey>
+                  <InfoGrey2>{item.likeAll}</InfoGrey2>
                   <ViewsIcon />
-                  <InfoGrey>{item.viewAll}</InfoGrey>
+                  <InfoGrey2>{item.viewAll}</InfoGrey2>
                 </InfoInWrapper>
               </InfoWrapper>
             </Wrapper>

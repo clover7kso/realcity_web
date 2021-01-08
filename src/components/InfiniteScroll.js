@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { CommentsIcon, LikesIcon, ViewsIcon } from "./Icons";
 
 const Wrapper = styled.div`
-  height:150px
+  margin-top: 35px;
   display: flex;
   flex-direction: column;
   font-family: Roboto;
@@ -20,6 +20,8 @@ const Title = styled.span`
 `;
 
 const Content = styled.span`
+  margin-top: 25px;
+  margin-bottom: 25px;
   font-size: 20px;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -59,12 +61,20 @@ const InfoBlack = styled.span`
 `;
 
 const InfoGrey2 = styled.span`
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: 7px;
+  margin-right: 10px;
   color: #8c8c8c;
   font-size: 15px;
   display: flex;
   align-items: center;
+`;
+
+const Divider = styled.div`
+  margin-top:35px;
+  background: #8c8c8c;
+  width:100%
+  height:1px
+  border-radius:10px
 `;
 
 class InfiniteScroll extends Component {
@@ -98,7 +108,6 @@ class InfiniteScroll extends Component {
       this.props.data.postMany !== undefined
         ? this.props.data.postMany.posts
         : [];
-    console.log(myData);
 
     return (
       <ul>
@@ -114,13 +123,26 @@ class InfiniteScroll extends Component {
                 </InfoInWrapper>
                 <InfoInWrapper>
                   <CommentsIcon />
-                  <InfoGrey2>{item.commentCount}</InfoGrey2>
+                  <InfoGrey2>
+                    {item.commentCount.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
+                  </InfoGrey2>
                   <LikesIcon />
-                  <InfoGrey2>{item.likeAll}</InfoGrey2>
+                  <InfoGrey2>
+                    {item.likeAll.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
+                  </InfoGrey2>
                   <ViewsIcon />
-                  <InfoGrey2>{item.viewAll}</InfoGrey2>
+                  <InfoGrey2>
+                    {item.viewAll.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
+                  </InfoGrey2>
                 </InfoInWrapper>
               </InfoWrapper>
+              {myData.length - 1 !== idx ? <Divider /> : null}
             </Wrapper>
           </li>
         ))}

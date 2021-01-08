@@ -10,7 +10,7 @@ const SelectedMenu = styled.button`
   padding-bottom:7px
   border:none
   background:white
-  border-bottom: 6px solid black;
+  border-bottom: 4px solid black;
   cursor: pointer;  
   outline: 0;
 `;
@@ -21,7 +21,7 @@ const UnselectedMenu = styled.button`
   padding-bottom:7px
   border:none
   background:white
-  border-bottom: 6px solid grey;
+  border-bottom: 4px solid grey;
   cursor: pointer;  
   outline: 0;
 `;

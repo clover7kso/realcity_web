@@ -3,14 +3,14 @@ import PropTypes from "prop-types";
 import { Route, Switch, Redirect } from "react-router-dom";
 import Auth from "../Routes/Auth";
 import Home from "../Routes/Home";
-import WritePost from "../Routes/WritePost";
+import Writer from "../Routes/Writer";
 import Search from "../Routes/Search";
 import Board from "../Routes/Board";
 
 const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
-    <Route path="/WritePost" component={WritePost} />
+    <Route path="/Writer" component={Writer} />
     <Route path="/Search" component={Search} />
     <Route path="/Board" component={Board} />
     <Redirect from="*" to="/" />

@@ -60,7 +60,6 @@ const HeaderLink = styled(Link)`
 `;
 
 export default withRouter(({ history, location }) => {
-  console.log(location);
   return (
     <Header>
       <HeaderWrapper>

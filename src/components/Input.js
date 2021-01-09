@@ -25,7 +25,9 @@ const Input = ({
     placeholder={placeholder}
     required={required}
     value={value}
-    onChange={onChange}
+    onChange={(e) => {
+      onChange(e.currentTarget.value);
+    }}
     type={type}
   />
 );

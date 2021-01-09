@@ -103,7 +103,9 @@ const DropDownHeader = styled("div")`
   background: #ffffff;
 `;
 
-const DropDownListContainer = styled("div")``;
+const DropDownListContainer = styled("div")`
+  margin-bottom: 20px;
+`;
 
 const DropDownList = styled("ul")`
   padding: 0;
@@ -151,6 +153,18 @@ export default () => {
     setIsOpen(false);
   };
 
+  const [nick, setNick] = useState("");
+  const [password, setPassword] = useState("");
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+
+  const clickConfirm = () => {
+    console.log(nick);
+    console.log(password);
+    console.log(title);
+    console.log(content);
+  };
+
   const ImgurUploader = ImgurUploaderInit({ clientID: "818d43b4be21dd8" });
 
   return (
@@ -173,10 +187,25 @@ export default () => {
       </DropDownContainer>
 
       <InfoWrapper>
-        <InputInfo placeholder="닉네임" required="true" type="text" />
-        <InputInfo placeholder="비밀번호" required="true" type="password" />
+        <InputInfo
+          onChange={setNick}
+          placeholder="닉네임"
+          required="true"
+          type="text"
+        />
+        <InputInfo
+          onChange={setPassword}
+          placeholder="비밀번호"
+          required="true"
+          type="password"
+        />
       </InfoWrapper>
-      <Title placeholder="제목" required="true" type="text" />
+      <Title
+        onChange={setTitle}
+        placeholder="제목"
+        required="true"
+        type="text"
+      />
       <CKEditor
         editor={ClassicEditor}
         config={{
@@ -184,10 +213,14 @@ export default () => {
           plugins: [...installedPlugins],
           toolbar: [...toolbarSetting],
         }}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          setContent(data);
+        }}
       />
       <ButtonWrapper>
         <Cancel>취소</Cancel>
-        <Confirm>완료</Confirm>
+        <Confirm onClick={clickConfirm}>완료</Confirm>
       </ButtonWrapper>
     </Wrapper>
   );

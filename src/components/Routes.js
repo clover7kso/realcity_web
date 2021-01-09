@@ -6,6 +6,7 @@ import Home from "../Routes/Home";
 import Writer from "../Routes/Writer";
 import Search from "../Routes/Search";
 import Board from "../Routes/Board";
+import Post from "../Routes/Post";
 
 const LoggedInRoutes = () => (
   <Switch>
@@ -13,6 +14,7 @@ const LoggedInRoutes = () => (
     <Route path="/Writer" component={Writer} />
     <Route path="/Search" component={Search} />
     <Route path="/Board" component={Board} />
+    <Route path="/Post" component={Post} />
     <Redirect from="*" to="/" />
   </Switch>
 );
@@ -24,8 +26,7 @@ const LoggedOutRoutes = () => (
   </Switch>
 );
 
-const AppRouter = ({ isLoggedIn }) =>
-  isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />;
+const AppRouter = ({ isLoggedIn }) => (isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />);
 
 AppRouter.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,

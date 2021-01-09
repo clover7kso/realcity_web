@@ -388,7 +388,7 @@ function HomeZzal() {
         <Zzal src={item.thumbnail}></Zzal>
         <ZzalTitle to="/">{item.title}</ZzalTitle>
         <ZzalView>
-          <View></View> {item.view}
+          <View></View> {item.viewAll}
         </ZzalView>
       </ZzalBox>
     ))

@@ -55,4 +55,27 @@ const installedPlugins = [
   Underline,
 ];
 
-export default installedPlugins;
+const toolbarSetting = [
+  "fontFamily",
+  "fontSize",
+  "fontColor",
+  "alignment",
+  "|",
+  "strikethrough",
+  "underline",
+  "horizontalLine",
+  "|",
+  "indent",
+  "outdent",
+  "|",
+  "link",
+  "blockQuote",
+  "imageUpload",
+  "insertTable",
+  "mediaEmbed",
+  "|",
+  "undo",
+  "redo",
+];
+
+export { installedPlugins, toolbarSetting };

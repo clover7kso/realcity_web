@@ -59,7 +59,8 @@ const HeaderLink = styled(Link)`
   }
 `;
 
-export default withRouter(({ history }) => {
+export default withRouter(({ history, location }) => {
+  console.log(location);
   return (
     <Header>
       <HeaderWrapper>
@@ -68,11 +69,12 @@ export default withRouter(({ history }) => {
             <Logo />
           </Link>
         </HeaderColumn>
-
         <HeaderColumn>
-          <HeaderLink to="/WritePost">
-            <Button>글쓰기</Button>
-          </HeaderLink>
+          {location.pathname !== "/Writer" ? (
+            <HeaderLink to="/Writer">
+              <Button>글쓰기</Button>
+            </HeaderLink>
+          ) : null}
         </HeaderColumn>
       </HeaderWrapper>
     </Header>

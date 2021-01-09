@@ -19,6 +19,8 @@ export default createGlobalStyle`
         text-decoration:none;
     }
     input:focus{
-        outline:none;
+        outline: none !important;
+        border:1px solid ${(props) => props.theme.blueColor};
+        box-shadow: 0 0 3px #719ECE;
     }
 `;

@@ -263,201 +263,139 @@ const ZzalView = styled.span`
   text-align: right;
 `;
 
-class NormalPostInfo extends React.Component {
-  render() {
-    return (
-      <NormalTextBox>
-        <StyledLink to="/:catecory/:id">{this.props.post.title}</StyledLink>
-        <LikeView>
-          <Ddabong></Ddabong> <LikeView>{this.props.post.like}</LikeView>
-        </LikeView>
-        &nbsp;
-        <LikeView>
-          <View></View> <LikeView>{this.props.post.view}</LikeView>
-        </LikeView>
-      </NormalTextBox>
-    );
-  }
-}
-
-class NormalPostList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      postData: [
-        {
-          title: "여친이 나 몰래 필러맞고 숨기는...",
-          category: "1",
-          like: 16342,
-          view: 46342,
-        },
-        {
-          title: "소유욕으로 주식하는 새끼 없제?..",
-          category: "2",
-          like: 6342,
-          view: 46342,
-        },
-        {
-          title: "이제 34살의 고민은? 탈모?",
-          category: "3",
-          like: 6342,
-          view: 46342,
-        },
-        {
-          title: "대외적인 회계사 이미지는 꽝임",
-          category: "4",
-          like: 6342,
-          view: 46342,
-        },
-        {
-          title: "이 경우 손해배상 가능한가요??",
-          category: "5",
-          like: 6342,
-          view: 46342,
-        },
-      ],
-    };
-  }
-
-  render() {
-    const mapToComponent = (data) => {
-      return data.map((post, i) => {
-        return <NormalPostInfo post={post} key={i} />;
-      });
-    };
-    return <div>{mapToComponent(this.state.postData)}</div>;
-  }
-}
-
-class ZzalInfo extends React.Component {
-  render() {
-    return (
-      <ZzalBox>
-        <Zzal src={this.props.post.zzal}></Zzal>
-        <ZzalTitle to="/">{this.props.post.title}</ZzalTitle>
-        <ZzalView>
-          <View></View> {this.props.post.view}
-        </ZzalView>
-      </ZzalBox>
-    );
-  }
-}
-
-class ZzalList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      ZzalData: [
-        {
-          zzal: "https://placeimg.com/187/187/any",
-          title: "엄마한테 등짝 맞기.jpg",
-          view: 46342,
-        },
-        {
-          zzal: "https://placeimg.com/187/187/any",
-          title: "거북이의 자연은 아름답다",
-          view: 46342,
-        },
-        {
-          zzal: "https://placeimg.com/187/187/any",
-          title: "지랄궁상떠는 그지 사진임",
-          view: 46342,
-        },
-        {
-          zzal: "https://placeimg.com/187/187/any",
-          title: "오늘자 손흥민 실시간",
-          view: 46342,
-        },
-        {
-          zzal: "https://placeimg.com/187/187/any",
-          title: "분노한 개구리 짤",
-          view: 46342,
-        },
-      ],
-    };
-    this.state.ZzalData.sort(function (a, b) {
-      return a.view > b.view ? -1 : a.view < b.view ? 1 : 0;
-    }); //조회수순 정렬
-  }
-  render() {
-    const mapToComponent = (data) => {
-      return data.map((post, i) => {
-        return <ZzalInfo post={post} key={i} />;
-      });
-    };
-    return <div>{mapToComponent(this.state.ZzalData)}</div>;
-  }
-}
-
-const HOMETOP_QUERY = gql`
-  query homeTop {
-    homeTop {
-      id
-      category
-      title
-      likeAll
-      viewAll
-    }
-  }
-`;
-
-const HOMENORMAL_QUERY = gql`
-  query homeNormal {
-    homeNormal {
-      id
-      category
-      title
-      likeAll
-      viewAll
-    }
-  }
-`;
-
 const list = [
-  { name: "🐶 자유롭게멍멍" },
-  { name: "🏎 애마자랑" },
-  { name: "🔫 나때는군대" },
-  { name: "📈 주식투자" },
-  { name: "🚘 시승후기" },
-  { name: "✈️ 여행먹방" },
-  { name: "💼 보험후기" },
-  { name: "🚓️ 사고후기" },
-  { name: "👰🏻‍♀️ 결혼이야기" },
-  { name: "🚗 차Q&A" },
+  { emoji: "🐶 ", name: "자유롭게멍멍" },
+  { emoji: "🏎 ", name: "애마자랑" },
+  { emoji: "🔫 ", name: "나때는군대" },
+  { emoji: "📈 ", name: "주식투자" },
+  { emoji: "🚘 ", name: "시승후기" },
+  { emoji: "✈️ ", name: "여행먹방" },
+  { emoji: "💼 ", name: "보험후기" },
+  { emoji: "🚓️ ", name: "사고후기" },
+  { emoji: "👰🏻 ‍", name: "결혼이야기" },
+  { emoji: "🚗 ", name: "차Q&A" },
 ];
 
-export default () => {
+function HomeTop() {
+  const HOMETOP_QUERY = gql`
+    query homeTop {
+      homeTop {
+        id
+        category
+        title
+        likeAll
+        viewAll
+      }
+    }
+  `;
   const { data, loading, error } = useQuery(HOMETOP_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
+  return (
+    <div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        data.homeTop.map((item, idx) => (
+          <TopTextBox key={idx}>
+            <CategoryTitleWrapper>
+              <CategoryBox to="/:catecory">{item.category}</CategoryBox>
+              <TopStyledLink to="/:catecory/:id">{item.title}</TopStyledLink>
+            </CategoryTitleWrapper>
+            <TopLikeView>
+              <Ddabong></Ddabong> <TopLikeView>{item.likeAll}</TopLikeView>
+            </TopLikeView>
+            &nbsp;
+            <TopLikeView>
+              <View></View> <TopLikeView>{item.viewAll}</TopLikeView>
+            </TopLikeView>
+          </TopTextBox>
+        ))
+      )}
+    </div>
+  );
+}
 
-  // const { data, loading, error } = useQuery(HOMENORMAL_QUERY, {
-  //   notifyOnNetworkStatusChange: true,
-  // });
+function HomeNormal() {
+  const HOMENORMAL_QUERY = gql`
+    query homeNormal {
+      homeNormal {
+        id
+        category
+        title
+        likeAll
+        viewAll
+      }
+    }
+  `;
+  const { data, loading, error } = useQuery(HOMENORMAL_QUERY, {
+    notifyOnNetworkStatusChange: true,
+  });
+  return (
+    <NormalPostWrapper>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        list.map((item, idx) => (
+          <NormalPost key={idx}>
+            <TitleBar>
+              <Title>
+                {item.emoji}
+                {item.name}
+              </Title>
+              <NormalMoreView>더보기 &gt;</NormalMoreView>
+            </TitleBar>
+            {data.homeNormal.map((item1, idx1) => {
+              return item.name === item1.category ? (
+                <NormalTextBox key={idx1}>
+                  <StyledLink to="/:catecory/:id">{item1.title}</StyledLink>
+                  <LikeView>
+                    <Ddabong></Ddabong> <LikeView>{item1.likeAll}</LikeView>
+                  </LikeView>
+                  &nbsp;
+                  <LikeView>
+                    <View></View> <LikeView>{item1.viewAll}</LikeView>
+                  </LikeView>
+                </NormalTextBox>
+              ) : null;
+            })}
+          </NormalPost>
+        ))
+      )}
+    </NormalPostWrapper>
+  );
+}
 
-  // const postShow = () => {
-  //   list.map(item, idx);
-  //   {
-  //     <NormalPost key={idx}>
-  //       <TitleBar>
-  //         <Title>{list.name}</Title>
-  //         <NormalMoreView>더보기 &gt;</NormalMoreView>
-  //       </TitleBar>
-  //       <NormalTextBox>
-  //         <StyledLink to="/:catecory/:id">{this.props.post.title}</StyledLink>
-  //         <LikeView>
-  //           <Ddabong></Ddabong> <LikeView>{this.props.post.like}</LikeView>
-  //         </LikeView>
-  //         &nbsp;
-  //         <LikeView>
-  //           <View></View> <LikeView>{this.props.post.view}</LikeView>
-  //         </LikeView>
-  //       </NormalTextBox>
-  //     </NormalPost>;
-  //   }
-  // };
+function HomeZzal() {
+  const HOMEZZAL_QUERY = gql`
+    query homeZzal {
+      homeZzal {
+        id
+        title
+        thumbnail
+        viewAll
+      }
+    }
+  `;
+  const { data, loading, error } = useQuery(HOMEZZAL_QUERY, {
+    notifyOnNetworkStatusChange: true,
+  });
+  return loading ? (
+    <div>Loading...</div>
+  ) : (
+    data.homeZzal.map((item, idx) => (
+      <ZzalBox key={idx}>
+        <Zzal src={item.thumbnail}></Zzal>
+        <ZzalTitle to="/">{item.title}</ZzalTitle>
+        <ZzalView>
+          <View></View> {item.view}
+        </ZzalView>
+      </ZzalBox>
+    ))
+  );
+}
 
-  console.log(data.homeTop);
+export default () => {
   return (
     <Wrapper>
       <SearchWrapper>
@@ -473,103 +411,14 @@ export default () => {
               <Title>👑 오늘 이 글 잘나가네</Title>
               <MoreView>더보기 &gt;</MoreView>
             </TitleBar>
-            {loading ? (
-              <div>Loading...</div>
-            ) : (
-              data.homeTop.map((item, idx) => (
-                <TopTextBox key={idx}>
-                  <CategoryTitleWrapper>
-                    <CategoryBox to="/:catecory">{item.category}</CategoryBox>
-                    <TopStyledLink to="/:catecory/:id">{item.title}</TopStyledLink>
-                  </CategoryTitleWrapper>
-                  <TopLikeView>
-                    <Ddabong></Ddabong> <TopLikeView>{item.likeAll}</TopLikeView>
-                  </TopLikeView>
-                  &nbsp;
-                  <TopLikeView>
-                    <View></View> <TopLikeView>{item.viewAll}</TopLikeView>
-                  </TopLikeView>
-                </TopTextBox>
-              ))
-            )}
+            <HomeTop></HomeTop>
           </TopPost>
           &nbsp;
-          <NormalPostWrapper>
-            <NormalPost>
-              <TitleBar>
-                <Title>🐶 자유롭게멍멍</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title> 🏎 애마자랑</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title>🔫 나때는군대</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title>📈 주식투자</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title>🚘 시승후기</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title>✈️ 여행먹방</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title>💼 보험후기</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title>🚓️ 사고후기</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title>🏻‍ 결혼이야기</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-            <NormalPost>
-              <TitleBar>
-                <Title>🚗 차Q&A</Title>
-                <NormalMoreView>더보기 &gt;</NormalMoreView>
-              </TitleBar>
-              <NormalPostList></NormalPostList>
-            </NormalPost>
-          </NormalPostWrapper>
+          <HomeNormal></HomeNormal>
         </PostWrapper>
         <ZzalWrapper>
           <Title>오늘 짤방 TOP</Title>
-          <ZzalList></ZzalList>
+          <HomeZzal></HomeZzal>
         </ZzalWrapper>
       </PostZzalDivider>
       <SideWrapper></SideWrapper>

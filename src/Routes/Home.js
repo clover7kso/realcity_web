@@ -301,7 +301,9 @@ function HomeTop() {
           <TopTextBox key={idx}>
             <CategoryTitleWrapper>
               <CategoryBox to="/:catecory">{item.category}</CategoryBox>
-              <TopStyledLink to="/:catecory/:id">{item.title}</TopStyledLink>
+              <TopStyledLink to={"/Post?" + item.id}>
+                {item.title}
+              </TopStyledLink>
             </CategoryTitleWrapper>
             <TopLikeView>
               <Ddabong></Ddabong> <TopLikeView>{item.likeAll}</TopLikeView>
@@ -360,7 +362,9 @@ function HomeNormal({ history }) {
             {data.homeNormal.map((item1, idx1) => {
               return item.name === item1.category ? (
                 <NormalTextBox key={idx1}>
-                  <StyledLink to="/:catecory/:id">{item1.title}</StyledLink>
+                  <StyledLink to={"/Post?" + item1.id}>
+                    {item1.title}
+                  </StyledLink>
                   <LikeView>
                     <Ddabong></Ddabong> <LikeView>{item1.likeAll}</LikeView>
                   </LikeView>

@@ -1,7 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Input from "../Components/Input";
-import { Link } from "react-router-dom";
 import {
   CommentsIcon,
   Ddabong,
@@ -11,8 +9,7 @@ import {
 } from "./../Components/Icons";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
-import { CKEditor, CKEDITOR } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
+import { withRouter } from "react-router-dom";
 
 const Background = styled.div`
   background-color: white;
@@ -85,7 +82,8 @@ const LikeView = styled.span`
   color: #818181;
 `;
 
-function Post() {
+const Post = ({ history }) => {
+  console.log(history.location.search);
   const POSTONE_QUERY = gql`
     query postOne($id: String!) {
       postOne(id: $id) {
@@ -101,12 +99,12 @@ function Post() {
   `;
   const { data, loading, error, refetch, fetchMore } = useQuery(POSTONE_QUERY, {
     variables: {
-      id: "ckje1l6zm0078b6uxz0x24p3v",
+      id: history.location.search.replace("?", ""),
     },
     notifyOnNetworkStatusChange: true,
   });
   return (
-    <div>
+    <Background>
       {loading ? (
         <div>Loading...</div>
       ) : (
@@ -146,14 +144,8 @@ function Post() {
           </PostWrapper>
         </PostSection>
       )}
-    </div>
-  );
-}
-
-export default () => {
-  return (
-    <Background>
-      <Post></Post>
     </Background>
   );
 };
+
+export default withRouter(Post);

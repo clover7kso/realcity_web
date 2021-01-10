@@ -7,6 +7,9 @@ import { installedPlugins, toolbarSetting } from "../Components/CKEditorPlugin";
 import styled from "styled-components";
 import Input from "../Components/Input";
 
+import { gql } from "@apollo/client";
+import { useMutation } from "@apollo/client";
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -158,11 +161,71 @@ export default () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const clickConfirm = () => {
+  const getImages = (data) => {
+    var m,
+      urls = [],
+      rex = /<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/g;
+
+    while ((m = rex.exec(data))) {
+      urls.push(m[1]);
+    }
+
+    return urls;
+  };
+
+  const getIp = async () => {
+    const publicIp = require("public-ip");
+    const ip = await publicIp.v4();
+    const splitResult = ip.split(".");
+    const result = splitResult[0] + "." + splitResult[1];
+    return result;
+  };
+
+  const POST_UPLOAD = gql`
+    mutation postUpload(
+      $ip: String!
+      $category: String!
+      $title: String!
+      $content: String!
+      $author: String!
+      $password: String!
+      $images: [String]!
+    ) {
+      postUpload(
+        ip: $ip
+        category: $category
+        title: $title
+        content: $content
+        author: $author
+        password: $password
+        images: $images
+      )
+    }
+  `;
+  const [postUpload, { data }] = useMutation(POST_UPLOAD);
+
+  const clickConfirm = async () => {
+    const ip = await getIp();
+    console.log(ip);
+    console.log(selectedOption.name);
     console.log(nick);
     console.log(password);
     console.log(title);
     console.log(content);
+    const images = getImages(content);
+    console.log(images);
+
+    postUpload({
+      variables: {
+        ip: ip,
+        category: selectedOption.name,
+        title: title,
+        content: content,
+        author: nick,
+        password: password,
+        images: images,
+      },
+    });
   };
 
   const ImgurUploader = ImgurUploaderInit({ clientID: "818d43b4be21dd8" });

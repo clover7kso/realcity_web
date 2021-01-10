@@ -1,7 +1,7 @@
 import React from "react";
 import { withRouter } from "react-router-dom";
 import SearchPresenter from "./SearchPresenter";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/client";
 import { SEARCH } from "./SearchQueries";
 
 export default withRouter(({ location: { search } }) => {
@@ -9,8 +9,8 @@ export default withRouter(({ location: { search } }) => {
   const { data, loading } = useQuery(SEARCH, {
     skip: term === undefined,
     variables: {
-      term
-    }
+      term,
+    },
   });
 
   return <SearchPresenter searchTerm={term} loading={loading} data={data} />;

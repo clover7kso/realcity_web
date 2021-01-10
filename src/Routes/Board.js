@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Menu, MyScrollMenu } from "../Components/MyScrollMenu";
-import { useQuery } from "react-apollo-hooks";
+import { useQuery } from "@apollo/client";
 import InfiniteScroll from "../Components/InfiniteScroll";
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 
 const BOARD_QUERY = gql`
   query postMany($cursor: String, $category: String) {

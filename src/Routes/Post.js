@@ -2,10 +2,22 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../Components/Input";
 import { Link } from "react-router-dom";
+<<<<<<< HEAD
 import ThreeDotButton from "../Components/ThreeDotButton";
 import { CommentsIcon, Ddabong, View, ThreeDot, LikeButton } from "./../Components/Icons";
 import { gql } from "apollo-boost";
 import { useMutation, useQuery } from "react-apollo-hooks";
+=======
+import {
+  CommentsIcon,
+  Ddabong,
+  View,
+  ThreeDot,
+  LikeButton,
+} from "./../Components/Icons";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+>>>>>>> 062bac7003ea4c319887c185b12fbd42c9f767b4
 import { CKEditor, CKEDITOR } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 
@@ -93,13 +105,16 @@ function Post({ data, loading }) {
         <PostSection>
           <PostWrapper>
             <TimeAuthorWrapper>
-              <Time>{data.postOne.timeFromToday}</Time>&nbsp;<div>{data.postOne.author}</div>
+              <Time>{data.postOne.timeFromToday}</Time>&nbsp;
+              <div>{data.postOne.author}</div>
             </TimeAuthorWrapper>
             <TitleThreeDotWrapper>
               <Title>{data.postOne.title}</Title>
               <ThreeDotButton></ThreeDotButton>
             </TitleThreeDotWrapper>
-            <MainPost dangerouslySetInnerHTML={{ __html: data.postOne.content }}></MainPost>
+            <MainPost
+              dangerouslySetInnerHTML={{ __html: data.postOne.content }}
+            ></MainPost>
             <LikeViewWrapper>
               <LikeButtonWrapper>
                 <Button>

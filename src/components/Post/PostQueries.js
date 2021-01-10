@@ -1,4 +1,4 @@
-import { gql } from "apollo-boost";
+import { gql } from "@apollo/client";
 
 export const TOGGLE_LIKE = gql`
   mutation toggelLike($postId: String!) {

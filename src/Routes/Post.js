@@ -2,9 +2,15 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../Components/Input";
 import { Link } from "react-router-dom";
-import { CommentsIcon, Ddabong, View, ThreeDot, LikeButton } from "./../Components/Icons";
-import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo-hooks";
+import {
+  CommentsIcon,
+  Ddabong,
+  View,
+  ThreeDot,
+  LikeButton,
+} from "./../Components/Icons";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import { CKEditor, CKEDITOR } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 
@@ -107,7 +113,8 @@ function Post() {
         <PostSection>
           <PostWrapper>
             <TimeAuthorWrapper>
-              <Time>{data.postOne.timeFromToday}</Time>&nbsp;<div>{data.postOne.author}</div>
+              <Time>{data.postOne.timeFromToday}</Time>&nbsp;
+              <div>{data.postOne.author}</div>
             </TimeAuthorWrapper>
             <TitleThreeDotWrapper>
               <Title>{data.postOne.title}</Title>
@@ -115,7 +122,9 @@ function Post() {
                 <ThreeDot></ThreeDot>
               </Button>
             </TitleThreeDotWrapper>
-            <MainPost dangerouslySetInnerHTML={{ __html: data.postOne.content }}></MainPost>
+            <MainPost
+              dangerouslySetInnerHTML={{ __html: data.postOne.content }}
+            ></MainPost>
             <LikeViewWrapper>
               <LikeButtonWrapper>
                 <Button>

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import Input from "../Components/Input";
 import { Link } from "react-router-dom";
 import { SearchIcon, Ddabong, View } from "./../Components/Icons";
-import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo-hooks";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 const Wrapper = styled.div`
   display: flex;
@@ -402,7 +402,11 @@ export default () => {
         <SearchButton>
           <SearchIcon></SearchIcon>
         </SearchButton>
-        <SearchInput placeholder="관심있는 내용을 검색해주세요" required="true" type="text" />
+        <SearchInput
+          placeholder="관심있는 내용을 검색해주세요"
+          required="true"
+          type="text"
+        />
       </SearchWrapper>
       <PostZzalDivider>
         <PostWrapper>

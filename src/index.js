@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./Components/App";
 import Client from "./Apollo/Client";
-import { ApolloProvider } from "react-apollo-hooks";
+import { ApolloProvider } from "@apollo/client";
 
 ReactDOM.render(
   <ApolloProvider client={Client}>

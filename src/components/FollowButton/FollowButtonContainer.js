@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { useMutation } from "react-apollo-hooks";
+import { useMutation } from "@apollo/client";
 import { FOLLOW, UNFOLLOW } from "./FollowButtonQueries";
 import FollowButtonPresenter from "./FollowButtonPresenter";
 
@@ -23,7 +23,7 @@ const FollowButtonContainer = ({ isFollowing, id }) => {
 
 FollowButtonContainer.propTypes = {
   isFollowing: PropTypes.bool.isRequired,
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
 
 export default FollowButtonContainer;

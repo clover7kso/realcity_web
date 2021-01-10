@@ -2,9 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../Components/Input";
 import { Link } from "react-router-dom";
+import ThreeDotButton from "../Components/ThreeDotButton";
 import { CommentsIcon, Ddabong, View, ThreeDot, LikeButton } from "./../Components/Icons";
 import { gql } from "apollo-boost";
-import { useQuery } from "react-apollo-hooks";
+import { useMutation, useQuery } from "react-apollo-hooks";
 import { CKEditor, CKEDITOR } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 
@@ -79,26 +80,11 @@ const LikeView = styled.span`
   color: #818181;
 `;
 
-function Post() {
-  const POSTONE_QUERY = gql`
-    query postOne($id: String!) {
-      postOne(id: $id) {
-        timeFromToday
-        author
-        title
-        content
-        commentCount
-        likeAll
-        viewAll
-      }
-    }
-  `;
-  const { data, loading, error, refetch, fetchMore } = useQuery(POSTONE_QUERY, {
-    variables: {
-      id: "ckje1l6zm0078b6uxz0x24p3v",
-    },
-    notifyOnNetworkStatusChange: true,
-  });
+const ThreeDotButtonWrapper = styled.div`
+  width: 10%;
+`;
+
+function Post({ data, loading }) {
   return (
     <div>
       {loading ? (
@@ -111,9 +97,7 @@ function Post() {
             </TimeAuthorWrapper>
             <TitleThreeDotWrapper>
               <Title>{data.postOne.title}</Title>
-              <Button>
-                <ThreeDot></ThreeDot>
-              </Button>
+              <ThreeDotButton></ThreeDotButton>
             </TitleThreeDotWrapper>
             <MainPost dangerouslySetInnerHTML={{ __html: data.postOne.content }}></MainPost>
             <LikeViewWrapper>
@@ -141,10 +125,36 @@ function Post() {
   );
 }
 
+function Comment({ data, loading }) {
+  return <div>{loading ? <div>Loading...</div> : null}</div>;
+}
+
 export default () => {
+  const POSTONE_QUERY = gql`
+    query postOne($id: String!) {
+      postOne(id: $id) {
+        id
+        timeFromToday
+        author
+        title
+        content
+        commentCount
+        likeAll
+        viewAll
+        comments: id
+      }
+    }
+  `;
+  const { data, loading, error, refetch, fetchMore } = useQuery(POSTONE_QUERY, {
+    variables: {
+      id: "ckjdv9a010000vruxg9xgfdr0",
+    },
+    notifyOnNetworkStatusChange: true,
+  });
   return (
     <Background>
-      <Post></Post>
+      <Post data={data} loading={loading}></Post>
+      <Comment data={data} loading={loading}></Comment>
     </Background>
   );
 };

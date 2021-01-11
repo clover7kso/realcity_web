@@ -116,7 +116,7 @@ const Post = ({ history }) => {
   const clickConfirm = async () => {
     const result = await postAddLike({
       variables: {
-        id: data.postOne.id,
+        id: history.location.search.replace("?", ""),
       },
     });
     refetch();

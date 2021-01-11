@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import Loader from "./Loader";
 import styled from "styled-components";
 import { CommentsIcon, LikesIcon, ViewsIcon } from "./Icons";
+import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   margin-top: 35px;
@@ -11,7 +12,8 @@ const Wrapper = styled.div`
   justify-content: space-around;
 `;
 
-const Title = styled.span`
+const Title = styled(Link)`
+  color: black;
   font-size: 24px;
   font-weight: bold;
   overflow: hidden;
@@ -19,7 +21,8 @@ const Title = styled.span`
   white-space: nowrap;
 `;
 
-const Content = styled.span`
+const Content = styled(Link)`
+  color: black;
   margin-top: 25px;
   margin-bottom: 25px;
   font-size: 20px;
@@ -114,8 +117,8 @@ class InfiniteScroll extends Component {
         {myData.map((item, idx) => (
           <li key={idx}>
             <Wrapper>
-              <Title>{item.title}</Title>
-              <Content>{item.content}</Content>
+              <Title to={"/Post?" + item.id}>{item.title}</Title>
+              <Content to={"/Post?" + item.id}>{item.content}</Content>
               <InfoWrapper>
                 <InfoInWrapper>
                   <InfoGrey1>{item.timeFromToday}</InfoGrey1>

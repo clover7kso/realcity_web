@@ -10,6 +10,10 @@ import Input from "../Components/Input";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 
+import { useAlert } from "react-alert";
+
+import { withRouter } from "react-router-dom";
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -143,7 +147,9 @@ const list = [
   { name: "🚗 차Q&A", key: "차Q&A" },
 ];
 
-export default () => {
+const Writer = ({ history }) => {
+  const alert = useAlert();
+
   //list
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState({
@@ -164,6 +170,7 @@ export default () => {
   const getImages = (data) => {
     var m,
       urls = [],
+      // eslint-disable-next-line no-useless-escape
       rex = /<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/g;
 
     while ((m = rex.exec(data))) {
@@ -202,30 +209,87 @@ export default () => {
       )
     }
   `;
-  const [postUpload, { data }] = useMutation(POST_UPLOAD);
+  const [postUpload] = useMutation(POST_UPLOAD);
+
+  const checkValidate = (data) => {
+    var result = true;
+    for (var i = 0; i < data.length; i++) {
+      if (
+        data[i].key === undefined ||
+        data[i].key === null ||
+        data[i].key === ""
+      ) {
+        alert.error(data[i].tagNull);
+        result = false;
+      } else if (data[i].regex !== undefined) {
+        if (!data[i].regex.test(data[i].key)) {
+          alert.error(data[i].tagRegex);
+          result = false;
+        }
+      }
+    }
+    return result;
+  };
 
   const clickConfirm = async () => {
-    const ip = await getIp();
-    console.log(ip);
-    console.log(selectedOption.name);
-    console.log(nick);
-    console.log(password);
-    console.log(title);
-    console.log(content);
-    const images = getImages(content);
-    console.log(images);
+    alert.removeAll();
 
-    postUpload({
-      variables: {
-        ip: ip,
-        category: selectedOption.name,
-        title: title,
-        content: content,
-        author: nick,
-        password: password,
-        images: images,
+    const ip = await getIp();
+    const images = getImages(content);
+
+    const uploadData = [
+      {
+        key: ip,
+        tagNull: "올바르지 않은 ip주소 입니다.",
       },
-    });
+      {
+        key: selectedOption.name,
+        tagNull: "카테고리를 정해주세요.",
+      },
+      {
+        key: nick,
+        tagNull: "닉네임을 입력해주세요.",
+        regex: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|*].{1,20}/,
+        tagRegex: "닉네임은 한글 또는 영어 또는 숫자 조합 2-20자입니다.",
+      },
+      {
+        key: password,
+        tagNull: "비밀번호를 입력해주세요.",
+        regex: /^[a-zA-Z0-9]{3,15}$/,
+        tagRegex:
+          "비밀번호는 영어대문자 또는 영어소문자 또는 숫자 조합 4-15자입니다.",
+      },
+      {
+        key: title,
+        tagNull: "제목을 입력해주세요.",
+        regex: /^.{2,200}$/,
+        tagRegex: "제목은 2-200자 입니다.",
+      },
+      { key: content, tagNull: "내용을 입력해주세요." },
+    ];
+    const validateResult = checkValidate(uploadData);
+
+    if (validateResult) {
+      const result = await postUpload({
+        variables: {
+          ip: ip,
+          category: selectedOption.key,
+          title: title,
+          content: content,
+          author: nick,
+          password: password,
+          images: images,
+        },
+      });
+
+      if (result.data.postUpload) {
+        history.push({
+          pathname: "/Board",
+          state: { category: selectedOption.name, refetch: true },
+        });
+        alert.success("업로드에 성공하였습니다.");
+      } else alert.error("업로드에 실패하였습니다.");
+    }
   };
 
   const ImgurUploader = ImgurUploaderInit({ clientID: "818d43b4be21dd8" });
@@ -282,9 +346,10 @@ export default () => {
         }}
       />
       <ButtonWrapper>
-        <Cancel>취소</Cancel>
+        <Cancel onClick={() => history.goBack()}>취소</Cancel>
         <Confirm onClick={clickConfirm}>완료</Confirm>
       </ButtonWrapper>
     </Wrapper>
   );
 };
+export default withRouter(Writer);

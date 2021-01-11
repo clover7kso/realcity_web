@@ -1,14 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import Input from "../Components/Input";
-import { Link } from "react-router-dom";
-import ThreeDotButton from "../Components/ThreeDotButton";
-import CommentReply from "../Components/CommentReply";
 import { CommentsIcon, Ddabong, View, ThreeDot, LikeButton } from "./../Components/Icons";
 import { gql } from "@apollo/client";
-import { useQuery, useMutation } from "@apollo/client";
-import { CKEditor, CKEDITOR } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
+import { useQuery } from "@apollo/client";
+import { withRouter } from "react-router-dom";
+import ThreeDotButton from "../Components/ThreeDotButton";
 
 const Background = styled.div`
   background-color: white;
@@ -81,31 +77,29 @@ const LikeView = styled.span`
   color: #818181;
 `;
 
-const CommentSection = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-family: Roboto;
-`;
-
-const CommentWrapper = styled.div``;
-
-function Post({ data, loading, refetch }) {
-  const POSTADDLIKE = gql`
-    mutation postAddLike($id: String!) {
-      postAddLike(id: $id)
+const Post = ({ history }) => {
+  console.log(history.location.search);
+  const POSTONE_QUERY = gql`
+    query postOne($id: String!) {
+      postOne(id: $id) {
+        timeFromToday
+        author
+        title
+        content
+        commentCount
+        likeAll
+        viewAll
+      }
     }
   `;
-  const [postAddLike] = useMutation(POSTADDLIKE);
-  const clickConfirm = async () => {
-    const result = await postAddLike({
-      variables: {
-        id: data.postOne.id,
-      },
-    });
-    refetch();
-  };
+  const { data, loading, error, refetch, fetchMore } = useQuery(POSTONE_QUERY, {
+    variables: {
+      id: history.location.search.replace("?", ""),
+    },
+    notifyOnNetworkStatusChange: true,
+  });
   return (
-    <div>
+    <Background>
       {loading ? (
         <div>Loading...</div>
       ) : (
@@ -141,58 +135,8 @@ function Post({ data, loading, refetch }) {
           </PostWrapper>
         </PostSection>
       )}
-    </div>
-  );
-}
-
-function Comment({ data, loading }) {
-  return (
-    <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <CommentSection>
-          <CommentReply data={data}></CommentReply>
-        </CommentSection>
-      )}
-    </div>
-  );
-}
-
-export default () => {
-  const POSTONE_QUERY = gql`
-    query postOne($id: String!) {
-      postOne(id: $id) {
-        id
-        password
-        timeFromToday
-        author
-        title
-        content
-        commentCount
-        likeAll
-        viewAll
-        comments {
-          id
-          group
-          timeFromToday
-          author
-          content
-          password
-        }
-      }
-    }
-  `;
-  const { data, loading, error, refetch, fetchMore } = useQuery(POSTONE_QUERY, {
-    variables: {
-      id: "ckjdv9a010000vruxg9xgfdr0",
-    },
-    notifyOnNetworkStatusChange: true,
-  });
-  return (
-    <Background>
-      <Post data={data} loading={loading} refetch={refetch}></Post>
-      <Comment data={data} loading={loading} refetch={refetch}></Comment>
     </Background>
   );
 };
+
+export default withRouter(Post);

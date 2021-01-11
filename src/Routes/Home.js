@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { SearchIcon, Ddabong, View } from "./../Components/Icons";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import { withRouter } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -300,7 +301,9 @@ function HomeTop() {
           <TopTextBox key={idx}>
             <CategoryTitleWrapper>
               <CategoryBox to="/:catecory">{item.category}</CategoryBox>
-              <TopStyledLink to="/:catecory/:id">{item.title}</TopStyledLink>
+              <TopStyledLink to={"/Post?" + item.id}>
+                {item.title}
+              </TopStyledLink>
             </CategoryTitleWrapper>
             <TopLikeView>
               <Ddabong></Ddabong> <TopLikeView>{item.likeAll}</TopLikeView>
@@ -315,8 +318,14 @@ function HomeTop() {
     </div>
   );
 }
+const goBoard = (history, category) => {
+  history.push({
+    pathname: "/Board",
+    state: { category: category, refetch: true },
+  });
+};
 
-function HomeNormal() {
+function HomeNormal({ history }) {
   const HOMENORMAL_QUERY = gql`
     query homeNormal {
       homeNormal {
@@ -331,6 +340,7 @@ function HomeNormal() {
   const { data, loading, error } = useQuery(HOMENORMAL_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
+
   return (
     <NormalPostWrapper>
       {loading ? (
@@ -343,12 +353,18 @@ function HomeNormal() {
                 {item.emoji}
                 {item.name}
               </Title>
-              <NormalMoreView>더보기 &gt;</NormalMoreView>
+              <NormalMoreView
+                onClick={() => goBoard(history, item.emoji + item.name)}
+              >
+                더보기 &gt;
+              </NormalMoreView>
             </TitleBar>
             {data.homeNormal.map((item1, idx1) => {
               return item.name === item1.category ? (
                 <NormalTextBox key={idx1}>
-                  <StyledLink to="/:catecory/:id">{item1.title}</StyledLink>
+                  <StyledLink to={"/Post?" + item1.id}>
+                    {item1.title}
+                  </StyledLink>
                   <LikeView>
                     <Ddabong></Ddabong> <LikeView>{item1.likeAll}</LikeView>
                   </LikeView>
@@ -395,7 +411,7 @@ function HomeZzal() {
   );
 }
 
-export default () => {
+const Home = ({ history }) => {
   return (
     <Wrapper>
       <SearchWrapper>
@@ -413,12 +429,16 @@ export default () => {
           <TopPost>
             <TitleBar>
               <Title>👑 오늘 이 글 잘나가네</Title>
-              <MoreView>더보기 &gt;</MoreView>
+              <MoreView
+                onClick={() => goBoard(history, "👑 오늘 이 글 잘나가네")}
+              >
+                더보기 &gt;
+              </MoreView>
             </TitleBar>
             <HomeTop></HomeTop>
           </TopPost>
           &nbsp;
-          <HomeNormal></HomeNormal>
+          <HomeNormal history={history}></HomeNormal>
         </PostWrapper>
         <ZzalWrapper>
           <Title>오늘 짤방 TOP</Title>
@@ -429,3 +449,5 @@ export default () => {
     </Wrapper>
   );
 };
+
+export default withRouter(Home);

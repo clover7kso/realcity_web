@@ -4,6 +4,7 @@ import { Menu, MyScrollMenu } from "../Components/MyScrollMenu";
 import { useQuery } from "@apollo/client";
 import InfiniteScroll from "../Components/InfiniteScroll";
 import { gql } from "@apollo/client";
+import { withRouter } from "react-router-dom";
 
 const BOARD_QUERY = gql`
   query postMany($cursor: String, $category: String) {
@@ -65,10 +66,14 @@ const Title = styled.span`
   text-align: center;
 `;
 
-const selectedFirst = "👑 오늘 이 글 잘나가네";
+var selectedFirst = "👑 오늘 이 글 잘나가네";
 const menuItems = Menu(list, selectedFirst);
 
-export default () => {
+const Board = ({ history }) => {
+  const historyState = history.location.state;
+  selectedFirst =
+    historyState !== undefined ? historyState.category : selectedFirst;
+
   const [selected, setSelected] = useState(selectedFirst);
 
   const { data, loading, error, refetch, fetchMore } = useQuery(BOARD_QUERY, {
@@ -77,6 +82,13 @@ export default () => {
     },
     notifyOnNetworkStatusChange: true,
   });
+  if (
+    data !== undefined &&
+    data.postMany.cursor !== "end" &&
+    historyState !== undefined &&
+    historyState.refetch
+  )
+    refetch();
 
   const onSelect = (key) => {
     setSelected(key);
@@ -105,8 +117,7 @@ export default () => {
                 fetchMore({
                   variables: {
                     category: selected.substring(3),
-                    cursor:
-                      data.postMany !== undefined ? data.postMany.cursor : null,
+                    cursor: data !== undefined ? data.postMany.cursor : null,
                   },
                   updateQuery: (prevResult, { fetchMoreResult }) => {
                     const newEdges = fetchMoreResult.postMany.posts;
@@ -130,3 +141,4 @@ export default () => {
     </Wrapper>
   );
 };
+export default withRouter(Board);

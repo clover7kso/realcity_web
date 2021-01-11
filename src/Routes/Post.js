@@ -2,22 +2,11 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import Input from "../Components/Input";
 import { Link } from "react-router-dom";
-<<<<<<< HEAD
 import ThreeDotButton from "../Components/ThreeDotButton";
+import CommentReply from "../Components/CommentReply";
 import { CommentsIcon, Ddabong, View, ThreeDot, LikeButton } from "./../Components/Icons";
-import { gql } from "apollo-boost";
-import { useMutation, useQuery } from "react-apollo-hooks";
-=======
-import {
-  CommentsIcon,
-  Ddabong,
-  View,
-  ThreeDot,
-  LikeButton,
-} from "./../Components/Icons";
 import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
->>>>>>> 062bac7003ea4c319887c185b12fbd42c9f767b4
+import { useQuery, useMutation } from "@apollo/client";
 import { CKEditor, CKEDITOR } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 
@@ -27,7 +16,7 @@ const Background = styled.div`
 
 const PostSection = styled.div`
   display: flex;
-  //flex-direction: column;
+  flex-direction: column;
   font-family: Roboto;
   border-bottom: 1px solid #cecece;
   padding: 3% 0 1% 0;
@@ -92,11 +81,29 @@ const LikeView = styled.span`
   color: #818181;
 `;
 
-const ThreeDotButtonWrapper = styled.div`
-  width: 10%;
+const CommentSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto;
 `;
 
-function Post({ data, loading }) {
+const CommentWrapper = styled.div``;
+
+function Post({ data, loading, refetch }) {
+  const POSTADDLIKE = gql`
+    mutation postAddLike($id: String!) {
+      postAddLike(id: $id)
+    }
+  `;
+  const [postAddLike] = useMutation(POSTADDLIKE);
+  const clickConfirm = async () => {
+    const result = await postAddLike({
+      variables: {
+        id: data.postOne.id,
+      },
+    });
+    refetch();
+  };
   return (
     <div>
       {loading ? (
@@ -112,12 +119,10 @@ function Post({ data, loading }) {
               <Title>{data.postOne.title}</Title>
               <ThreeDotButton></ThreeDotButton>
             </TitleThreeDotWrapper>
-            <MainPost
-              dangerouslySetInnerHTML={{ __html: data.postOne.content }}
-            ></MainPost>
+            <MainPost dangerouslySetInnerHTML={{ __html: data.postOne.content }}></MainPost>
             <LikeViewWrapper>
               <LikeButtonWrapper>
-                <Button>
+                <Button onClick={clickConfirm}>
                   <LikeButton></LikeButton>
                 </Button>
               </LikeButtonWrapper>
@@ -141,7 +146,17 @@ function Post({ data, loading }) {
 }
 
 function Comment({ data, loading }) {
-  return <div>{loading ? <div>Loading...</div> : null}</div>;
+  return (
+    <div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <CommentSection>
+          <CommentReply data={data}></CommentReply>
+        </CommentSection>
+      )}
+    </div>
+  );
 }
 
 export default () => {
@@ -149,6 +164,7 @@ export default () => {
     query postOne($id: String!) {
       postOne(id: $id) {
         id
+        password
         timeFromToday
         author
         title
@@ -156,7 +172,14 @@ export default () => {
         commentCount
         likeAll
         viewAll
-        comments: id
+        comments {
+          id
+          group
+          timeFromToday
+          author
+          content
+          password
+        }
       }
     }
   `;
@@ -168,8 +191,8 @@ export default () => {
   });
   return (
     <Background>
-      <Post data={data} loading={loading}></Post>
-      <Comment data={data} loading={loading}></Comment>
+      <Post data={data} loading={loading} refetch={refetch}></Post>
+      <Comment data={data} loading={loading} refetch={refetch}></Comment>
     </Background>
   );
 };

@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
-import ThreeDotButton from "../Components/ThreeDotButton";
-import { CommentsIcon, Ddabong, View, LikeButton } from "./../Components/Icons";
+import { CommentsIcon, Ddabong, View, ThreeDot, LikeButton } from "./../Components/Icons";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client";
 import { withRouter } from "react-router-dom";
+import ThreeDotButton from "../Components/ThreeDotButton";
+import CommentReply from "../Components/CommentReply";
 
 const Background = styled.div`
   background-color: white;
@@ -83,13 +84,28 @@ const CommentSection = styled.div`
   font-family: Roboto;
 `;
 
-const CommentWrapper = styled.div``;
+function Comment({ data, loading }) {
+  console.log(data, loading);
+  return (
+    <div>
+      {loading ? (
+        <div>Loading...</div>
+      ) : (
+        <CommentSection>
+          <CommentReply data={data}></CommentReply>
+        </CommentSection>
+      )}
+    </div>
+  );
+}
 
 const Post = ({ history }) => {
   console.log(history.location.search);
   const POSTONE_QUERY = gql`
     query postOne($id: String!) {
       postOne(id: $id) {
+        id
+        password
         timeFromToday
         author
         title
@@ -97,13 +113,15 @@ const Post = ({ history }) => {
         commentCount
         likeAll
         viewAll
+        comments {
+          id
+          group
+          timeFromToday
+          author
+          content
+          password
+        }
       }
-    }
-  `;
-
-  const POSTADDLIKE = gql`
-    mutation postAddLike($id: String!) {
-      postAddLike(id: $id)
     }
   `;
   const { data, loading, error, refetch, fetchMore } = useQuery(POSTONE_QUERY, {
@@ -112,6 +130,11 @@ const Post = ({ history }) => {
     },
     notifyOnNetworkStatusChange: true,
   });
+  const POSTADDLIKE = gql`
+    mutation postAddLike($id: String!) {
+      postAddLike(id: $id)
+    }
+  `;
   const [postAddLike] = useMutation(POSTADDLIKE);
   const clickConfirm = async () => {
     const result = await postAddLike({
@@ -127,39 +150,40 @@ const Post = ({ history }) => {
       {loading ? (
         <div>Loading...</div>
       ) : (
-        <PostSection>
-          <PostWrapper>
-            <TimeAuthorWrapper>
-              <Time>{data.postOne.timeFromToday}</Time>&nbsp;
-              <div>{data.postOne.author}</div>
-            </TimeAuthorWrapper>
-            <TitleThreeDotWrapper>
-              <Title>{data.postOne.title}</Title>
-              <ThreeDotButton></ThreeDotButton>
-            </TitleThreeDotWrapper>
-            <MainPost
-              dangerouslySetInnerHTML={{ __html: data.postOne.content }}
-            ></MainPost>
-            <LikeViewWrapper>
-              <LikeButtonWrapper>
-                <Button onClick={clickConfirm}>
-                  <LikeButton></LikeButton>
-                </Button>
-              </LikeButtonWrapper>
-              <Info>
-                <LikeView>
-                  <CommentsIcon></CommentsIcon> {data.postOne.commentCount}
-                </LikeView>
-                <LikeView>
-                  <Ddabong></Ddabong> {data.postOne.likeAll}
-                </LikeView>
-                <LikeView>
-                  <View></View> {data.postOne.viewAll}
-                </LikeView>
-              </Info>
-            </LikeViewWrapper>
-          </PostWrapper>
-        </PostSection>
+        <div>
+          <PostSection>
+            <PostWrapper>
+              <TimeAuthorWrapper>
+                <Time>{data.postOne.timeFromToday}</Time>&nbsp;
+                <div>{data.postOne.author}</div>
+              </TimeAuthorWrapper>
+              <TitleThreeDotWrapper>
+                <Title>{data.postOne.title}</Title>
+                <ThreeDotButton></ThreeDotButton>
+              </TitleThreeDotWrapper>
+              <MainPost dangerouslySetInnerHTML={{ __html: data.postOne.content }}></MainPost>
+              <LikeViewWrapper>
+                <LikeButtonWrapper>
+                  <Button onClick={clickConfirm}>
+                    <LikeButton></LikeButton>
+                  </Button>
+                </LikeButtonWrapper>
+                <Info>
+                  <LikeView>
+                    <CommentsIcon></CommentsIcon> {data.postOne.commentCount}
+                  </LikeView>
+                  <LikeView>
+                    <Ddabong></Ddabong> {data.postOne.likeAll}
+                  </LikeView>
+                  <LikeView>
+                    <View></View> {data.postOne.viewAll}
+                  </LikeView>
+                </Info>
+              </LikeViewWrapper>
+            </PostWrapper>
+          </PostSection>
+          <Comment data={data} loading={loading} refetch={refetch}></Comment>
+        </div>
       )}
     </Background>
   );

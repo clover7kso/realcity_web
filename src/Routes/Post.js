@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { CommentsIcon, Ddabong, View, ThreeDot, LikeButton } from "./../Components/Icons";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import { withRouter } from "react-router-dom";
 import ThreeDotButton from "../Components/ThreeDotButton";
+import { CommentsIcon, Ddabong, View, LikeButton } from "./../Components/Icons";
+import { gql } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
+import { withRouter } from "react-router-dom";
 
 const Background = styled.div`
   background-color: white;
@@ -77,6 +77,14 @@ const LikeView = styled.span`
   color: #818181;
 `;
 
+const CommentSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto;
+`;
+
+const CommentWrapper = styled.div``;
+
 const Post = ({ history }) => {
   console.log(history.location.search);
   const POSTONE_QUERY = gql`
@@ -92,12 +100,28 @@ const Post = ({ history }) => {
       }
     }
   `;
+
+  const POSTADDLIKE = gql`
+    mutation postAddLike($id: String!) {
+      postAddLike(id: $id)
+    }
+  `;
   const { data, loading, error, refetch, fetchMore } = useQuery(POSTONE_QUERY, {
     variables: {
       id: history.location.search.replace("?", ""),
     },
     notifyOnNetworkStatusChange: true,
   });
+  const [postAddLike] = useMutation(POSTADDLIKE);
+  const clickConfirm = async () => {
+    const result = await postAddLike({
+      variables: {
+        id: data.postOne.id,
+      },
+    });
+    refetch();
+  };
+  console.log(loading ? data : "loading");
   return (
     <Background>
       {loading ? (
@@ -113,7 +137,9 @@ const Post = ({ history }) => {
               <Title>{data.postOne.title}</Title>
               <ThreeDotButton></ThreeDotButton>
             </TitleThreeDotWrapper>
-            <MainPost dangerouslySetInnerHTML={{ __html: data.postOne.content }}></MainPost>
+            <MainPost
+              dangerouslySetInnerHTML={{ __html: data.postOne.content }}
+            ></MainPost>
             <LikeViewWrapper>
               <LikeButtonWrapper>
                 <Button onClick={clickConfirm}>

@@ -40,18 +40,18 @@ const Padding = styled.div`
 function CommentReply(props) {
   const temp = props.data.postOne.comments;
   //console.log(temp);
-  // var comment = [];
-  // for (var i = 0; i < temp.length; i++) {
-  //   if (!temp[i].group) comment.push(temp[i]);
-  // }
-  // for (var i = 0; i < comment.length; i++) {
-  //   for (var j = 0; j < temp.length; j++) {
-  //     if (comment[i].id === temp[j].group) {
-  //       var newObj = temp[j];
-  //       Object.assign(comment[i], newObj);
-  //     }
-  //   }
-  // }
+  var comment = [];
+  for (var i = 0; i < temp.length; i++) {
+    if (!temp[i].group) comment.push(temp[i]);
+  }
+  for (var i = 0; i < comment.length; i++) {
+    for (var j = 0; j < temp.length; j++) {
+      if (comment[i].id === temp[j].group) {
+        var newObj = temp[j];
+        Object.assign(comment[i], newObj);
+      }
+    }
+  }
   console.log(comment);
   return <div>dd</div>;
   // return (

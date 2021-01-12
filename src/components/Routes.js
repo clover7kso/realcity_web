@@ -4,7 +4,6 @@ import { Route, Switch, Redirect } from "react-router-dom";
 import Auth from "../Routes/Auth";
 import Home from "../Routes/Home";
 import Writer from "../Routes/Writer";
-import Search from "../Routes/Search";
 import Board from "../Routes/Board";
 import Post from "../Routes/Post";
 
@@ -12,7 +11,6 @@ const LoggedInRoutes = () => (
   <Switch>
     <Route exact path="/" component={Home} />
     <Route path="/Writer" component={Writer} />
-    <Route path="/Search" component={Search} />
     <Route path="/Board" component={Board} />
     <Route path="/Post" component={Post} />
     <Redirect from="*" to="/" />
@@ -26,7 +24,8 @@ const LoggedOutRoutes = () => (
   </Switch>
 );
 
-const AppRouter = ({ isLoggedIn }) => (isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />);
+const AppRouter = ({ isLoggedIn }) =>
+  isLoggedIn ? <LoggedInRoutes /> : <LoggedOutRoutes />;
 
 AppRouter.propTypes = {
   isLoggedIn: PropTypes.bool.isRequired,

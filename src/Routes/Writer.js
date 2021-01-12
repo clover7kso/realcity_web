@@ -14,6 +14,10 @@ import { useAlert } from "react-alert";
 
 import { withRouter } from "react-router-dom";
 
+const CKEditorWrapper = styled.div`
+  border: 1px solid ${(props) => props.theme.lightGreyColor};
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -343,18 +347,20 @@ const Writer = ({ history }) => {
         required="true"
         type="text"
       />
-      <CKEditor
-        editor={ClassicEditor}
-        config={{
-          extraPlugins: [ImgurUploader],
-          plugins: [...installedPlugins],
-          toolbar: [...toolbarSetting],
-        }}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          setContent(data);
-        }}
-      />
+      <CKEditorWrapper>
+        <CKEditor
+          editor={ClassicEditor}
+          config={{
+            extraPlugins: [ImgurUploader],
+            plugins: [...installedPlugins],
+            toolbar: [...toolbarSetting],
+          }}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            setContent(data);
+          }}
+        />
+      </CKEditorWrapper>
       <ButtonWrapper>
         <Cancel onClick={() => history.goBack()}>취소</Cancel>
         <Confirm onClick={clickConfirm}>완료</Confirm>

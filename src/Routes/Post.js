@@ -1,11 +1,21 @@
 import React from "react";
 import styled from "styled-components";
-import { CommentsIcon, Ddabong, View, ThreeDot, LikeButton } from "./../Components/Icons";
+import {
+  CommentsIcon,
+  Ddabong,
+  View,
+  ThreeDot,
+  LikeButton,
+} from "./../Components/Icons";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client";
 import { withRouter } from "react-router-dom";
 import ThreeDotButton from "../Components/ThreeDotButton";
 import CommentReply from "../Components/CommentReply";
+
+import { CKEditor } from "@ckeditor/ckeditor5-react";
+import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
+import { installedPlugins, toolbarSetting } from "../Components/CKEditorPlugin";
 
 const Background = styled.div`
   background-color: white;
@@ -161,7 +171,14 @@ const Post = ({ history }) => {
                 <Title>{data.postOne.title}</Title>
                 <ThreeDotButton></ThreeDotButton>
               </TitleThreeDotWrapper>
-              <MainPost dangerouslySetInnerHTML={{ __html: data.postOne.content }}></MainPost>
+              <CKEditor
+                editor={ClassicEditor}
+                config={{
+                  plugins: [...installedPlugins],
+                }}
+                disabled={true}
+                data={data.postOne.content}
+              />
               <LikeViewWrapper>
                 <LikeButtonWrapper>
                   <Button onClick={clickConfirm}>

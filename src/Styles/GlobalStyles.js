@@ -21,4 +21,20 @@ export default createGlobalStyle`
     input:focus{
         outline: none !important;
     }
+    
+    .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-rounded-corners.ck-focused{
+        border: 0px solid transparent;
+        box-shadow: 0 0 5px var(--ck-color-focus-border);
+    }
+    .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-rounded-corners{
+        border: 0px solid transparent;
+        box-shadow: 0 0 0px;
+        padding:0px
+    }
+    & .ck-editor__top .ck-sticky-panel .ck-toolbar {
+		/* https://github.com/ckeditor/ckeditor5-editor-classic/issues/62 */
+		z-index: var(--ck-z-modal);
+		border: 0px solid transparent;
+	}
+    
 `;

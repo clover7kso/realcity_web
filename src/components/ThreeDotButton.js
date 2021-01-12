@@ -43,10 +43,6 @@ const ButtonWrapper = styled.div`
   margin: 20% 0 0 0;
 `;
 
-const Hr = styled.hr`
-  margin: 0;
-`;
-
 class ThreeDotButton extends Component {
   constructor() {
     super();

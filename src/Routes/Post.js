@@ -123,7 +123,7 @@ const Post = ({ history }) => {
       }
     }
   `;
-  const { data, loading, error, refetch, fetchMore } = useQuery(POSTONE_QUERY, {
+  const { data, loading, refetch } = useQuery(POSTONE_QUERY, {
     variables: {
       id: history.location.search.replace("?", ""),
     },
@@ -141,6 +141,7 @@ const Post = ({ history }) => {
         id: history.location.search.replace("?", ""),
       },
     });
+    console.log(result);
     refetch();
   };
   console.log(loading ? data : "loading");

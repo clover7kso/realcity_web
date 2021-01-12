@@ -96,7 +96,7 @@ export default () => {
       }
     }
   `;
-  const { data, loading, error } = useQuery(HOMETOP_QUERY, {
+  const { data, loading } = useQuery(HOMETOP_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
 

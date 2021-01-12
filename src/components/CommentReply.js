@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import styled from "styled-components";
 import CommentThreeDot from "../Components/CommentThreeDot";
 
@@ -72,7 +72,7 @@ function CommentReply(props) {
               </Padding>
             </Linedivide>
           );
-        }
+        } else return null;
       })}
     </CommentBox>
   );

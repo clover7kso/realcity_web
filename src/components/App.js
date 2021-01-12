@@ -1,5 +1,4 @@
 import React from "react";
-import { gql } from "@apollo/client";
 import styled, { ThemeProvider } from "styled-components";
 import { HashRouter as Router } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
@@ -10,11 +9,7 @@ import Routes from "./Routes";
 import Footer from "./Footer";
 import Header from "./Header";
 
-const QUERY = gql`
-  {
-    isLoggedIn @client
-  }
-`;
+//const QUERY = gql`{isLoggedIn @client}`;
 
 const Wrapper = styled.div`
   margin: 0 auto;

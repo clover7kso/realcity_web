@@ -10,10 +10,10 @@ import FontFamily from "@ckeditor/ckeditor5-font/src/fontfamily.js";
 import FontSize from "@ckeditor/ckeditor5-font/src/fontsize.js";
 import HorizontalLine from "@ckeditor/ckeditor5-horizontal-line/src/horizontalline.js";
 import Image from "@ckeditor/ckeditor5-image/src/image.js";
-import ImageCaption from "@ckeditor/ckeditor5-image/src/imagecaption.js";
+//import ImageCaption from "@ckeditor/ckeditor5-image/src/imagecaption.js";
 import ImageResize from "@ckeditor/ckeditor5-image/src/imageresize.js";
 import ImageStyle from "@ckeditor/ckeditor5-image/src/imagestyle.js";
-import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar.js";
+//import ImageToolbar from "@ckeditor/ckeditor5-image/src/imagetoolbar.js";
 import ImageUpload from "@ckeditor/ckeditor5-image/src/imageupload.js";
 import Indent from "@ckeditor/ckeditor5-indent/src/indent.js";
 import IndentBlock from "@ckeditor/ckeditor5-indent/src/indentblock.js";
@@ -37,10 +37,8 @@ const installedPlugins = [
   Heading,
   HorizontalLine,
   Image,
-  ImageCaption,
   ImageResize,
   ImageStyle,
-  ImageToolbar,
   ImageUpload,
   Indent,
   IndentBlock,
@@ -64,15 +62,16 @@ const toolbarSetting = [
   "strikethrough",
   "underline",
   "horizontalLine",
+  "blockQuote",
   "|",
   "indent",
   "outdent",
   "|",
-  "link",
-  "blockQuote",
   "imageUpload",
-  "insertTable",
   "mediaEmbed",
+  "|",
+  "link",
+  "insertTable",
   "|",
   "undo",
   "redo",

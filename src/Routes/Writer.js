@@ -208,6 +208,7 @@ const Writer = ({ history }) => {
       {
         key: selectedOption.name,
         tagNull: "카테고리를 정해주세요.",
+        tagRegex: "닉네임은 한글 또는 영어 또는 숫자 조합 2-20자입니다.",
       },
       {
         key: nick,
@@ -277,25 +278,14 @@ const Writer = ({ history }) => {
       </DropDownContainer>
 
       <InfoWrapper>
-        <InputInfo
-          onChange={setNick}
-          placeholder="닉네임"
-          required="true"
-          type="text"
-        />
+        <InputInfo onChange={setNick} placeholder="닉네임" type="text" />
         <InputInfo
           onChange={setPassword}
           placeholder="비밀번호"
-          required="true"
           type="password"
         />
       </InfoWrapper>
-      <Title
-        onChange={setTitle}
-        placeholder="제목"
-        required="true"
-        type="text"
-      />
+      <Title onChange={setTitle} placeholder="제목" type="text" />
       <CKEditorWrapper>
         <CKEditor
           editor={ClassicEditor}

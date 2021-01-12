@@ -101,7 +101,7 @@ export default () => {
       }
     }
   `;
-  const { data, loading, error } = useQuery(HOMENORMAL_QUERY, {
+  const { data, loading } = useQuery(HOMENORMAL_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
 

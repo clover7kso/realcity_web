@@ -44,7 +44,7 @@ export default () => {
       }
     }
   `;
-  const { data, loading, error } = useQuery(HOMEZZAL_QUERY, {
+  const { data, loading } = useQuery(HOMEZZAL_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
   return loading ? (

@@ -107,15 +107,15 @@ const Home = ({ history }) => {
         </SearchButton>
         <SearchInput
           placeholder="관심있는 내용을 검색해주세요"
-          required="true"
           type="text"
+          onChange={() => {}}
         />
       </SearchWrapper>
       <PostZzalDivider>
         <PostWrapper>
           <TopPost>
             <TitleBar>
-              <Title>👑 오늘 이 글 잘나가네</Title>
+              <Title>{"👑 오늘 이 글 잘나가네"}</Title>
               <MoreView to={"/Board?👑 오늘 이 글 잘나가네"}>
                 더보기 &gt;
               </MoreView>

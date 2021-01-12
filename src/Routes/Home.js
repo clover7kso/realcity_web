@@ -62,7 +62,7 @@ const PostWrapper = styled.div`
   width: 80%;
   height: 100%;
   min-height: 100%;
-  padding: 5% 5% 0% 0%;
+  padding: 5% 2% 0% 0%;
 `;
 
 const ZzalWrapper = styled.div`
@@ -71,7 +71,7 @@ const ZzalWrapper = styled.div`
   width: 20%;
   height: 100%;
   min-height: 100%;
-  padding: 8% 0 0 0;
+  padding: 5% 0 0 0;
 `;
 
 const TitleBar = styled.div`
@@ -109,14 +109,14 @@ const NormalMoreView = styled(Link)`
 
 const TopPost = styled.div`
   width: 100%;
-  padding: 3%;
+  padding-right: 3%;
 `;
 
 const NormalPost = styled.div`
   width: 50%;
   height: 15%;
   min-height: 15%;
-  padding: 3%;
+  padding-right: 3%;
   flex: 1 1 40%;
 `;
 

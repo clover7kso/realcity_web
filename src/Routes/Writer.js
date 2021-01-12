@@ -3,16 +3,18 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 import ImgurUploaderInit from "ckeditor5-imgur-uploader";
 import { installedPlugins, toolbarSetting } from "../Components/CKEditorPlugin";
-
 import styled from "styled-components";
 import Input from "../Components/Input";
-
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
-
 import { useAlert } from "react-alert";
-
 import { withRouter } from "react-router-dom";
+import {
+  CategoryListTypeC,
+  getIp,
+  getImages,
+  checkValidate,
+} from "../Components/Util";
 
 const CKEditorWrapper = styled.div`
   border: 1px solid ${(props) => props.theme.lightGreyColor};
@@ -148,18 +150,6 @@ const ListItem = styled("li")`
 `;
 
 // list of items
-const list = [
-  { name: "🐶 자유롭게멍멍", key: "자유롭게멍멍" },
-  { name: "🏎 애마자랑", key: "애마자랑" },
-  { name: "🔫 나때는군대", key: "나때는군대" },
-  { name: "📈 주식투자", key: "주식투자" },
-  { name: "🚘 시승후기", key: "시승후기" },
-  { name: "✈️ 여행먹방", key: "여행먹방" },
-  { name: "💼 보험후기", key: "보험후기" },
-  { name: "🚓️ 사고후기", key: "사고후기" },
-  { name: "👰🏻‍♀️ 결혼이야기", key: "결혼이야기" },
-  { name: "🚗 차Q&A", key: "차Q&A" },
-];
 
 const Writer = ({ history }) => {
   const alert = useAlert();
@@ -180,27 +170,6 @@ const Writer = ({ history }) => {
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
-
-  const getImages = (data) => {
-    var m,
-      urls = [],
-      // eslint-disable-next-line no-useless-escape
-      rex = /<img[^>]*src=[\"']?([^>\"']+)[\"']?[^>]*>/g;
-
-    while ((m = rex.exec(data))) {
-      urls.push(m[1]);
-    }
-
-    return urls;
-  };
-
-  const getIp = async () => {
-    const publicIp = require("public-ip");
-    const ip = await publicIp.v4();
-    const splitResult = ip.split(".");
-    const result = splitResult[0] + "." + splitResult[1];
-    return result;
-  };
 
   const POST_UPLOAD = gql`
     mutation postUpload(
@@ -224,26 +193,6 @@ const Writer = ({ history }) => {
     }
   `;
   const [postUpload] = useMutation(POST_UPLOAD);
-
-  const checkValidate = (data) => {
-    var result = true;
-    for (var i = 0; i < data.length; i++) {
-      if (
-        data[i].key === undefined ||
-        data[i].key === null ||
-        data[i].key === ""
-      ) {
-        alert.error(data[i].tagNull);
-        result = false;
-      } else if (data[i].regex !== undefined) {
-        if (!data[i].regex.test(data[i].key)) {
-          alert.error(data[i].tagRegex);
-          result = false;
-        }
-      }
-    }
-    return result;
-  };
 
   const clickConfirm = async () => {
     alert.removeAll();
@@ -317,7 +266,7 @@ const Writer = ({ history }) => {
         {isOpen && (
           <DropDownListContainer>
             <DropDownList>
-              {list.map((item) => (
+              {CategoryListTypeC.map((item) => (
                 <ListItem onClick={onOptionClicked(item)} key={item.key}>
                   {item.name}
                 </ListItem>

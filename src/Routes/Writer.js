@@ -293,11 +293,11 @@ const Writer = ({ history }) => {
       });
 
       if (result.data.postUpload) {
+        alert.success("업로드에 성공하였습니다.");
         history.push({
           pathname: "/Board",
-          state: { category: selectedOption.name, refetch: true },
+          search: "?" + selectedOption.name,
         });
-        alert.success("업로드에 성공하였습니다.");
       } else alert.error("업로드에 실패하였습니다.");
     }
   };

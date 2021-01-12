@@ -243,8 +243,8 @@ const ZzalBox = styled.div`
 `;
 
 const Zzal = styled.img`
-  border-radius: 50px;
-  padding: 10% 0 10% 0;
+  border-radius: 20px;
+  margin: 20px 0 10px 0;
 `;
 
 const ZzalTitle = styled(Link)`
@@ -394,7 +394,7 @@ function HomeZzal() {
     data.homeZzal.map((item, idx) => (
       <ZzalBox key={idx}>
         <Zzal src={item.thumbnail}></Zzal>
-        <ZzalTitle to="/">{item.title}</ZzalTitle>
+        <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
           <View></View> {item.viewAll}
         </ZzalView>

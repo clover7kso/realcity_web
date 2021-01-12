@@ -65,7 +65,7 @@ const Board = ({ history }) => {
 
   const { data, loading, error, refetch, fetchMore } = useQuery(BOARD_QUERY, {
     variables: {
-      category: removeEmojis(selected).substring(1),
+      category: removeEmojis(selected),
     },
     notifyOnNetworkStatusChange: true,
   });
@@ -103,7 +103,7 @@ const Board = ({ history }) => {
               } else {
                 fetchMore({
                   variables: {
-                    category: removeEmojis(selected).substring(1),
+                    category: removeEmojis(selected),
                     cursor: data !== undefined ? data.postMany.cursor : null,
                   },
                   updateQuery: (prevResult, { fetchMoreResult }) => {

@@ -157,7 +157,6 @@ const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
   font-size: 18px;
-  width: 55%;
   height: 18px;
   overflow: hidden;
   white-space: nowrap;
@@ -171,7 +170,6 @@ const StyledLink = styled(Link)`
     text-decoration: none;
     color: black;
     font-size: 18px;
-    width: 55%;
     height: 18px;
     overflow: hidden;
     white-space: nowrap;
@@ -227,14 +225,16 @@ const CategoryTitleWrapper = styled.div`
   height: 100%;
 `;
 
-const TopLikeView = styled.span`
-  min-width: 10%;
+const LikeView = styled.span`
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 10px;
   color: #818181;
 `;
-
-const LikeView = styled.span`
-  min-width: 20%;
-  color: #818181;
+const InfoWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
 `;
 
 const ZzalBox = styled.div`
@@ -314,13 +314,20 @@ function HomeTop() {
                 {item.title}
               </TopStyledLink>
             </CategoryTitleWrapper>
-            <TopLikeView>
-              <Ddabong></Ddabong> <TopLikeView>{item.likeAll}</TopLikeView>
-            </TopLikeView>
-            &nbsp;
-            <TopLikeView>
-              <View></View> <TopLikeView>{item.viewAll}</TopLikeView>
-            </TopLikeView>
+            <InfoWrapper>
+              <Ddabong />
+              <LikeView>
+                {item.likeAll.toLocaleString(undefined, {
+                  maximumFractionDigits: 0,
+                })}
+              </LikeView>
+              <View />
+              <LikeView>
+                {item.viewAll.toLocaleString(undefined, {
+                  maximumFractionDigits: 0,
+                })}
+              </LikeView>
+            </InfoWrapper>
           </TopTextBox>
         ))
       )}
@@ -366,13 +373,20 @@ function HomeNormal({ history }) {
                   <StyledLink to={"/Post?" + item1.id}>
                     {item1.title}
                   </StyledLink>
-                  <LikeView>
-                    <Ddabong></Ddabong> <LikeView>{item1.likeAll}</LikeView>
-                  </LikeView>
-                  &nbsp;
-                  <LikeView>
-                    <View></View> <LikeView>{item1.viewAll}</LikeView>
-                  </LikeView>
+                  <InfoWrapper>
+                    <Ddabong />
+                    <LikeView>
+                      {item1.likeAll.toLocaleString(undefined, {
+                        maximumFractionDigits: 0,
+                      })}
+                    </LikeView>
+                    <View />
+                    <LikeView>
+                      {item1.viewAll.toLocaleString(undefined, {
+                        maximumFractionDigits: 0,
+                      })}
+                    </LikeView>
+                  </InfoWrapper>
                 </NormalTextBox>
               ) : null;
             })}
@@ -405,7 +419,10 @@ function HomeZzal() {
         <Zzal src={item.thumbnail}></Zzal>
         <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
-          <View></View> {item.viewAll}
+          <View></View>{" "}
+          {item.viewAll.toLocaleString(undefined, {
+            maximumFractionDigits: 0,
+          })}
         </ZzalView>
       </ZzalBox>
     ))
@@ -436,7 +453,6 @@ const Home = ({ history }) => {
             </TitleBar>
             <HomeTop></HomeTop>
           </TopPost>
-          &nbsp;
           <HomeNormal history={history}></HomeNormal>
         </PostWrapper>
         <ZzalWrapper>

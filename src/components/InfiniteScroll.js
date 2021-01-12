@@ -5,7 +5,7 @@ import { CommentsIcon, LikesIcon, ViewsIcon } from "./Icons";
 import { Link } from "react-router-dom";
 
 const Wrapper = styled.div`
-  margin-top: 35px;
+  margin-top: 10px;
   display: flex;
   flex-direction: column;
   font-family: Roboto;
@@ -13,7 +13,7 @@ const Wrapper = styled.div`
 
 const Title = styled(Link)`
   color: black;
-  font-size: 24px;
+  font-size: 18px;
   font-weight: bold;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -33,9 +33,9 @@ const TextWrapper = styled.div`
 
 const Content = styled(Link)`
   color: black;
-  margin-top: 25px;
-  margin-bottom: 25px;
-  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 16px;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -56,19 +56,18 @@ const InfoWrapper = styled.div`
 const InfoInWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  font-family: Roboto;
 `;
 
 const InfoGrey1 = styled.span`
   color: #8c8c8c;
-  font-size: 15px;
+  font-size: 13px;
   display: flex;
   align-items: center;
 `;
 
 const InfoBlack = styled.span`
   margin-left: 20px;
-  font-size: 15px;
+  font-size: 13px;
   display: flex;
   align-items: center;
 `;
@@ -77,13 +76,13 @@ const InfoGrey2 = styled.span`
   margin-left: 7px;
   margin-right: 10px;
   color: #8c8c8c;
-  font-size: 15px;
+  font-size: 13px;
   display: flex;
   align-items: center;
 `;
 
 const Divider = styled.div`
-  margin-top:35px;
+  margin-top:10px;
   background: #8c8c8c;
   width:100%
   height:1px
@@ -103,10 +102,11 @@ const NoDataWrapper = styled.div`
 
 const Thumbnail = styled.img`
   object-fit: cover;
-  width:150px
-  height:150px
+  width:90px
+  height:90px
   border-radius:10px
   margin-bottom:15px
+  margin-right:15px
 `;
 
 class InfiniteScroll extends Component {
@@ -147,13 +147,13 @@ class InfiniteScroll extends Component {
           <li key={idx}>
             <Wrapper>
               <MainWrapper>
+                {item.thumbnail ? <Thumbnail src={item.thumbnail} /> : null}
                 <TextWrapper>
                   <Title to={"/Post?" + item.id}>{item.title}</Title>
                   <Content to={"/Post?" + item.id}>
                     {item.content.replace(/(<([^>]+)>)/gi, "")}
                   </Content>
                 </TextWrapper>
-                {item.thumbnail ? <Thumbnail src={item.thumbnail} /> : null}
               </MainWrapper>
               <InfoWrapper>
                 <InfoInWrapper>

@@ -53,33 +53,28 @@ const Button = styled.button`
 const TitleThreeDotWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 0 5% 0;
-`;
-
-const MainPost = styled.div`
-  font-size: 20px;
-  padding: 0 0 5% 0;
+  padding: 0 0 0 0;
 `;
 
 const LikeViewWrapper = styled.div`
+  align-items: baseline;
   display: flex;
   justify-content: space-between;
 `;
 
-const LikeButtonWrapper = styled.div`
-  min-width: 80%;
-`;
+const LikeButtonWrapper = styled.div``;
 
 const Info = styled.div`
   display: flex;
   justify-content: space-between;
-  min-width: 20%;
-  padding: 3% 0 3% 0;
+  flex-direction: row;
 `;
 
-const LikeView = styled.span`
-  min-width: 20%;
+const LikeView = styled.div`
   color: #818181;
+  margin-left: 10px;
+  margin-right: 10px;
+  line-height: 15px;
 `;
 
 const CommentSection = styled.div`
@@ -180,14 +175,23 @@ const Post = ({ history }) => {
                   </Button>
                 </LikeButtonWrapper>
                 <Info>
+                  <CommentsIcon />
                   <LikeView>
-                    <CommentsIcon></CommentsIcon> {data.postOne.commentCount}
+                    {data.postOne.commentCount.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
                   </LikeView>
+                  <Ddabong />
                   <LikeView>
-                    <Ddabong></Ddabong> {data.postOne.likeAll}
+                    {data.postOne.likeAll.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
                   </LikeView>
+                  <View />
                   <LikeView>
-                    <View></View> {data.postOne.viewAll}
+                    {data.postOne.viewAll.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
                   </LikeView>
                 </Info>
               </LikeViewWrapper>

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 const SelectedMenu = styled.div`
   color:black;
-  font-size: 23px;
+  font-size: 18px;
   font-weight: bold;
   padding-left:7px
   padding-right: 7px;
@@ -17,7 +17,7 @@ const SelectedMenu = styled.div`
 `;
 const UnselectedMenu = styled(Link)`
   color:grey;
-  font-size: 23px;
+  font-size: 18px;
   padding-left:7px
   padding-right:7px
   padding-bottom:7px

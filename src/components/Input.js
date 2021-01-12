@@ -10,6 +10,9 @@ const Container = styled.input`
   height: 35px;
   font-size: 12px;
   padding: 0px 15px;
+  &:focus {
+    outline: none;
+  }
 `;
 
 const Input = ({

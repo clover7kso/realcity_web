@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import Input from "../Components/Input";
-import { Link } from "react-router-dom";
 import { SearchIcon, Ddabong, View } from "./../Components/Icons";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,8 +31,7 @@ const SideWrapper = styled.div`
 `;
 
 const SearchInput = styled(Input)`
-  border-color: Transparent;
-  background-color: ${(props) => props.theme.bgColor};
+  border-color: white;
   padding: 15px;
   font-size: 30px;
   height: 70px;
@@ -42,7 +40,7 @@ const SearchInput = styled(Input)`
   border-radius: 50px;
   width: 90%;
   &::placeholder {
-    color:black
+    color:black;
     font-weight: 550;
   }
 `;
@@ -89,7 +87,8 @@ const Title = styled.span`
   font-weight: bold;
 `;
 
-const MoreView = styled.button`
+const MoreView = styled(Link)`
+  color: grey;
   font-size: 15px;
   text-align: right;
   background-color: transparent;
@@ -98,7 +97,8 @@ const MoreView = styled.button`
   outline: 0;
 `;
 
-const NormalMoreView = styled.button`
+const NormalMoreView = styled(Link)`
+  color: grey;
   font-size: 15px;
   text-align: right;
   background-color: transparent;
@@ -318,12 +318,6 @@ function HomeTop() {
     </div>
   );
 }
-const goBoard = (history, category) => {
-  history.push({
-    pathname: "/Board",
-    state: { category: category, refetch: true },
-  });
-};
 
 function HomeNormal({ history }) {
   const HOMENORMAL_QUERY = gql`
@@ -353,9 +347,7 @@ function HomeNormal({ history }) {
                 {item.emoji}
                 {item.name}
               </Title>
-              <NormalMoreView
-                onClick={() => goBoard(history, item.emoji + item.name)}
-              >
+              <NormalMoreView to={"/Board?" + item.emoji + item.name}>
                 더보기 &gt;
               </NormalMoreView>
             </TitleBar>
@@ -429,9 +421,7 @@ const Home = ({ history }) => {
           <TopPost>
             <TitleBar>
               <Title>👑 오늘 이 글 잘나가네</Title>
-              <MoreView
-                onClick={() => goBoard(history, "👑 오늘 이 글 잘나가네")}
-              >
+              <MoreView to={"/Board?👑 오늘 이 글 잘나가네"}>
                 더보기 &gt;
               </MoreView>
             </TitleBar>

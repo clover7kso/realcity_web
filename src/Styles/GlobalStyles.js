@@ -20,7 +20,5 @@ export default createGlobalStyle`
     }
     input:focus{
         outline: none !important;
-        border:1px solid ${(props) => props.theme.blueColor};
-        box-shadow: 0 0 3px #719ECE;
     }
 `;

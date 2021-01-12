@@ -80,6 +80,17 @@ const Divider = styled.div`
   border-radius:10px
 `;
 
+const NoDataWrapper = styled.div`
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: black;
+  font-size: 24px;
+  font-weight: bold;
+`;
+
 class InfiniteScroll extends Component {
   componentDidMount() {
     window.addEventListener("scroll", this.handleOnScroll);
@@ -112,13 +123,15 @@ class InfiniteScroll extends Component {
         ? this.props.data.postMany.posts
         : [];
 
-    return (
+    return myData.length !== 0 ? (
       <ul>
         {myData.map((item, idx) => (
           <li key={idx}>
             <Wrapper>
               <Title to={"/Post?" + item.id}>{item.title}</Title>
-              <Content to={"/Post?" + item.id}>{item.content}</Content>
+              <Content to={"/Post?" + item.id}>
+                {item.content.replace(/(<([^>]+)>)/gi, "")}
+              </Content>
               <InfoWrapper>
                 <InfoInWrapper>
                   <InfoGrey1>{item.timeFromToday}</InfoGrey1>
@@ -151,6 +164,10 @@ class InfiniteScroll extends Component {
         ))}
         {this.props.loading && <Loader />}
       </ul>
+    ) : (
+      <NoDataWrapper>
+        아직쓰여진 글이 없어요!! 여러분들의 글로 채워주세요!!
+      </NoDataWrapper>
     );
   }
 }

@@ -42,6 +42,11 @@ const InputInfo = styled(Input)`
   &::placeholder {
     color:${(props) => props.theme.grey}
   }
+  &:focus{
+    outline: none !important;
+    border:1px solid ${(props) => props.theme.blueColor};
+    box-shadow: 0 0 3px #719ECE;
+  }
 `;
 
 const Title = styled(Input)`
@@ -57,6 +62,11 @@ const Title = styled(Input)`
   width: 52%;
   &::placeholder {
     color:${(props) => props.theme.grey}
+  }
+  &:focus{
+    outline: none !important;
+    border:1px solid ${(props) => props.theme.blueColor};
+    box-shadow: 0 0 3px #719ECE;
   }
 `;
 

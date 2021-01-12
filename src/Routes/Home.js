@@ -300,7 +300,15 @@ function HomeTop() {
         data.homeTop.map((item, idx) => (
           <TopTextBox key={idx}>
             <CategoryTitleWrapper>
-              <CategoryBox to="/:catecory">{item.category}</CategoryBox>
+              <CategoryBox
+                to={
+                  "/Board?" +
+                  list.find((x) => x.name === item.category).emoji +
+                  list.find((x) => x.name === item.category).name
+                }
+              >
+                {item.category}
+              </CategoryBox>
               <TopStyledLink to={"/Post?" + item.id}>
                 {item.title}
               </TopStyledLink>

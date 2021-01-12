@@ -23,7 +23,6 @@ const Title = styled(Link)`
 const MainWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
 `;
 const TextWrapper = styled.div`
   display: flex;

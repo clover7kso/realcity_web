@@ -75,8 +75,10 @@ function removeEmojis(str) {
 }
 
 const Board = ({ history }) => {
-  const historyState = history.location.search.replace("?", "");
-  console.log(history);
+  const historyState = decodeURI(
+    decodeURIComponent(history.location.search.replace("?", ""))
+  );
+
   selectedFirst = historyState !== undefined ? historyState : selectedFirst;
 
   const [selected, setSelected] = useState(selectedFirst);

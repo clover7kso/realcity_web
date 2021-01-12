@@ -3,14 +3,13 @@ import styled from "styled-components";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import { Link } from "react-router-dom";
 
-const SelectedMenu = styled(Link)`
+const SelectedMenu = styled.div`
   color:black;
   font-size: 23px;
   font-weight: bold;
   padding-left:7px
   padding-right: 7px;
   padding-bottom:7px
-  border:none
   background:white
   border-bottom: 4px solid black;
   cursor: pointer;  
@@ -22,7 +21,6 @@ const UnselectedMenu = styled(Link)`
   padding-left:7px
   padding-right:7px
   padding-bottom:7px
-  border:none
   background:white
   border-bottom: 4px solid grey;
   cursor: pointer;  
@@ -32,7 +30,7 @@ const UnselectedMenu = styled(Link)`
 // selected prop will be passed
 const MenuItem = ({ text, selected }) => {
   return selected ? (
-    <SelectedMenu to={"/Board?" + text}>{text}</SelectedMenu>
+    <SelectedMenu>{text}</SelectedMenu>
   ) : (
     <UnselectedMenu to={"/Board?" + text}>{text}</UnselectedMenu>
   );

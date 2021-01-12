@@ -9,7 +9,6 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-family: Roboto;
-  justify-content: space-around;
 `;
 
 const Title = styled(Link)`
@@ -19,6 +18,17 @@ const Title = styled(Link)`
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+`;
+
+const MainWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+`;
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-right: 10px;
 `;
 
 const Content = styled(Link)`
@@ -91,6 +101,14 @@ const NoDataWrapper = styled.div`
   font-weight: bold;
 `;
 
+const Thumbnail = styled.img`
+  object-fit: cover;
+  width:150px
+  height:150px
+  border-radius:10px
+  margin-bottom:15px
+`;
+
 class InfiniteScroll extends Component {
   componentDidMount() {
     window.addEventListener("scroll", this.handleOnScroll);
@@ -128,10 +146,15 @@ class InfiniteScroll extends Component {
         {myData.map((item, idx) => (
           <li key={idx}>
             <Wrapper>
-              <Title to={"/Post?" + item.id}>{item.title}</Title>
-              <Content to={"/Post?" + item.id}>
-                {item.content.replace(/(<([^>]+)>)/gi, "")}
-              </Content>
+              <MainWrapper>
+                <TextWrapper>
+                  <Title to={"/Post?" + item.id}>{item.title}</Title>
+                  <Content to={"/Post?" + item.id}>
+                    {item.content.replace(/(<([^>]+)>)/gi, "")}
+                  </Content>
+                </TextWrapper>
+                {item.thumbnail ? <Thumbnail src={item.thumbnail} /> : null}
+              </MainWrapper>
               <InfoWrapper>
                 <InfoInWrapper>
                   <InfoGrey1>{item.timeFromToday}</InfoGrey1>

@@ -78,8 +78,9 @@ const TitleBar = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #cecece;
+  align-items:baseline
   padding: 10px 0 10px 10px;
-  margin: 0 0 2% 0;
+  margin: 0 0 10px 0;
 `;
 
 const Title = styled.span`

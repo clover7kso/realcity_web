@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
+import Loader from "./Loader";
 
 const ZzalBox = styled(Link)`
   display: flex;
@@ -46,8 +47,8 @@ export default () => {
   const { data, loading } = useQuery(HOMEZZAL_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
-  return loading ? (
-    <div>Loading...</div>
+  return loading || data === undefined ? (
+    <Loader />
   ) : (
     data.homeZzal.map((item, idx) => (
       <ZzalBox key={idx} to={"/Post?" + item.id}>

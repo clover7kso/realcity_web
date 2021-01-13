@@ -84,6 +84,11 @@ const Board = ({ history }) => {
     refetch();
   };
 
+  const handleRefresh = async () => {
+    await refetch();
+    return true;
+  };
+
   return (
     <Wrapper>
       <BoardWrapper>
@@ -97,6 +102,7 @@ const Board = ({ history }) => {
           <p>{error.message}</p>
         ) : (
           <InfiniteScroll
+            onRefresh={() => handleRefresh()}
             selected={selected}
             loading={loading}
             data={data}

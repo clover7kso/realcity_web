@@ -6,6 +6,7 @@ import { CategoryListTypeA } from "./Util";
 import { Ddabong } from "./../Components/Icons";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
+import Loader from "./Loader";
 
 const TitleBar = styled.div`
   display: flex;
@@ -107,8 +108,8 @@ export default () => {
 
   return (
     <NormalPostWrapper>
-      {loading ? (
-        <div>Loading...</div>
+      {loading || data === undefined ? (
+        <Loader />
       ) : (
         CategoryListTypeA.map((item, idx) => (
           <NormalPost key={idx}>

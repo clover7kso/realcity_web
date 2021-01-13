@@ -4,10 +4,7 @@ const cache = new InMemoryCache();
 
 export default new ApolloClient({
   cache: cache,
-  uri:
-    process.env.NODE_ENV === "development"
-      ? "http://localhost:4000"
-      : "https://prismagram-backend.herokuapp.com",
+  uri: process.env.NODE_ENV === "development" ? "http://localhost:4000" : "",
   clientState: {
     defaults,
     resolvers,

@@ -4,9 +4,11 @@ import styled from "styled-components";
 import { CommentsIcon, LikesIcon, ViewsIcon } from "./Icons";
 import { Link } from "react-router-dom";
 import { CategoryListTypeA } from "../Components/Util";
+import PullToRefresh from "react-simple-pull-to-refresh";
+import { RefreshIcon } from "../Components/Icons";
 
 const Wrapper = styled.ul`
-  margin-top: 20px;
+  margin-top: 15px;
 `;
 
 const WrapperItem = styled.div`
@@ -19,6 +21,7 @@ const WrapperItem = styled.div`
 `;
 
 const Title = styled(Link)`
+  user-drag: none;
   color: black;
   font-size: 18px;
   font-weight: bold;
@@ -38,6 +41,7 @@ const TextWrapper = styled.div`
 `;
 
 const Content = styled(Link)`
+  user-drag: none;
   color: black;
   margin-top: 10px;
   margin-bottom: 10px;
@@ -123,6 +127,26 @@ const CategoryBox = styled.div`
   margin-right: 15px;
 `;
 
+const ClickToRefreshWrapper = styled.div`
+  user-drag: none;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const ClickToRefresh = styled.button`
+  background: white;
+  margin-right:5px
+  border: 0px;
+  font-size: 15px;
+  color: black;
+  text-align: center;
+  outline: 0;
+  cursor: pointer;
+`;
+
 class InfiniteScroll extends Component {
   componentDidMount() {
     window.addEventListener("scroll", this.handleOnScroll);
@@ -156,65 +180,76 @@ class InfiniteScroll extends Component {
         : [];
 
     return myData.length !== 0 ? (
-      <Wrapper>
-        {myData.map((item, idx) => (
-          <li key={idx}>
-            <WrapperItem>
-              <MainWrapper>
-                {item.thumbnail ? <Thumbnail src={item.thumbnail} /> : null}
-                <TextWrapper>
-                  <Title to={"/Post?" + item.id}>{item.title}</Title>
-                  <Content to={"/Post?" + item.id}>
-                    {item.content.replace(/(<([^>]+)>)/gi, "")}
-                  </Content>
-                </TextWrapper>
-              </MainWrapper>
-              <InfoWrapper>
-                <InfoInWrapper>
-                  {this.props.selected === "👑 오늘 이 글 잘나가네" ? (
-                    <CategoryBox
-                      to={
-                        "/Board?" +
-                        CategoryListTypeA.find((x) => x.name === item.category)
-                          .emoji +
-                        CategoryListTypeA.find((x) => x.name === item.category)
-                          .name
-                      }
-                    >
-                      {item.category}
-                    </CategoryBox>
-                  ) : null}
-                  <InfoGrey1>{item.timeFromToday}</InfoGrey1>
-                  <InfoBlack>{item.ip}</InfoBlack>
-                  <InfoBlack>{item.author}</InfoBlack>
-                </InfoInWrapper>
-                <InfoInWrapper>
-                  <CommentsIcon />
-                  <InfoGrey2>
-                    {item.commentCount.toLocaleString(undefined, {
-                      maximumFractionDigits: 0,
-                    })}
-                  </InfoGrey2>
-                  <LikesIcon />
-                  <InfoGrey2>
-                    {item.likeAll.toLocaleString(undefined, {
-                      maximumFractionDigits: 0,
-                    })}
-                  </InfoGrey2>
-                  <ViewsIcon />
-                  <InfoGrey2>
-                    {item.viewAll.toLocaleString(undefined, {
-                      maximumFractionDigits: 0,
-                    })}
-                  </InfoGrey2>
-                </InfoInWrapper>
-              </InfoWrapper>
-              {myData.length - 1 !== idx ? <Divider /> : null}
-            </WrapperItem>
-          </li>
-        ))}
-        {this.props.loading && <Loader />}
-      </Wrapper>
+      <PullToRefresh onRefresh={() => this.props.onRefresh()}>
+        <Wrapper>
+          <ClickToRefreshWrapper>
+            <ClickToRefresh onClick={() => this.props.onRefresh()}>
+              클릭 또는 당겨서 새로고침
+            </ClickToRefresh>
+            <RefreshIcon />
+          </ClickToRefreshWrapper>
+
+          {myData.map((item, idx) => (
+            <li key={idx}>
+              <WrapperItem>
+                <MainWrapper>
+                  {item.thumbnail ? <Thumbnail src={item.thumbnail} /> : null}
+                  <TextWrapper>
+                    <Title to={"/Post?" + item.id}>{item.title}</Title>
+                    <Content to={"/Post?" + item.id}>
+                      {item.content.replace(/(<([^>]+)>)/gi, "")}
+                    </Content>
+                  </TextWrapper>
+                </MainWrapper>
+                <InfoWrapper>
+                  <InfoInWrapper>
+                    {this.props.selected === "👑 오늘 이 글 잘나가네" ? (
+                      <CategoryBox
+                        to={
+                          "/Board?" +
+                          CategoryListTypeA.find(
+                            (x) => x.name === item.category
+                          ).emoji +
+                          CategoryListTypeA.find(
+                            (x) => x.name === item.category
+                          ).name
+                        }
+                      >
+                        {item.category}
+                      </CategoryBox>
+                    ) : null}
+                    <InfoGrey1>{item.timeFromToday}</InfoGrey1>
+                    <InfoBlack>{item.ip}</InfoBlack>
+                    <InfoBlack>{item.author}</InfoBlack>
+                  </InfoInWrapper>
+                  <InfoInWrapper>
+                    <CommentsIcon />
+                    <InfoGrey2>
+                      {item.commentCount.toLocaleString(undefined, {
+                        maximumFractionDigits: 0,
+                      })}
+                    </InfoGrey2>
+                    <LikesIcon />
+                    <InfoGrey2>
+                      {item.likeAll.toLocaleString(undefined, {
+                        maximumFractionDigits: 0,
+                      })}
+                    </InfoGrey2>
+                    <ViewsIcon />
+                    <InfoGrey2>
+                      {item.viewAll.toLocaleString(undefined, {
+                        maximumFractionDigits: 0,
+                      })}
+                    </InfoGrey2>
+                  </InfoInWrapper>
+                </InfoWrapper>
+                {myData.length - 1 !== idx ? <Divider /> : null}
+              </WrapperItem>
+            </li>
+          ))}
+          {this.props.loading && <Loader />}
+        </Wrapper>
+      </PullToRefresh>
     ) : (
       <NoDataWrapper>
         아직쓰여진 글이 없어요!! 여러분들의 글로 채워주세요!!

@@ -5,6 +5,7 @@ import { Link } from "react-router-dom";
 import { CategoryListTypeA } from "./Util";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
+import Loader from "./Loader";
 
 const TopStyledLink = styled(Link)`
   text-decoration: none;
@@ -102,8 +103,8 @@ export default () => {
 
   return (
     <div>
-      {loading ? (
-        <div>Loading...</div>
+      {loading || data === undefined ? (
+        <Loader />
       ) : (
         data.homeTop.map((item, idx) => (
           <TopTextBox key={idx}>

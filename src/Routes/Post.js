@@ -10,6 +10,7 @@ import CommentReply from "../Components/CommentReply";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 import { installedPlugins } from "../Components/CKEditorPlugin";
+import Loader from "../Components/Loader";
 
 const Background = styled.div`
   background-color: white;
@@ -98,31 +99,32 @@ function Comment({ data, loading }) {
   );
 }
 
-const Post = ({ history }) => {
-  console.log(history.location.search);
-  const POSTONE_QUERY = gql`
-    query postOne($id: String!) {
-      postOne(id: $id) {
+const POSTONE_QUERY = gql`
+  query postOne($id: String!) {
+    postOne(id: $id) {
+      id
+      password
+      timeFromToday
+      author
+      title
+      content
+      commentCount
+      likeAll
+      viewAll
+      comments {
         id
-        password
+        group
         timeFromToday
         author
-        title
         content
-        commentCount
-        likeAll
-        viewAll
-        comments {
-          id
-          group
-          timeFromToday
-          author
-          content
-          password
-        }
+        password
       }
     }
-  `;
+  }
+`;
+
+const Post = ({ history }) => {
+  console.log(history.location.search);
   const { data, loading, refetch } = useQuery(POSTONE_QUERY, {
     variables: {
       id: history.location.search.replace("?", ""),
@@ -145,10 +147,12 @@ const Post = ({ history }) => {
     refetch();
   };
   console.log(loading ? data : "loading");
+  console.log(data);
+  console.log(loading);
   return (
     <Background>
-      {loading ? (
-        <div>Loading...</div>
+      {loading || data === undefined || data.postOne === null ? (
+        <Loader />
       ) : (
         <div>
           <PostSection>
@@ -171,7 +175,7 @@ const Post = ({ history }) => {
               />
               <LikeViewWrapper>
                 <LikeButtonWrapper>
-                  <Button onClick={clickConfirm}>
+                  <Button onClick={() => clickConfirm}>
                     <LikeButton></LikeButton>
                   </Button>
                 </LikeButtonWrapper>
@@ -198,7 +202,7 @@ const Post = ({ history }) => {
               </LikeViewWrapper>
             </PostWrapper>
           </PostSection>
-          <Comment data={data} loading={loading} refetch={refetch}></Comment>
+          <Comment data={data} loading={loading} />
         </div>
       )}
     </Background>

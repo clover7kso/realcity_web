@@ -55,7 +55,7 @@ export default () => {
         <Zzal src={item.thumbnail}></Zzal>
         <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
-          <View></View>{" "}
+          <View />
           {item.viewAll.toLocaleString(undefined, {
             maximumFractionDigits: 0,
           })}

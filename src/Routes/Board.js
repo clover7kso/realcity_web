@@ -24,6 +24,8 @@ const BOARD_QUERY = gql`
     postMany(cursor: $cursor, category: $category) {
       cursor
       posts {
+        ip
+        category
         id
         title
         content
@@ -95,6 +97,7 @@ const Board = ({ history }) => {
           <p>{error.message}</p>
         ) : (
           <InfiniteScroll
+            selected={selected}
             loading={loading}
             data={data}
             onLoadMore={() => {

@@ -22,7 +22,7 @@ const SearchWrapper = styled.div`
   border-color: black;
   border-radius: 50px;
   border-style: solid;
-  border-width: 2px 2px 2px 2px;
+  border-width: 2px;
 `;
 
 const SearchInput = styled(Input)`
@@ -35,8 +35,7 @@ const SearchInput = styled(Input)`
   border-radius: 50px;
   width: 90%;
   &::placeholder {
-    color:black;
-    font-weight: 550;
+    color:grey;
   }
 `;
 

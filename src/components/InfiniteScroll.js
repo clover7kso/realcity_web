@@ -3,6 +3,7 @@ import Loader from "./Loader";
 import styled from "styled-components";
 import { CommentsIcon, LikesIcon, ViewsIcon } from "./Icons";
 import { Link } from "react-router-dom";
+import { CategoryListTypeA } from "../Components/Util";
 
 const Wrapper = styled.div`
   margin-top: 10px;
@@ -82,7 +83,7 @@ const InfoGrey2 = styled.span`
 
 const Divider = styled.div`
   margin-top:10px;
-  background: #8c8c8c;
+  background: #cecece;
   width:100%
   height:1px
   border-radius:10px
@@ -106,6 +107,14 @@ const Thumbnail = styled.img`
   border-radius:10px
   margin-bottom:15px
   margin-right:15px
+`;
+
+const CategoryBox = styled.div`
+  width: fit-content;
+  font-size: 13px;
+  color: black;
+  text-align: center;
+  margin-right: 15px;
 `;
 
 class InfiniteScroll extends Component {
@@ -156,7 +165,21 @@ class InfiniteScroll extends Component {
               </MainWrapper>
               <InfoWrapper>
                 <InfoInWrapper>
+                  {this.props.selected === "👑 오늘 이 글 잘나가네" ? (
+                    <CategoryBox
+                      to={
+                        "/Board?" +
+                        CategoryListTypeA.find((x) => x.name === item.category)
+                          .emoji +
+                        CategoryListTypeA.find((x) => x.name === item.category)
+                          .name
+                      }
+                    >
+                      {item.category}
+                    </CategoryBox>
+                  ) : null}
                   <InfoGrey1>{item.timeFromToday}</InfoGrey1>
+                  <InfoBlack>{item.ip}</InfoBlack>
                   <InfoBlack>{item.author}</InfoBlack>
                 </InfoInWrapper>
                 <InfoInWrapper>

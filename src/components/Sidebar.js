@@ -8,7 +8,6 @@ import { gql } from "@apollo/client";
 const ZzalBox = styled(Link)`
   display: flex;
   flex-direction: column;
-  min-height: 20%;
 `;
 
 const Zzal = styled.img`
@@ -23,7 +22,7 @@ const ZzalTitle = styled.span`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  padding: 0 0 5% 0;
+  padding: 0 0 3px 0;
 `;
 
 const ZzalView = styled.span`

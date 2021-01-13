@@ -172,7 +172,7 @@ export const SearchIcon = () => (
       cy="9.24627"
       r="8.24627"
       stroke="black"
-      stroke-width="2"
+      strokeWidth="2"
     />
     <line
       x1="15.7519"
@@ -180,7 +180,7 @@ export const SearchIcon = () => (
       x2="21.7071"
       y2="21.5466"
       stroke="black"
-      stroke-width="2"
+      strokeWidth="2"
     />
   </svg>
 );

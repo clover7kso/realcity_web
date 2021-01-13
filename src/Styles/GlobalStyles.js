@@ -35,6 +35,20 @@ export default createGlobalStyle`
 		/* https://github.com/ckeditor/ckeditor5-editor-classic/issues/62 */
 		z-index: var(--ck-z-modal);
 		border: 0px solid transparent;
-	}
-    
+    }
+    .fade-enter {
+        opacity: 0;
+    }
+    .fade-enter-active {
+        opacity: 1;
+        transition: opacity 300ms ease-in;
+    }
+    .fade-exit {
+        opacity: 1;
+    }
+    .fade-exit-active {
+        opacity: 0;
+        transition: opacity 300ms ease-in;
+    }
+      
 `;

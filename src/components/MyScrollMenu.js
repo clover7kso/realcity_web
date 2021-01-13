@@ -2,6 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import ScrollMenu from "react-horizontal-scrolling-menu";
 import { Link } from "react-router-dom";
+import { LeftArrowIcon, RightArrowIcon } from "./Icons";
 
 const SelectedMenu = styled.div`
   color:black;
@@ -11,9 +12,8 @@ const SelectedMenu = styled.div`
   padding-right: 7px;
   padding-bottom:7px
   background:white
-  border-bottom: 4px solid black;
-  cursor: pointer;  
-  outline: 0;
+  border-bottom: 2px solid black;
+  cursor: pointer;
 `;
 const UnselectedMenu = styled(Link)`
   color:grey;
@@ -22,10 +22,32 @@ const UnselectedMenu = styled(Link)`
   padding-right:7px
   padding-bottom:7px
   background:white
-  border-bottom: 4px solid grey;
-  cursor: pointer;  
-  outline: 0;
+  border-bottom: 2px solid grey;
+  cursor: pointer;
+  user-drag: none; 
 `;
+const ArrowBtn = styled.button`
+  background: white;
+  border: 0px;
+  cursor: pointer;
+`;
+
+const Arrow = ({ text, className }) => {
+  return (
+    <ArrowBtn
+      style={{
+        margin: text === "left" ? "0px 0px 0px 0px" : "0px 0px 0px 5px",
+      }}
+      className={className}
+    >
+      {text === "left" ? <LeftArrowIcon /> : <RightArrowIcon />}
+    </ArrowBtn>
+  );
+};
+
+const ArrowLeft = Arrow({ text: "left", className: "arrow-prev" });
+const ArrowRight = Arrow({ text: "right", className: "arrow-next" });
+
 // One item component
 // selected prop will be passed
 const MenuItem = ({ text, selected }) => {
@@ -53,6 +75,8 @@ export const MyScrollMenu = ({ data, selected, onSelect }) => {
       selected={selected}
       onSelect={onSelect}
       scrollToSelected={true}
+      arrowLeft={ArrowLeft}
+      arrowRight={ArrowRight}
     />
   );
 };

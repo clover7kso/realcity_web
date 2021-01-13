@@ -47,7 +47,7 @@ const Wrapper = styled.div`
 `;
 
 const BoardWrapper = styled.div`
-  margin-right:30px
+  margin-right:20px
   width:80%
   flex-direction: column;
   font-family: Roboto;

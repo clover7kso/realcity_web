@@ -5,11 +5,17 @@ import { CommentsIcon, LikesIcon, ViewsIcon } from "./Icons";
 import { Link } from "react-router-dom";
 import { CategoryListTypeA } from "../Components/Util";
 
-const Wrapper = styled.div`
+const Wrapper = styled.ul`
+  margin-top: 20px;
+`;
+
+const WrapperItem = styled.div`
   margin-top: 10px;
   display: flex;
   flex-direction: column;
   font-family: Roboto;
+  padding-left: 22px;
+  padding-right: 22px;
 `;
 
 const Title = styled(Link)`
@@ -150,10 +156,10 @@ class InfiniteScroll extends Component {
         : [];
 
     return myData.length !== 0 ? (
-      <ul>
+      <Wrapper>
         {myData.map((item, idx) => (
           <li key={idx}>
-            <Wrapper>
+            <WrapperItem>
               <MainWrapper>
                 {item.thumbnail ? <Thumbnail src={item.thumbnail} /> : null}
                 <TextWrapper>
@@ -204,11 +210,11 @@ class InfiniteScroll extends Component {
                 </InfoInWrapper>
               </InfoWrapper>
               {myData.length - 1 !== idx ? <Divider /> : null}
-            </Wrapper>
+            </WrapperItem>
           </li>
         ))}
         {this.props.loading && <Loader />}
-      </ul>
+      </Wrapper>
     ) : (
       <NoDataWrapper>
         아직쓰여진 글이 없어요!! 여러분들의 글로 채워주세요!!

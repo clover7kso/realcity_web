@@ -16,7 +16,6 @@ const Wrapper = styled.div`
 
 const SearchWrapper = styled.div`
   width: 100%;
-  height: 10%;
   display: flex;
   align-items: left;
   border-color: black;
@@ -28,21 +27,20 @@ const SearchWrapper = styled.div`
 const SearchInput = styled(Input)`
   border-color: white;
   padding: 15px;
-  font-size: 30px;
-  height: 70px;
+  font-size: 24px;
+  height: 50px;
   text-align: left;
-  padding-left:10px
   border-radius: 50px;
   width: 90%;
   &::placeholder {
-    color:grey;
+    color: grey;
   }
 `;
 
 const SearchButton = styled.button`
   background-color: transparent;
   border-color: transparent;
-  margin: auto auto auto 2%;
+  margin-left:20px
   cursor: pointer;
   outline: 0;
 `;
@@ -56,7 +54,7 @@ const PostWrapper = styled.div`
   width: 80%;
   height: 100%;
   min-height: 100%;
-  padding: 5% 2% 0% 0%;
+  padding: 30px 0% 0% 0%;
 `;
 
 const ZzalWrapper = styled.div`

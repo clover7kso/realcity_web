@@ -161,26 +161,26 @@ export const BtnWrite = ({ size = 12 }) => (
 
 export const SearchIcon = () => (
   <svg
-    width="37"
-    height="37"
-    viewBox="0 0 37 37"
+    width="23"
+    height="23"
+    viewBox="0 0 23 23"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
   >
     <circle
-      cx="15.1996"
-      cy="15.1996"
-      r="13.6996"
+      cx="9.24627"
+      cy="9.24627"
+      r="8.24627"
       stroke="black"
-      strokeWidth="3"
+      stroke-width="2"
     />
     <line
-      x1="25.7922"
-      y1="25.7319"
-      x2="35.5818"
-      y2="35.5214"
+      x1="15.7519"
+      y1="15.5914"
+      x2="21.7071"
+      y2="21.5466"
       stroke="black"
-      strokeWidth="3"
+      stroke-width="2"
     />
   </svg>
 );
@@ -316,3 +316,36 @@ export const LikeButton = () => (
     />
   </svg>
 );
+
+export const LeftArrowIcon = () => {
+  return (
+    <svg
+      width="11"
+      height="18"
+      viewBox="0 0 11 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1.13389 10.3093C0.483038 9.55776 0.483037 8.44224 1.13389 7.69069L6.98814 0.930792C8.20041 -0.469015 10.5 0.388326 10.5 2.2401L10.5 15.7599C10.5 17.6117 8.20041 18.469 6.98814 17.0692L1.13389 10.3093Z"
+        fill="black"
+      />
+    </svg>
+  );
+};
+export const RightArrowIcon = () => {
+  return (
+    <svg
+      width="11"
+      height="18"
+      viewBox="0 0 11 18"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M9.86611 7.69069C10.517 8.44224 10.517 9.55776 9.86611 10.3093L4.01186 17.0692C2.79959 18.469 0.5 17.6117 0.5 15.7599L0.500001 2.24009C0.500001 0.388324 2.79959 -0.469018 4.01186 0.930789L9.86611 7.69069Z"
+        fill="black"
+      />
+    </svg>
+  );
+};

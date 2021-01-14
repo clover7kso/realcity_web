@@ -8,12 +8,16 @@ import Theme from "../Styles/Theme";
 import Routes from "./Routes";
 import Footer from "./Footer";
 import Header from "./Header";
+import { isPC } from "./MediaQuery";
 
 //const QUERY = gql`{isLoggedIn @client}`;
 
 const Wrapper = styled.div`
   margin: 0 auto;
   max-width: ${(props) => props.theme.maxWidth};
+  padding-left: ${(props) => (props.paddingLeft ? props.paddingLeft : "auto")};
+  padding-right: ${(props) =>
+    props.paddingRight ? props.paddingRight : "auto"};
   width: 100%;
 `;
 
@@ -31,7 +35,10 @@ export default () => {
         <Router>
           <>
             {isLoggedIn && <Header />}
-            <Wrapper>
+            <Wrapper
+              paddingLeft={isPC() ? null : "3%"}
+              paddingRight={isPC() ? null : "3%"}
+            >
               <Routes isLoggedIn={isLoggedIn} />
               <Footer />
             </Wrapper>

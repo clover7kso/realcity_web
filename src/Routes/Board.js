@@ -7,17 +7,7 @@ import { gql } from "@apollo/client";
 import { withRouter } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 import { CategoryListTypeB, removeEmojis } from "../Components/Util";
-const Title = styled.span`
-  font-size: 24px;
-  font-weight: bold;
-`;
-
-const ZzalWrapper = styled.div`
-  width:20%
-  display: flex;
-  flex-direction: column;
-  font-family: Roboto;
-`;
+import { PC, isPC } from "../Components/MediaQuery";
 
 const BOARD_QUERY = gql`
   query postMany($cursor: String, $category: String) {
@@ -40,6 +30,18 @@ const BOARD_QUERY = gql`
   }
 `;
 
+const Title = styled.span`
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+const ZzalWrapper = styled.div`
+  width:190px
+  display: flex;
+  flex-direction: column;
+  font-family: Roboto;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   flex-direction: row;
@@ -48,9 +50,8 @@ const Wrapper = styled.div`
 
 const BoardWrapper = styled.div`
   margin-right:20px
-  width:80%
   flex-direction: column;
-  font-family: Roboto;
+  width : ${(props) => (props.width ? props.width : "80%")}
 `;
 
 var selectedFirst = "👑 오늘 이 글 잘나가네";
@@ -91,7 +92,7 @@ const Board = ({ history }) => {
 
   return (
     <Wrapper>
-      <BoardWrapper>
+      <BoardWrapper width={isPC() ? "80%" : "100%"}>
         <MyScrollMenu
           data={menuItems}
           selected={selected}
@@ -131,10 +132,12 @@ const Board = ({ history }) => {
           />
         )}
       </BoardWrapper>
-      <ZzalWrapper>
-        <Title>오늘 짤방 TOP</Title>
-        <Sidebar />
-      </ZzalWrapper>
+      <PC>
+        <ZzalWrapper>
+          <Title>오늘 짤방 TOP</Title>
+          <Sidebar />
+        </ZzalWrapper>
+      </PC>
     </Wrapper>
   );
 };

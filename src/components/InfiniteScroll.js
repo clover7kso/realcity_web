@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { CategoryListTypeA } from "../Components/Util";
 import PullToRefresh from "react-simple-pull-to-refresh";
 import { RefreshIcon } from "../Components/Icons";
+import { PC } from "../Components/MediaQuery";
 
 const Wrapper = styled.ul`
   margin-top: 15px;
@@ -16,8 +17,6 @@ const WrapperItem = styled.div`
   display: flex;
   flex-direction: column;
   font-family: Roboto;
-  padding-left: 22px;
-  padding-right: 22px;
 `;
 
 const Title = styled(Link)`
@@ -94,13 +93,11 @@ const InfoGrey2 = styled.span`
 const Divider = styled.div`
   margin-top:10px;
   background: #cecece;
-  width:100%
   height:1px
   border-radius:10px
 `;
 
 const NoDataWrapper = styled.div`
-  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
@@ -129,7 +126,6 @@ const CategoryBox = styled.div`
 
 const ClickToRefreshWrapper = styled.div`
   user-drag: none;
-  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -219,7 +215,9 @@ class InfiniteScroll extends Component {
                       </CategoryBox>
                     ) : null}
                     <InfoGrey1>{item.timeFromToday}</InfoGrey1>
-                    <InfoBlack>{item.ip}</InfoBlack>
+                    <PC>
+                      <InfoBlack>{item.ip}</InfoBlack>
+                    </PC>
                     <InfoBlack>{item.author}</InfoBlack>
                   </InfoInWrapper>
                   <InfoInWrapper>

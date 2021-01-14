@@ -2,75 +2,75 @@ import React from "react";
 import styled from "styled-components";
 import { Ddabong, View } from "./../Components/Icons";
 import { Link } from "react-router-dom";
-import { CategoryListTypeA } from "./Util";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import Loader from "./Loader";
-
-const TopStyledLink = styled(Link)`
-  text-decoration: none;
-  color: black;
-  font-size: 18px;
-  width: 75%;
-  height: 18px;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-family: Roboto;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-    width: 75%;
-    height: 18px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-family: Roboto;
-  }
-`;
-
-const TopTextBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  height: 18px;
-  margin: 2% auto 2% auto;
-`;
+import { CategoryListTypeA } from "./Util";
+import { PC } from "./MediaQuery";
+import { isPC } from "./MediaQuery";
 
 const CategoryBox = styled(Link)`
   text-decoration: none;
   font-size: 13px;
   color: #818181;
   border: 1px solid #cecece;
-  margin: 0 3% 0 0;
-  padding: 1%;
-  height: 25px;
-  width: 10%;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    font-size: 13px;
-    color: #818181;
-    border: 1px solid #cecece;
-    margin: 0 3% 0 0;
-    padding: 1%;
-    height: 25px;
-    width: auto;
-  }
+  padding: 3px;
+  margin-right: 10px;
 `;
 
-const CategoryTitleWrapper = styled.div`
+const TitleBar = styled.div`
   display: flex;
-  width: 80%;
-  height: 100%;
+  justify-content: space-between;
+  border-bottom: 1px solid #cecece;
+  align-items:baseline
+  padding: 10px 0 10px 10px;
+  margin: 0 0 10px 0;
+`;
+
+const Title = styled.span`
+  font-size: 24px;
+  font-weight: bold;
+`;
+
+const NormalMoreView = styled(Link)`
+  color: grey;
+  font-size: 15px;
+  text-align: right;
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  outline: 0;
+`;
+
+const NormalPost = styled.div`
+  width: 100%
+  height: 15%;
+  min-height: 15%;
+  padding-right: ${(props) => (props.paddingRight ? props.paddingRight : "3%")};
+`;
+
+const NormalPostWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  height: 18px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  flex-grow: 1;
+`;
+
+const NormalTextBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 18px;
+  margin: 15px 0 15px 0;
 `;
 
 const LikeView = styled.span`
@@ -100,46 +100,56 @@ export default () => {
   const { data, loading } = useQuery(HOMETOP_QUERY, {
     notifyOnNetworkStatusChange: true,
   });
+  const pcCheck = isPC();
 
   return (
-    <div>
+    <NormalPostWrapper>
       {loading || data === undefined ? (
         <Loader />
       ) : (
-        data.homeTop.map((item, idx) => (
-          <TopTextBox key={idx}>
-            <CategoryTitleWrapper>
-              <CategoryBox
-                to={
-                  "/Board?" +
-                  CategoryListTypeA.find((x) => x.name === item.category)
-                    .emoji +
-                  CategoryListTypeA.find((x) => x.name === item.category).name
-                }
-              >
-                {item.category}
-              </CategoryBox>
-              <TopStyledLink to={"/Post?" + item.id}>
-                {item.title}
-              </TopStyledLink>
-            </CategoryTitleWrapper>
-            <InfoWrapper>
-              <Ddabong />
-              <LikeView>
-                {item.likeAll.toLocaleString(undefined, {
-                  maximumFractionDigits: 0,
-                })}
-              </LikeView>
-              <View />
-              <LikeView>
-                {item.viewAll.toLocaleString(undefined, {
-                  maximumFractionDigits: 0,
-                })}
-              </LikeView>
-            </InfoWrapper>
-          </TopTextBox>
-        ))
+        <NormalPost paddingRight={pcCheck ? "3%" : "0%"}>
+          <TitleBar>
+            <Title>{"👑 오늘 이 글 잘나가네"}</Title>
+            <NormalMoreView to={"/Board?👑 오늘 이 글 잘나가네"}>
+              더보기 &gt;
+            </NormalMoreView>
+          </TitleBar>
+          {data.homeTop.map((item, idx) => {
+            return (
+              <NormalTextBox key={idx}>
+                <PC>
+                  <CategoryBox
+                    to={
+                      "/Board?" +
+                      CategoryListTypeA.find((x) => x.name === item.category)
+                        .emoji +
+                      CategoryListTypeA.find((x) => x.name === item.category)
+                        .name
+                    }
+                  >
+                    {item.category}
+                  </CategoryBox>
+                </PC>
+                <StyledLink to={"/Post?" + item.id}>{item.title}</StyledLink>
+                <InfoWrapper>
+                  <Ddabong />
+                  <LikeView>
+                    {item.likeAll.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
+                  </LikeView>
+                  <View />
+                  <LikeView>
+                    {item.viewAll.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
+                  </LikeView>
+                </InfoWrapper>
+              </NormalTextBox>
+            );
+          })}
+        </NormalPost>
       )}
-    </div>
+    </NormalPostWrapper>
   );
 };

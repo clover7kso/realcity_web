@@ -7,6 +7,7 @@ import { Ddabong } from "./../Components/Icons";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import Loader from "./Loader";
+import { isPC } from "./MediaQuery";
 
 const TitleBar = styled.div`
   display: flex;
@@ -33,11 +34,10 @@ const NormalMoreView = styled(Link)`
 `;
 
 const NormalPost = styled.div`
-  width: 50%;
+  width: ${(props) => (props.width ? props.width : "50%")};
   height: 15%;
   min-height: 15%;
-  padding-right: 3%;
-  flex: 1 1 40%;
+  padding-right: ${(props) => (props.paddingRight ? props.paddingRight : "3%")};
 `;
 
 const NormalPostWrapper = styled.div`
@@ -75,7 +75,7 @@ const NormalTextBox = styled.div`
   justify-content: space-between;
   width: 100%;
   height: 18px;
-  margin: 4% 0 4% 0;
+  margin: 15px 0 15px 0;
 `;
 
 const LikeView = styled.span`
@@ -106,13 +106,18 @@ export default () => {
     notifyOnNetworkStatusChange: true,
   });
 
+  const pcCheck = isPC();
   return (
     <NormalPostWrapper>
       {loading || data === undefined ? (
         <Loader />
       ) : (
         CategoryListTypeA.map((item, idx) => (
-          <NormalPost key={idx}>
+          <NormalPost
+            width={pcCheck ? "50%" : "100%"}
+            paddingRight={pcCheck ? "3%" : "0%"}
+            key={idx}
+          >
             <TitleBar>
               <Title>
                 {item.emoji}

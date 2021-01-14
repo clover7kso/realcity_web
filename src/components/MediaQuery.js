@@ -31,8 +31,5 @@ export const PCWide = ({ children }) => {
 
 export const isMobile = () => useMediaQuery({ query: "(max-width:767px)" });
 export const isTablet = () => useMediaQuery({ query: "(min-width:768x)" });
-export const isPC = () => {
-  console.log(useMediaQuery({ query: "(min-width:1024px)" }));
-  return useMediaQuery({ query: "(min-width:1024px)" });
-};
+export const isPC = () => useMediaQuery({ query: "(min-width:1024px)" });
 export const isPCWide = () => useMediaQuery({ query: "(min-width:1280px)" });

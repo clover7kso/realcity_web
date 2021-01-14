@@ -6,7 +6,7 @@ import { isPC } from "./MediaQuery";
 import Headroom from "react-headroom";
 
 const Button = styled.button`
-  width: 130px;
+  width: 110px;
   height: ${(props) => (props.height ? props.height : "50px")};
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius};
@@ -14,7 +14,8 @@ const Button = styled.button`
   font-weight: 400;
   background-color: red
   text-align: center;
-  padding: 5px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   font-size: 20px;
   cursor: pointer;
 `;
@@ -54,20 +55,21 @@ const HeaderLink = styled(Link)`
 `;
 
 export default withRouter(({ history, location }) => {
+  var pcCheck = isPC();
   return (
     <Headroom>
       <HeaderWrapper>
         <InWrapper
-          paddingLeft={isPC() ? null : "3%"}
-          paddingRight={isPC() ? null : "3%"}
+          paddingLeft={pcCheck ? null : "3%"}
+          paddingRight={pcCheck ? null : "3%"}
         >
           <HeaderColumn>
-            <Link to="/">{isPC() ? <Logo /> : <SmallLogo />}</Link>
+            <Link to="/">{pcCheck ? <Logo /> : <SmallLogo />}</Link>
           </HeaderColumn>
           <HeaderColumn>
             {location.pathname !== "/Writer" ? (
               <HeaderLink to="/Writer">
-                <Button height={isPC() ? null : "35px"}>글쓰기</Button>
+                <Button height={pcCheck ? null : "35px"}>글쓰기</Button>
               </HeaderLink>
             ) : null}
           </HeaderColumn>

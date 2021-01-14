@@ -39,7 +39,6 @@ const ZzalWrapper = styled.div`
   width:190px
   display: flex;
   flex-direction: column;
-  font-family: Roboto;
 `;
 
 const Wrapper = styled.div`
@@ -49,9 +48,10 @@ const Wrapper = styled.div`
 `;
 
 const BoardWrapper = styled.div`
-  margin-right:20px
+  overflow: hidden;
+  margin-right: ${(props) => (props.marginRight ? props.marginRight : "20px")};
   flex-direction: column;
-  width : ${(props) => (props.width ? props.width : "80%")}
+  width: ${(props) => (props.width ? props.width : "80%")};
 `;
 
 var selectedFirst = "👑 오늘 이 글 잘나가네";
@@ -89,10 +89,13 @@ const Board = ({ history }) => {
     await refetch();
     return true;
   };
-
+  var pcCheck = isPC();
   return (
     <Wrapper>
-      <BoardWrapper width={isPC() ? "80%" : "100%"}>
+      <BoardWrapper
+        width={pcCheck ? "80%" : "100%"}
+        marginRight={pcCheck ? null : "0px"}
+      >
         <MyScrollMenu
           data={menuItems}
           selected={selected}

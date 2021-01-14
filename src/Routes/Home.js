@@ -92,7 +92,7 @@ const Home = ({ history }) => {
         <PC>
           <ZzalWrapper>
             <Title>오늘 짤방 TOP</Title>
-            <Sidebar />;
+            <Sidebar />
           </ZzalWrapper>
         </PC>
       </PostZzalDivider>

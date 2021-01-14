@@ -41,9 +41,6 @@ export default () => (
       <ListItem>
         <Link href="#">개인정보 처리방침</Link>
       </ListItem>
-      <ListItem>
-        <Link href="#">개발자 Woony 이야기</Link>
-      </ListItem>
     </List>
     <Copyright>개발자 Woony {new Date().getFullYear()} &copy;</Copyright>
   </Footer>

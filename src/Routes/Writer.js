@@ -15,6 +15,7 @@ import {
   getImages,
   checkValidate,
 } from "../Components/Util";
+import { isPC } from "../Components/MediaQuery";
 
 const CKEditorWrapper = styled.div`
   border: 1px solid ${(props) => props.theme.lightGreyColor};
@@ -41,10 +42,10 @@ const InputInfo = styled(Input)`
   font-size: 20px;
   text-align: left;
   padding-left:10px;
-  margin-right:2%;
+  margin-right:${(props) => props.marginRight}
   margin-bottom:20px;
   border-radius:1px
-  width: 25%;
+  width:${(props) => (props.width ? props.width : "25%")}
   &::placeholder {
     color:${(props) => props.theme.grey}
   }
@@ -65,7 +66,7 @@ const Title = styled(Input)`
   margin-right:40px;
   margin-bottom:20px;
   border-radius:1px
-  width: 52%;
+  width : ${(props) => (props.width ? props.width : "52%")}
   &::placeholder {
     color:${(props) => props.theme.grey}
   }
@@ -114,7 +115,7 @@ const Cancel = styled.button`
 
 //list
 const DropDownContainer = styled("div")`
-  width: 52%;
+  width: ${(props) => (props.width ? props.width : "52%")};
 `;
 
 const DropDownHeader = styled("div")`
@@ -258,9 +259,11 @@ const Writer = ({ history }) => {
 
   const ImgurUploader = ImgurUploaderInit({ clientID: "818d43b4be21dd8" });
 
+  var pcCheck = isPC();
+
   return (
     <Wrapper>
-      <DropDownContainer>
+      <DropDownContainer width={pcCheck ? null : "100%"}>
         <DropDownHeader onClick={toggling}>
           {selectedOption.name || "⏬ 카테고리"}
         </DropDownHeader>
@@ -278,14 +281,27 @@ const Writer = ({ history }) => {
       </DropDownContainer>
 
       <InfoWrapper>
-        <InputInfo onChange={setNick} placeholder="닉네임" type="text" />
         <InputInfo
+          width={pcCheck ? null : "49%"}
+          onChange={setNick}
+          placeholder="닉네임"
+          type="text"
+          marginRight="2%"
+        />
+        <InputInfo
+          width={pcCheck ? null : "49%"}
           onChange={setPassword}
           placeholder="비밀번호"
           type="password"
+          marginRight="0%"
         />
       </InfoWrapper>
-      <Title onChange={setTitle} placeholder="제목" type="text" />
+      <Title
+        width={pcCheck ? null : "100%"}
+        onChange={setTitle}
+        placeholder="제목"
+        type="text"
+      />
       <CKEditorWrapper>
         <CKEditor
           editor={ClassicEditor}

@@ -109,8 +109,8 @@ export default () => {
       ) : (
         <NormalPost paddingRight={pcCheck ? "3%" : "0%"}>
           <TitleBar>
-            <Title>{"👑 오늘 이 글 잘나가네"}</Title>
-            <NormalMoreView to={"/Board?👑 오늘 이 글 잘나가네"}>
+            <Title>{"👑 오늘인기글"}</Title>
+            <NormalMoreView to={"/Board?👑 오늘인기글"}>
               더보기 &gt;
             </NormalMoreView>
           </TitleBar>

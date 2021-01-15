@@ -199,7 +199,7 @@ class InfiniteScroll extends Component {
                 </MainWrapper>
                 <InfoWrapper>
                   <InfoInWrapper>
-                    {this.props.selected === "👑 오늘 이 글 잘나가네" ? (
+                    {this.props.selected === "👑 오늘인기글" ? (
                       <CategoryBox
                         to={
                           "/Board?" +

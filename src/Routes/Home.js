@@ -79,7 +79,7 @@ const Home = ({ history }) => {
           <SearchIcon></SearchIcon>
         </SearchButton>
         <SearchInput
-          placeholder="관심있는 내용을 검색해주세요"
+          placeholder="게시물을 검색해주세요"
           type="text"
           onChange={() => {}}
         />

@@ -54,7 +54,7 @@ const BoardWrapper = styled.div`
   width: ${(props) => (props.width ? props.width : "80%")};
 `;
 
-var selectedFirst = "👑 오늘 이 글 잘나가네";
+var selectedFirst = "👑 오늘인기글";
 const menuItems = Menu(CategoryListTypeB, selectedFirst);
 
 const Board = ({ history }) => {

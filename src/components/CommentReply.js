@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import CommentThreeDot from "../Components/CommentThreeDot";
+import CommentThreeDot from "./CommentThreeDot";
 
 const CommentBox = styled.div`
   display: flex;
@@ -26,7 +26,7 @@ const CommentThreeDotWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 3% 0 3% 0;
+  padding: 1% 0 3% 0;
 `;
 
 const Linedivide = styled.div`
@@ -37,23 +37,21 @@ const Padding = styled.div`
   padding: 0 3% 0 3%;
 `;
 
+const ReplyPadding = styled.div`
+  padding: 0 0 0 3%;
+  border-radius: 14px;
+  background-color: #F8F8F8;
+`;
+
 function CommentReply(props) {
-  const comment = props.data.postOne.comments;
-  // //console.log(temp);
-  // var comment = [];
-  // for (var i = 0; i < temp.length; i++) {
-  //   if (!temp[i].group) comment.push(temp[i]);
-  // }
-  // for (var i = 0; i < comment.length; i++) {
-  //   for (var j = 0; j < temp.length; j++) {
-  //     if (comment[i].id === temp[j].group) {
-  //       var newObj = temp[j];
-  //       Object.assign(comment[i], newObj);
-  //     }
-  //   }
-  // }
-  // console.log(comment);
-  // return <div>dd</div>;
+  const temp = props.data.postOne.comments;
+  let comment = [];
+  for(var i=0; i<temp.length; i++)
+    comment.push(temp[i]);
+  comment.sort((a, b) => {
+    return a.createdAt-b.createdAt;
+  });
+  console.log(comment);
   return (
     <CommentBox>
       {comment.map((item, idx) => {
@@ -69,6 +67,25 @@ function CommentReply(props) {
                   <FirstComment>{item.content}</FirstComment>
                   <CommentThreeDot></CommentThreeDot>
                 </CommentThreeDotWrapper>
+              {comment.map((item1, idx1) => {
+                if(item.id === item1.group){
+                  return(
+                    <div>
+                      <ReplyPadding key={idx1}>
+                        <TimeAuthorWrapper>
+                          <Time>{item1.timeFromToday}</Time>&nbsp;
+                          <div>{item1.author}</div>
+                        </TimeAuthorWrapper>
+                        <CommentThreeDotWrapper>
+                          <FirstComment>{item1.content}</FirstComment>
+                          <CommentThreeDot></CommentThreeDot>
+                        </CommentThreeDotWrapper>
+                      </ReplyPadding>
+                      <br></br>
+                    </div>
+                  );
+                } else return null;
+              })}
               </Padding>
             </Linedivide>
           );

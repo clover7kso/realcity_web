@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components";
-import { CommentsIcon, Ddabong, View, LikeButton } from "./../Components/Icons";
+import { CommentsIcon, Ddabong, View, LikeButton } from "../Components/Icons";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client";
 import { withRouter } from "react-router-dom";
@@ -118,6 +118,7 @@ const POSTONE_QUERY = gql`
         author
         content
         password
+        createdAt
       }
     }
   }

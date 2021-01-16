@@ -231,7 +231,7 @@ const Post = ({ history }) => {
             </PostWrapper>
           </PostSection>
           <Comment data={data} loading={loading} />
-          <Reply/>
+          <Reply alert={alert}/>
         </div>
       )}
     </Background>

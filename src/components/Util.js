@@ -59,7 +59,7 @@ const getFullIp = async () => {
   return ip;
 };
 
-const checkValidate = (data) => {
+const checkValidate = (data, alert) => {
   var result = true;
   for (var i = 0; i < data.length; i++) {
     if (

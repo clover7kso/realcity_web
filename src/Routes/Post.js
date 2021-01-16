@@ -25,7 +25,6 @@ const PostSection = styled.div`
 `;
 
 const PostWrapper = styled.div`
-  padding: 0 3% 0 3%;
   min-width: 100%;
 `;
 
@@ -42,6 +41,7 @@ const Time = styled.div`
 const Title = styled.div`
   font-size: 24px;
   font-weight: bold;
+  margin-bottom: 20px;
 `;
 
 const Button = styled.button`
@@ -54,10 +54,10 @@ const Button = styled.button`
 const TitleThreeDotWrapper = styled.div`
   display: flex;
   justify-content: space-between;
-  padding: 0 0 0 0;
 `;
 
 const LikeViewWrapper = styled.div`
+  margin-top: 20px;
   align-items: baseline;
   display: flex;
   justify-content: space-between;

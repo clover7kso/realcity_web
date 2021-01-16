@@ -41,6 +41,7 @@ const MenuWrapper = styled.div`
 const ButtonWrapper = styled.div`
   border: 1px solid #d4d4d4;
   margin: 20% 0 0 0;
+  z-index: 10;
 `;
 
 class CommentThreeDot extends Component {

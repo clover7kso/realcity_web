@@ -14,7 +14,7 @@ const TitleBar = styled.div`
   justify-content: space-between;
   border-bottom: 1px solid #cecece;
   align-items:baseline
-  padding: 10px 0 10px 10px;
+  padding: 10px 0 10px 0px;
   margin: 0 0 10px 0;
 `;
 

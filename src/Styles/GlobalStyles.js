@@ -28,7 +28,7 @@ export default createGlobalStyle`
     .ck.ck-editor__editable:not(.ck-editor__nested-editable).ck-rounded-corners{
         border: 0px solid transparent;
         box-shadow: 0 0 0px;
-        padding:0px
+        padding:0px;
     }
     & .ck-editor__top .ck-sticky-panel .ck-toolbar {
 		/* https://github.com/ckeditor/ckeditor5-editor-classic/issues/62 */

@@ -4,6 +4,7 @@ import { ThreeDot } from "./../Components/Icons";
 
 const Wrapper = styled.div`
   position: relative;
+  z-index: 1;
 `;
 
 const Button = styled.button`
@@ -41,6 +42,8 @@ const MenuWrapper = styled.div`
 const ButtonWrapper = styled.div`
   border: 1px solid #d4d4d4;
   margin: 20% 0 0 0;
+  position: relative;
+  z-index: 10;
 `;
 
 class ThreeDotButton extends Component {

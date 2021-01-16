@@ -5,7 +5,6 @@ import CommentThreeDot from "./CommentThreeDot";
 const CommentBox = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 0 3% 0;
 `;
 
 const Time = styled.div`
@@ -15,41 +14,36 @@ const Time = styled.div`
 
 const TimeAuthorWrapper = styled.div`
   display: flex;
-  padding: 3% 0 0 0;
+  padding: 20px 0 0 0;
 `;
 
 const FirstComment = styled.div`
-  font-size: 20px;
+  font-size: 15px;
 `;
 
 const CommentThreeDotWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 1% 0 3% 0;
+  padding: 5px 10px 20px 0;
 `;
 
 const Linedivide = styled.div`
   border-bottom: 1px solid #cecece;
 `;
 
-const Padding = styled.div`
-  padding: 0 3% 0 3%;
-`;
-
 const ReplyPadding = styled.div`
-  padding: 0 0 0 3%;
+  padding: 0 0 0 20px;
   border-radius: 14px;
-  background-color: #F8F8F8;
+  background-color: #f8f8f8;
 `;
 
 function CommentReply(props) {
   const temp = props.data.postOne.comments;
   let comment = [];
-  for(var i=0; i<temp.length; i++)
-    comment.push(temp[i]);
+  for (var i = 0; i < temp.length; i++) comment.push(temp[i]);
   comment.sort((a, b) => {
-    return a.createdAt-b.createdAt;
+    return a.createdAt - b.createdAt;
   });
   console.log(comment);
   return (
@@ -58,18 +52,17 @@ function CommentReply(props) {
         if (item.group === null) {
           return (
             <Linedivide key={idx}>
-              <Padding>
-                <TimeAuthorWrapper>
-                  <Time>{item.timeFromToday}</Time>&nbsp;
-                  <div>{item.author}</div>
-                </TimeAuthorWrapper>
-                <CommentThreeDotWrapper>
-                  <FirstComment>{item.content}</FirstComment>
-                  <CommentThreeDot></CommentThreeDot>
-                </CommentThreeDotWrapper>
+              <TimeAuthorWrapper>
+                <Time>{item.timeFromToday}</Time>&nbsp;
+                <div>{item.author}</div>
+              </TimeAuthorWrapper>
+              <CommentThreeDotWrapper>
+                <FirstComment>{item.content}</FirstComment>
+                <CommentThreeDot></CommentThreeDot>
+              </CommentThreeDotWrapper>
               {comment.map((item1, idx1) => {
-                if(item.id === item1.group){
-                  return(
+                if (item.id === item1.group) {
+                  return (
                     <div>
                       <ReplyPadding key={idx1}>
                         <TimeAuthorWrapper>
@@ -86,7 +79,6 @@ function CommentReply(props) {
                   );
                 } else return null;
               })}
-              </Padding>
             </Linedivide>
           );
         } else return null;

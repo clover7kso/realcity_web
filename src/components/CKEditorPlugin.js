@@ -54,6 +54,9 @@ const installedPlugins = [
 ];
 
 const toolbarSetting = [
+  "imageUpload",
+  "mediaEmbed",
+  "|",
   "fontFamily",
   "fontSize",
   "fontColor",
@@ -66,9 +69,6 @@ const toolbarSetting = [
   "|",
   "indent",
   "outdent",
-  "|",
-  "imageUpload",
-  "mediaEmbed",
   "|",
   "link",
   "insertTable",

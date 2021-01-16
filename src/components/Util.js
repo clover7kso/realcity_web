@@ -60,6 +60,8 @@ const getFullIp = async () => {
 };
 
 const checkValidate = (data, alert) => {
+  alert.removeAll();
+
   var result = true;
   for (var i = 0; i < data.length; i++) {
     if (
@@ -69,11 +71,12 @@ const checkValidate = (data, alert) => {
     ) {
       alert.error(data[i].tagNull);
       result = false;
-    } else if (data[i].regex !== undefined) {
-      if (!data[i].regex.test(data[i].key)) {
-        alert.error(data[i].tagRegex);
-        result = false;
-      }
+    } else if (
+      data[i].regex !== undefined &&
+      !data[i].regex.test(data[i].key)
+    ) {
+      alert.error(data[i].tagRegex);
+      result = false;
     }
   }
   return result;

@@ -11,9 +11,9 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 import { installedPlugins } from "../Components/CKEditorPlugin";
 import Loader from "../Components/Loader";
-import { getFullIp } from "../Components/Util"
+import { getFullIp } from "../Components/Util";
 import { useAlert } from "react-alert";
-import Reply from "../Components/Reply"
+import Reply from "../Components/Reply";
 
 const Background = styled.div`
   background-color: white;
@@ -129,10 +129,10 @@ const POSTONE_QUERY = gql`
   }
 `;
 const POSTADDLIKE = gql`
-    mutation postAddLike($id: String!, $ip: String!) {
-      postAddLike(id: $id, ip: $ip)
-    }
-  `;
+  mutation postAddLike($id: String!, $ip: String!) {
+    postAddLike(id: $id, ip: $ip)
+  }
+`;
 const POSTADDVIEW = gql`
   mutation postAddView($id: String!, $ip: String!) {
     postAddView(id: $id, ip: $ip)
@@ -140,7 +140,7 @@ const POSTADDVIEW = gql`
 `;
 const Post = ({ history }) => {
   const alert = useAlert();
-  
+
   const [postAddView] = useMutation(POSTADDVIEW);
   const addView = async () => {
     const result = await postAddView({
@@ -150,11 +150,11 @@ const Post = ({ history }) => {
       },
     });
     console.log(result);
-  }
+  };
 
   useEffect(() => {
     addView();
-  },[])
+  }, []);
 
   const { data, loading, refetch } = useQuery(POSTONE_QUERY, {
     variables: {
@@ -162,7 +162,7 @@ const Post = ({ history }) => {
     },
     notifyOnNetworkStatusChange: true,
   });
-  
+
   const [postAddLike] = useMutation(POSTADDLIKE);
   const clickConfirm = async () => {
     const result = await postAddLike({
@@ -171,11 +171,10 @@ const Post = ({ history }) => {
         ip: await getFullIp(),
       },
     });
-    if(result.data.postAddLike) refetch();
-    else alert.error("이미 좋아요를 눌렀습니다.")
+    if (result.data.postAddLike) refetch();
+    else alert.error("이미 좋아요를 눌렀습니다.");
   };
-  
-  
+
   return (
     <Background>
       {loading || data === undefined || data.postOne === null ? (
@@ -231,7 +230,7 @@ const Post = ({ history }) => {
             </PostWrapper>
           </PostSection>
           <Comment data={data} loading={loading} />
-          <Reply alert={alert}/>
+          <Reply alert={alert} />
         </div>
       )}
     </Background>

@@ -196,8 +196,6 @@ const Writer = ({ history }) => {
   const [postUpload] = useMutation(POST_UPLOAD);
 
   const clickConfirm = async () => {
-    alert.removeAll();
-
     const ip = await getIp();
     const images = getImages(content);
 
@@ -209,18 +207,17 @@ const Writer = ({ history }) => {
       {
         key: selectedOption.name,
         tagNull: "카테고리를 정해주세요.",
-        tagRegex: "닉네임은 한글 또는 영어 또는 숫자 조합 2-20자입니다.",
       },
       {
         key: nick,
         tagNull: "닉네임을 입력해주세요.",
-        regex: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|*].{1,20}/,
+        regex: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9]{2,20}$/,
         tagRegex: "닉네임은 한글 또는 영어 또는 숫자 조합 2-20자입니다.",
       },
       {
         key: password,
         tagNull: "비밀번호를 입력해주세요.",
-        regex: /^[a-zA-Z0-9]{3,15}$/,
+        regex: /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,15}$/,
         tagRegex:
           "비밀번호는 영어대문자 또는 영어소문자 또는 숫자 조합 4-15자입니다.",
       },
@@ -232,7 +229,7 @@ const Writer = ({ history }) => {
       },
       { key: content, tagNull: "내용을 입력해주세요." },
     ];
-    const validateResult = checkValidate(uploadData);
+    const validateResult = checkValidate(uploadData, alert);
 
     if (validateResult) {
       const result = await postUpload({

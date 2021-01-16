@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
 import { CommentsIcon, Ddabong, View, LikeButton } from "../Components/Icons";
 import { gql } from "@apollo/client";
@@ -11,6 +11,9 @@ import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
 import { installedPlugins } from "../Components/CKEditorPlugin";
 import Loader from "../Components/Loader";
+import { getFullIp } from "../Components/Util"
+import { useAlert } from "react-alert";
+import Reply from "../Components/Reply"
 
 const Background = styled.div`
   background-color: white;
@@ -103,6 +106,7 @@ const POSTONE_QUERY = gql`
   query postOne($id: String!) {
     postOne(id: $id) {
       id
+      ip
       password
       timeFromToday
       author
@@ -112,6 +116,7 @@ const POSTONE_QUERY = gql`
       likeAll
       viewAll
       comments {
+        ip
         id
         group
         timeFromToday
@@ -123,33 +128,54 @@ const POSTONE_QUERY = gql`
     }
   }
 `;
-
+const POSTADDLIKE = gql`
+    mutation postAddLike($id: String!, $ip: String!) {
+      postAddLike(id: $id, ip: $ip)
+    }
+  `;
+const POSTADDVIEW = gql`
+  mutation postAddView($id: String!, $ip: String!) {
+    postAddView(id: $id, ip: $ip)
+  }
+`;
 const Post = ({ history }) => {
-  console.log(history.location.search);
+  const alert = useAlert();
+  
+  const [postAddView] = useMutation(POSTADDVIEW);
+  const addView = async () => {
+    const result = await postAddView({
+      variables: {
+        id: history.location.search.replace("?", ""),
+        ip: await getFullIp(),
+      },
+    });
+    console.log(result);
+  }
+
+  useEffect(() => {
+    addView();
+  },[])
+
   const { data, loading, refetch } = useQuery(POSTONE_QUERY, {
     variables: {
       id: history.location.search.replace("?", ""),
     },
     notifyOnNetworkStatusChange: true,
   });
-  const POSTADDLIKE = gql`
-    mutation postAddLike($id: String!) {
-      postAddLike(id: $id)
-    }
-  `;
+  
   const [postAddLike] = useMutation(POSTADDLIKE);
   const clickConfirm = async () => {
     const result = await postAddLike({
       variables: {
         id: history.location.search.replace("?", ""),
+        ip: await getFullIp(),
       },
     });
-    console.log(result);
-    refetch();
+    if(result.data.postAddLike) refetch();
+    else alert.error("이미 좋아요를 눌렀습니다.")
   };
-  console.log(loading ? data : "loading");
-  console.log(data);
-  console.log(loading);
+  
+  
   return (
     <Background>
       {loading || data === undefined || data.postOne === null ? (
@@ -160,6 +186,7 @@ const Post = ({ history }) => {
             <PostWrapper>
               <TimeAuthorWrapper>
                 <Time>{data.postOne.timeFromToday}</Time>&nbsp;
+                <div>{data.postOne.ip}</div>&nbsp;&nbsp;
                 <div>{data.postOne.author}</div>
               </TimeAuthorWrapper>
               <TitleThreeDotWrapper>
@@ -176,7 +203,7 @@ const Post = ({ history }) => {
               />
               <LikeViewWrapper>
                 <LikeButtonWrapper>
-                  <Button onClick={() => clickConfirm}>
+                  <Button onClick={() => clickConfirm()}>
                     <LikeButton></LikeButton>
                   </Button>
                 </LikeButtonWrapper>
@@ -204,6 +231,7 @@ const Post = ({ history }) => {
             </PostWrapper>
           </PostSection>
           <Comment data={data} loading={loading} />
+          <Reply/>
         </div>
       )}
     </Background>

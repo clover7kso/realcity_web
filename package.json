@@ -75,7 +75,7 @@
     "react-alert": "^7.0.2",
     "react-alert-template-basic": "^1.0.0",
     "react-app-polyfill": "^0.2.2",
-    "react-autosize-textarea": "^6.0.0",
+    "react-autosize-textarea": "^7.1.0",
     "react-dev-utils": "^8.0.0",
     "react-dom": "^16.8.4",
     "react-headroom": "^3.1.0",

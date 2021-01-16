@@ -53,6 +53,12 @@ const getIp = async () => {
   return result;
 };
 
+const getFullIp = async () => {
+  const publicIp = require("public-ip");
+  const ip = await publicIp.v4();
+  return ip;
+};
+
 const checkValidate = (data) => {
   var result = true;
   for (var i = 0; i < data.length; i++) {
@@ -80,5 +86,6 @@ export {
   removeEmojis,
   getImages,
   getIp,
+  getFullIp,
   checkValidate,
 };

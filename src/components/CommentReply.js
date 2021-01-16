@@ -54,6 +54,7 @@ function CommentReply(props) {
             <Linedivide key={idx}>
               <TimeAuthorWrapper>
                 <Time>{item.timeFromToday}</Time>&nbsp;
+                <div>{item.ip}</div>&nbsp;&nbsp;
                 <div>{item.author}</div>
               </TimeAuthorWrapper>
               <CommentThreeDotWrapper>
@@ -67,6 +68,7 @@ function CommentReply(props) {
                       <ReplyPadding key={idx1}>
                         <TimeAuthorWrapper>
                           <Time>{item1.timeFromToday}</Time>&nbsp;
+                          <div>{item.ip}</div>&nbsp;&nbsp;
                           <div>{item1.author}</div>
                         </TimeAuthorWrapper>
                         <CommentThreeDotWrapper>

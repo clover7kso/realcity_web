@@ -82,7 +82,6 @@ export default ({data, refetch, alert}) => {
     var content = "";
     const upload = async () => {
         const ip = await getIp();
-        console.log(data.postOne.id, ip, content, id, password);
         const result = await commentUpload({
         variables: {
             postId: data.postOne.id,
@@ -95,8 +94,6 @@ export default ({data, refetch, alert}) => {
         return result.data.commentUpload
     }
     const clickHandler = async () => {
-        console.log("click")
-        console.log(id, password, content);
         const uploadData = [
             {
               key: id,
@@ -118,8 +115,6 @@ export default ({data, refetch, alert}) => {
           if (validateResult){
             const isSuccess = await upload();
             if(isSuccess) refetch();
-          } else{
-            console.log("실패");
           }
     }
 

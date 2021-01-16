@@ -27,9 +27,10 @@ const TitleBar = styled.div`
   margin: 0 0 10px 0;
 `;
 
-const Title = styled.span`
+const Title = styled(Link)`
   font-size: 24px;
   font-weight: bold;
+  color:black;
 `;
 
 const NormalMoreView = styled(Link)`
@@ -109,7 +110,7 @@ export default () => {
       ) : (
         <NormalPost paddingRight={pcCheck ? "3%" : "0%"}>
           <TitleBar>
-            <Title>{"👑 오늘인기글"}</Title>
+            <Title to={"/Board?👑 오늘인기글"}>{"👑 오늘인기글"}</Title>
             <NormalMoreView to={"/Board?👑 오늘인기글"}>
               더보기 &gt;
             </NormalMoreView>

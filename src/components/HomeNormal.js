@@ -18,9 +18,10 @@ const TitleBar = styled.div`
   margin: 0 0 10px 0;
 `;
 
-const Title = styled.span`
+const Title = styled(Link)`
   font-size: 24px;
   font-weight: bold;
+  color:black;
 `;
 
 const NormalMoreView = styled(Link)`
@@ -119,7 +120,7 @@ export default () => {
             key={idx}
           >
             <TitleBar>
-              <Title>
+              <Title to={"/Board?" + item.emoji + item.name}>
                 {item.emoji}
                 {item.name}
               </Title>

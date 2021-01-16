@@ -5,7 +5,7 @@ import TextareaAutosize from 'react-autosize-textarea';
 import { isPC } from "./MediaQuery";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
-import { checkValidate } from "./Util"
+import { getFullIp, checkValidate } from "./Util"
 
 const ReplyWrapper = styled.div`
 display:flex;
@@ -63,18 +63,31 @@ height:38px;
 cursor:pointer;
 `;
 
-export default ({alert}) => {
+export default ({data, alert}) => {
     var PC = isPC();
     const COMMENTUPLOAD = gql`
-        mutation commentUpload($id: String!, $ip: String!) {
-            commentUpload(id: $id, ip: $ip)
+        mutation commentUpload($postId: String!, $group: String!, $ip: String!, $content: String!, $author: String!, $password: String!) {
+            commentUpload(
+                postId: $postId,
+                group: $group,
+                ip: $ip,
+                content: $content,
+                author: $author,
+                password: $password)
         }
     `;
     const [commentUpload] = useMutation(COMMENTUPLOAD);
     const Upload = async () => {
+        const ip = await getFullIp();
+        console.log(data.postOne.id, ip, content, id, password);
         const result = await commentUpload({
         variables: {
-            
+            postId: data.postOne.id,
+            group: data.postOne.comments.group,
+            ip: ip,
+            content: content,
+            author: id,
+            password: password,
         },
         });
         console.log(result);
@@ -89,7 +102,7 @@ export default ({alert}) => {
             {
               key: id,
               tagNull: "닉네임을 입력해주세요.",
-              regex: /^[ㄱ-ㅎ가-힣a-zA-Z0-9].{2,20}/,
+              regex: /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9].{2,20}/,
               tagRegex: "닉네임은 한글 또는 영어 또는 숫자 조합 2-20자입니다.",
             },
             {
@@ -104,7 +117,7 @@ export default ({alert}) => {
           const validateResult = checkValidate(uploadData, alert);
       
           if (validateResult){
-              console.log("성공");
+            Upload();
           } else{
               console.log("실패");
           }

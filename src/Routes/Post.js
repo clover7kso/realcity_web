@@ -5,7 +5,6 @@ import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client";
 import { withRouter } from "react-router-dom";
 import ThreeDotButton from "../Components/ThreeDotButton";
-import CommentReply from "../Components/CommentReply";
 
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
@@ -13,7 +12,8 @@ import { installedPlugins } from "../Components/CKEditorPlugin";
 import Loader from "../Components/Loader";
 import { getFullIp } from "../Components/Util";
 import { useAlert } from "react-alert";
-import Reply from "../Components/Reply";
+import ReplyForm from "../Components/ReplyForm";
+import CommentItem from "../Components/CommentItem"
 
 const Background = styled.div`
   background-color: white;
@@ -81,26 +81,15 @@ const LikeView = styled.div`
   line-height: 15px;
 `;
 
-const CommentSection = styled.div`
+const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  font-family: Roboto;
+  margin-bottom:15px;
 `;
 
-function Comment({ data, loading }) {
-  console.log(data, loading);
-  return (
-    <div>
-      {loading ? (
-        <div>Loading...</div>
-      ) : (
-        <CommentSection>
-          <CommentReply data={data}></CommentReply>
-        </CommentSection>
-      )}
-    </div>
-  );
-}
+const Linedivide = styled.div`
+  border-bottom: 1px solid #cecece;
+`;
 
 const POSTONE_QUERY = gql`
   query postOne($id: String!) {
@@ -174,7 +163,6 @@ const Post = ({ history }) => {
     if (result.data.postAddLike) refetch();
     else alert.error("이미 좋아요를 눌렀습니다.");
   };
-
   return (
     <Background>
       {loading || data === undefined || data.postOne === null ? (
@@ -229,8 +217,18 @@ const Post = ({ history }) => {
               </LikeViewWrapper>
             </PostWrapper>
           </PostSection>
-          <Comment data={data} loading={loading} />
-          <Reply data={data} refetch={refetch} alert={alert} />
+          <CommentWrapper>
+            {data.postOne.comments.map((item, idx) => {
+              if (item.group === null) {
+                return (
+                  <Linedivide key={idx}>
+                    <CommentItem data={data} refetch={refetch} alert={alert} item={item}/>
+                  </Linedivide>
+                );
+              } else return null;
+            })}
+          </CommentWrapper>
+          <ReplyForm data={data} refetch={refetch} alert={alert} />
         </div>
       )}
     </Background>

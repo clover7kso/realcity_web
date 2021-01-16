@@ -10,7 +10,6 @@ import { getIp, checkValidate } from "./Util";
 const ReplyWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 20px 0 0 0;
 `;
 
 const ReplyInfo = styled.div`
@@ -63,7 +62,7 @@ const ReplyButton = styled.button`
   cursor: pointer;
 `;
 
-export default ({ data, refetch, alert }) => {
+export default ({ data, refetch, alert, isGroup, group }) => {
   var PC = isPC();
   const COMMENTUPLOAD = gql`
     mutation commentUpload(
@@ -93,6 +92,7 @@ export default ({ data, refetch, alert }) => {
       variables: {
         postId: data.postOne.id,
         ip: ip,
+        group: isGroup ? group : undefined,
         content: content,
         author: id,
         password: password,

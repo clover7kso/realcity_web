@@ -178,7 +178,7 @@ const Post = ({ history }) => {
               </TimeAuthorWrapper>
               <TitleThreeDotWrapper>
                 <Title>{data.postOne.title}</Title>
-                <ThreeDotButton></ThreeDotButton>
+                <ThreeDotButton/>
               </TitleThreeDotWrapper>
               <CKEditor
                 editor={ClassicEditor}
@@ -191,7 +191,7 @@ const Post = ({ history }) => {
               <LikeViewWrapper>
                 <LikeButtonWrapper>
                   <Button onClick={() => clickConfirm()}>
-                    <LikeButton></LikeButton>
+                    <LikeButton/>
                   </Button>
                 </LikeButtonWrapper>
                 <Info>

@@ -76,7 +76,7 @@ const Home = ({ history }) => {
     <Wrapper>
       <SearchWrapper>
         <SearchButton>
-          <SearchIcon></SearchIcon>
+          <SearchIcon/>
         </SearchButton>
         <SearchInput
           placeholder="게시물을 검색해주세요"

@@ -52,7 +52,7 @@ export default () => {
   ) : (
     data.homeZzal.map((item, idx) => (
       <ZzalBox key={idx} to={"/Post?" + item.id}>
-        <Zzal src={item.thumbnail}></Zzal>
+        <Zzal src={item.thumbnail}/>
         <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
           <View />

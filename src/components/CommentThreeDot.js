@@ -73,7 +73,7 @@ class CommentThreeDot extends Component {
     return (
       <Wrapper>
         <Button onClick={this.showMenu}>
-          <ThreeDot></ThreeDot>
+          <ThreeDot/>
         </Button>
         {this.state.showMenu ? (
           <MenuWrapper

@@ -92,7 +92,7 @@ class CommentItem extends Component {
                     <CommentThreeDot/>
                   </CommentThreeDotWrapper>
                 </ReplyPadding>
-                <br></br>
+                <br/>
               </div>
             );
           } else return null;

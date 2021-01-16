@@ -141,7 +141,7 @@ export default ({ data, refetch, alert, isGroup, group }) => {
           onChange={(text) => {
             id = text;
           }}
-        ></Id>
+        />
         <Password
           width={PC ? "25%" : "50%"}
           placeholder="비밀번호"
@@ -149,7 +149,7 @@ export default ({ data, refetch, alert, isGroup, group }) => {
           onChange={(text) => {
             password = text;
           }}
-        ></Password>
+        />
       </ReplyInfo>
       <ReplyContent>
         <Content
@@ -158,7 +158,7 @@ export default ({ data, refetch, alert, isGroup, group }) => {
           onChange={(text) => {
             content = text.currentTarget.value;
           }}
-        ></Content>
+        />
         <ReplyButton onClick={() => clickHandler()}>
           <span role="img" aria-label="pen">
             ✏️

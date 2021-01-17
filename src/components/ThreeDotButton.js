@@ -75,7 +75,7 @@ class ThreeDotButton extends Component {
     return (
       <Wrapper>
         <Button onClick={this.showMenu}>
-          <ThreeDot/>
+          <ThreeDot />
         </Button>
         {this.state.showMenu ? (
           <MenuWrapper

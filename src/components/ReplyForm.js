@@ -126,7 +126,7 @@ export default ({ data, refetch, alert, isGroup, group }) => {
     const validateResult = checkValidate(uploadData, alert);
 
     if (validateResult) {
-      const isSuccess = await upload({ip});
+      const isSuccess = await upload({ ip });
       if (isSuccess) refetch();
     }
   };

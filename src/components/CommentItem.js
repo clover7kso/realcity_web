@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import CommentThreeDot from "./CommentThreeDot"
-import ReplyForm from "./ReplyForm"
+import CommentThreeDot from "./CommentThreeDot";
+import ReplyForm from "./ReplyForm";
 
 const Wrapper = styled.div`
   display: flex;
@@ -74,8 +74,10 @@ class CommentItem extends Component {
           <div>{this.props.item.author}</div>
         </TimeAuthorWrapper>
         <CommentThreeDotWrapper>
-          <FirstComment onClick={this.showMenu}>{this.props.item.content}</FirstComment>
-          <CommentThreeDot/>
+          <FirstComment onClick={this.showMenu}>
+            {this.props.item.content}
+          </FirstComment>
+          <CommentThreeDot />
         </CommentThreeDotWrapper>
         {this.props.data.postOne.comments.map((item1, idx1) => {
           if (this.props.item.id === item1.group) {
@@ -89,10 +91,10 @@ class CommentItem extends Component {
                   </TimeAuthorWrapper>
                   <CommentThreeDotWrapper>
                     <FirstComment>{item1.content}</FirstComment>
-                    <CommentThreeDot/>
+                    <CommentThreeDot />
                   </CommentThreeDotWrapper>
                 </ReplyPadding>
-                <br/>
+                <br />
               </div>
             );
           } else return null;
@@ -104,8 +106,15 @@ class CommentItem extends Component {
               this.dropdownMenu = element;
             }}
           >
-            <ReplyForm group={this.props.item.id} isGroup={true} data={this.props.data} refetch={this.props.refetch} alert={this.props.alert} />
-          </MenuWrapper>) : null}
+            <ReplyForm
+              group={this.props.item.id}
+              isGroup={true}
+              data={this.props.data}
+              refetch={this.props.refetch}
+              alert={this.props.alert}
+            />
+          </MenuWrapper>
+        ) : null}
       </Wrapper>
     );
   }

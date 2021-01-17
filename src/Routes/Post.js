@@ -13,7 +13,7 @@ import Loader from "../Components/Loader";
 import { getFullIp } from "../Components/Util";
 import { useAlert } from "react-alert";
 import ReplyForm from "../Components/ReplyForm";
-import CommentItem from "../Components/CommentItem"
+import CommentItem from "../Components/CommentItem";
 
 const Background = styled.div`
   background-color: white;
@@ -84,7 +84,7 @@ const LikeView = styled.div`
 const CommentWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom:15px;
+  margin-bottom: 15px;
 `;
 
 const Linedivide = styled.div`
@@ -178,7 +178,7 @@ const Post = ({ history }) => {
               </TimeAuthorWrapper>
               <TitleThreeDotWrapper>
                 <Title>{data.postOne.title}</Title>
-                <ThreeDotButton/>
+                <ThreeDotButton />
               </TitleThreeDotWrapper>
               <CKEditor
                 editor={ClassicEditor}
@@ -191,7 +191,7 @@ const Post = ({ history }) => {
               <LikeViewWrapper>
                 <LikeButtonWrapper>
                   <Button onClick={() => clickConfirm()}>
-                    <LikeButton/>
+                    <LikeButton />
                   </Button>
                 </LikeButtonWrapper>
                 <Info>
@@ -222,7 +222,12 @@ const Post = ({ history }) => {
               if (item.group === null) {
                 return (
                   <Linedivide key={idx}>
-                    <CommentItem data={data} refetch={refetch} alert={alert} item={item}/>
+                    <CommentItem
+                      data={data}
+                      refetch={refetch}
+                      alert={alert}
+                      item={item}
+                    />
                   </Linedivide>
                 );
               } else return null;

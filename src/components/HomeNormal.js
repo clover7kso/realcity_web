@@ -21,7 +21,7 @@ const TitleBar = styled.div`
 const Title = styled(Link)`
   font-size: 24px;
   font-weight: bold;
-  color:black;
+  color: black;
 `;
 
 const NormalMoreView = styled(Link)`

@@ -91,7 +91,7 @@ const Confirm = styled.button`
   border-radius: 2px;
   color: white;
   font-weight: 400;
-  background-color: red
+  background-color: #4A4848
   text-align: center;
   padding: 7px 0px;
   font-size: 20px;

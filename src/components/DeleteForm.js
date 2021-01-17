@@ -20,10 +20,10 @@ const Password = styled(Input)`
 `;
 
 const ReplyButton = styled.button`
-  margin-left:15px
+  margin-left:5px
   border: 0;
   border-radius: 3px;
-  background: #e00000;
+  background: #4A4848;
   outline: 0;
   width: 44px;
   height: 32px;

@@ -69,7 +69,7 @@ export default withRouter(({ history, location }) => {
           <HeaderColumn>
             {location.pathname !== "/Writer" ? (
               <HeaderLink to="/Writer">
-                <Button height={pcCheck ? null : "35px"}>글쓰기</Button>
+                <Button height={pcCheck ? null : "50px"}>글쓰기</Button>
               </HeaderLink>
             ) : null}
           </HeaderColumn>

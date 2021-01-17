@@ -55,7 +55,7 @@ const Content = styled(TextareaAutosize)`
 const ReplyButton = styled.button`
   border: 0;
   border-radius: 3px;
-  background: #e00000;
+  background: #4a4848;
   outline: 0;
   width: 38px;
   height: 38px;

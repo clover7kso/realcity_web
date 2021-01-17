@@ -145,6 +145,7 @@ class CommentItem extends Component {
                 alert={this.props.alert}
                 refetch={this.props.refetch}
                 commentShowOff={this.props.commentShowOff}
+                commentAddReport={this.props.commentAddReport}
               />
             );
           } else return null;

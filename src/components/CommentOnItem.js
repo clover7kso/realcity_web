@@ -57,7 +57,7 @@ class CommentItem extends Component {
   addReportHandler = async () => {
     const result = await this.props.commentAddReport({
       variables: {
-        id: this.props.item.id,
+        id: this.props.item1.id,
         ip: await getFullIp(),
       },
     });

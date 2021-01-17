@@ -20,6 +20,7 @@ const Password = styled(Input)`
 `;
 
 const ReplyButton = styled.button`
+  margin-left:15px
   border: 0;
   border-radius: 3px;
   background: #e00000;

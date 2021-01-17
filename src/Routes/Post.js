@@ -4,11 +4,11 @@ import { CommentsIcon, Ddabong, View, LikeButton } from "../Components/Icons";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client";
 import { withRouter } from "react-router-dom";
-import ThreeDotButton from "../Components/ThreeDotButton";
-
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
+
 import { installedPlugins } from "../Components/CKEditorPlugin";
+import ThreeDotButton from "../Components/ThreeDotButton";
 import Loader from "../Components/Loader";
 import { getFullIp } from "../Components/Util";
 import { useAlert } from "react-alert";
@@ -115,6 +115,7 @@ const POSTONE_QUERY = gql`
         content
         password
         createdAt
+        published
       }
     }
   }

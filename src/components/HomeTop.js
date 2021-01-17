@@ -16,6 +16,7 @@ const CategoryBox = styled(Link)`
   border: 1px solid #cecece;
   padding: 3px;
   margin-right: 10px;
+  white-space: nowrap;
 `;
 
 const TitleBar = styled.div`
@@ -63,7 +64,6 @@ const StyledLink = styled(Link)`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
-  flex-grow: 1;
 `;
 
 const NormalTextBox = styled.div`
@@ -80,6 +80,17 @@ const LikeView = styled.span`
   margin-right: 10px;
   color: #818181;
 `;
+
+const CommentCount = styled.span`
+  text-align: left;
+  margin-right: 10px;
+  margin-left: 5px;
+  color: #818181;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+`;
+
 const InfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -95,6 +106,7 @@ export default () => {
         title
         likeAll
         viewAll
+        commentCount
       }
     }
   `;
@@ -132,6 +144,7 @@ export default () => {
                   </CategoryBox>
                 </PC>
                 <StyledLink to={"/Post?" + item.id}>{item.title}</StyledLink>
+                <CommentCount>[{item.commentCount}]</CommentCount>
                 <InfoWrapper>
                   <Ddabong />
                   <LikeView>

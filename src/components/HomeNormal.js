@@ -85,6 +85,17 @@ const LikeView = styled.span`
   margin-right: 10px;
   color: #818181;
 `;
+
+const CommentCount = styled.span`
+  text-align: left;
+  margin-right: 10px;
+  margin-left: 5px;
+  color: #818181;
+  flex-grow: 1;
+  display: flex;
+  align-items: flex-end;
+`;
+
 const InfoWrapper = styled.div`
   display: flex;
   justify-content: space-between;
@@ -100,6 +111,7 @@ export default () => {
         title
         likeAll
         viewAll
+        commentCount
       }
     }
   `;
@@ -134,6 +146,7 @@ export default () => {
                   <StyledLink to={"/Post?" + item1.id}>
                     {item1.title}
                   </StyledLink>
+                  <CommentCount>[{item1.commentCount}]</CommentCount>
                   <InfoWrapper>
                     <Ddabong />
                     <LikeView>

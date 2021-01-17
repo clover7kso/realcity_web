@@ -132,7 +132,9 @@ class CommentItem extends Component {
         ) : null}
         <ThreeDotButtonWrapper>
           <FirstComment onClick={this.showMenu}>
-            {this.props.item.content}
+            {this.props.item.published
+              ? this.props.item.content
+              : "삭제된 댓글입니다."}
           </FirstComment>
           <ThreeDotButton data={ThreeDotButtonData} />
         </ThreeDotButtonWrapper>

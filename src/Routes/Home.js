@@ -6,7 +6,7 @@ import { withRouter } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 import HomeTop from "../Components/HomeTop";
 import HomeNormal from "../Components/HomeNormal";
-import { PC } from "../Components/MediaQuery";
+import { PC, isPC } from "../Components/MediaQuery";
 
 const Wrapper = styled.div`
   display: flex;
@@ -52,10 +52,10 @@ const PostZzalDivider = styled.div`
 `;
 
 const PostWrapper = styled.div`
-  width: 100%;
+  width: ${(props) => props.width};
   height: 100%;
   min-height: 100%;
-  padding: 30px 0% 0% 0%;
+  padding: 30px 0 0 0;
 `;
 
 const ZzalWrapper = styled.div`
@@ -72,6 +72,7 @@ const Title = styled.span`
 `;
 
 const Home = ({ history }) => {
+  const PCCheck = isPC();
   return (
     <Wrapper>
       <SearchWrapper>
@@ -85,7 +86,7 @@ const Home = ({ history }) => {
         />
       </SearchWrapper>
       <PostZzalDivider>
-        <PostWrapper>
+        <PostWrapper width={PCCheck ? "80%" : "100%"}>
           <HomeTop />
           <HomeNormal />
         </PostWrapper>

@@ -88,7 +88,7 @@ class ThreeDotButton extends Component {
                 <MenuButton
                   key={idx}
                   onClick={(e) => {
-                    item.onClick();
+                    item.onClick(e);
                     this.setState({ showMenu: false }, () => {
                       document.removeEventListener("click", this.closeMenu);
                     });

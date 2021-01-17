@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
 import { CommentsIcon, Ddabong, View, LikeButton } from "../Components/Icons";
 import { gql } from "@apollo/client";
@@ -14,6 +14,7 @@ import { getFullIp } from "../Components/Util";
 import { useAlert } from "react-alert";
 import ReplyForm from "../Components/ReplyForm";
 import CommentItem from "../Components/CommentItem";
+import DeleteForm from "../Components/DeleteForm";
 
 const Background = styled.div`
   background-color: white;
@@ -138,20 +139,35 @@ const POST_ADD_REPORT = gql`
   }
 `;
 
+const POST_SHOW_OFF = gql`
+  mutation postShowOff($id: String!, $password: String!) {
+    postShowOff(id: $id, password: $password)
+  }
+`;
+
 const Post = ({ history }) => {
   const alert = useAlert();
+  const deleteRef = useRef();
+  const [deleteShow, setDeleteShow] = useState(false);
+  const handleClickOutside = ({ target }) => {
+    if (deleteShow && !deleteRef.current.contains(target)) setDeleteShow(false);
+  };
+  useEffect(() => {
+    window.addEventListener("click", handleClickOutside);
+    return () => {
+      window.removeEventListener("click", handleClickOutside);
+    };
+  }, [deleteShow]);
 
   const [postAddView] = useMutation(POSTADDVIEW);
   const addView = async () => {
-    const result = await postAddView({
+    await postAddView({
       variables: {
         id: history.location.search.replace("?", ""),
         ip: await getFullIp(),
       },
     });
-    console.log(result);
   };
-
   useEffect(() => {
     addView();
   }, []);
@@ -189,10 +205,13 @@ const Post = ({ history }) => {
     if (result.data.postAddReport) alert.success("신고되었습니다.");
     else alert.error("이미 신고하신 글 입니다.");
   };
+
   const ThreeDotButtonData = [
     { name: "신고", onClick: () => addReportHandler() },
-    { name: "삭제", onClick: () => console.log("삭제눌림") },
+    { name: "삭제", onClick: (e) => setDeleteShow(true) },
   ];
+
+  const [postShowOff] = useMutation(POST_SHOW_OFF);
 
   return (
     <Background>
@@ -207,6 +226,16 @@ const Post = ({ history }) => {
                 <div>{data.postOne.ip}</div>&nbsp;&nbsp;
                 <div>{data.postOne.author}</div>
               </TimeAuthorWrapper>
+              {deleteShow ? (
+                <div ref={deleteRef}>
+                  <DeleteForm
+                    funcSend={postShowOff}
+                    id={data.postOne.id}
+                    funcComplete={() => history.goBack()}
+                    alert={alert}
+                  />
+                </div>
+              ) : null}
               <TitleThreeDotWrapper>
                 <Title>{data.postOne.title}</Title>
                 <ThreeDotButton data={ThreeDotButtonData} />

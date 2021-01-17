@@ -34,7 +34,7 @@ const PostWrapper = styled.div`
 
 const TimeAuthorWrapper = styled.div`
   display: flex;
-  padding: 0 0 3% 0;
+  padding: 0 0 10px 0;
 `;
 
 const Time = styled.div`
@@ -58,6 +58,7 @@ const Button = styled.button`
 const TitleThreeDotWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+  margin-top: 10px;
 `;
 
 const LikeViewWrapper = styled.div`
@@ -145,6 +146,12 @@ const POST_SHOW_OFF = gql`
   }
 `;
 
+const COMMENT_SHOW_OFF = gql`
+  mutation commentShowOff($id: String!, $password: String!) {
+    commentShowOff(id: $id, password: $password)
+  }
+`;
+
 const Post = ({ history }) => {
   const alert = useAlert();
   const deleteRef = useRef();
@@ -212,6 +219,7 @@ const Post = ({ history }) => {
   ];
 
   const [postShowOff] = useMutation(POST_SHOW_OFF);
+  const [commentShowOff] = useMutation(COMMENT_SHOW_OFF);
 
   return (
     <Background>
@@ -283,6 +291,7 @@ const Post = ({ history }) => {
                 return (
                   <Linedivide key={idx}>
                     <CommentItem
+                      commentShowOff={commentShowOff}
                       commentAddReport={commentAddReport}
                       data={data}
                       refetch={refetch}

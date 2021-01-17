@@ -7,7 +7,6 @@ import Input from "./Input";
 const ReplyWrapper = styled.div`
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
 `;
 
 const ReplyContent = styled.div`
@@ -15,7 +14,6 @@ const ReplyContent = styled.div`
 `;
 
 const Password = styled(Input)`
-  margin: 0 10px 0 0;
   width: ${(props) => props.width};
   border-radius: 4px;
   background-color: #f8f8f8;
@@ -60,7 +58,7 @@ export default ({ funcSend, id, funcComplete, alert }) => {
     if (validateResult) {
       const { postShowOff, commentShowOff } = await upload({ password });
       if (postShowOff || commentShowOff) {
-        alert.success("게시글이 삭제되었습니다.");
+        alert.success("해당 글이 삭제되었습니다.");
         funcComplete();
       } else alert.error("올바르지 않은 비밀번호입니다.");
     }

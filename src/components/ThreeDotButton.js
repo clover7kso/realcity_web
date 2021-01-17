@@ -4,7 +4,6 @@ import { ThreeDot } from "./../Components/Icons";
 
 const Wrapper = styled.div`
   position: relative;
-  z-index: 1;
 `;
 
 const Button = styled.button`
@@ -43,7 +42,7 @@ const ButtonWrapper = styled.div`
   border: 1px solid #d4d4d4;
   margin: 20% 0 0 0;
   position: relative;
-  z-index: 10;
+  z-index: 1000;
 `;
 
 class ThreeDotButton extends Component {
@@ -85,9 +84,19 @@ class ThreeDotButton extends Component {
             }}
           >
             <ButtonWrapper>
-              <MenuButton> 수정 </MenuButton>
-              <MenuButton> 신고 </MenuButton>
-              <MenuButton> 삭제 </MenuButton>
+              {this.props.data.map((item, idx) => (
+                <MenuButton
+                  key={idx}
+                  onClick={(e) => {
+                    item.onClick();
+                    this.setState({ showMenu: false }, () => {
+                      document.removeEventListener("click", this.closeMenu);
+                    });
+                  }}
+                >
+                  {item.name}
+                </MenuButton>
+              ))}
             </ButtonWrapper>
           </MenuWrapper>
         ) : null}

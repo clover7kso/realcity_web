@@ -127,6 +127,12 @@ const POSTADDVIEW = gql`
     postAddView(id: $id, ip: $ip)
   }
 `;
+const COMMENT_ADD_REPORT = gql`
+  mutation commentAddReport($id: String!, $ip: String!) {
+    commentAddReport(id: $id, ip: $ip)
+  }
+`;
+
 const Post = ({ history }) => {
   const alert = useAlert();
 
@@ -163,6 +169,13 @@ const Post = ({ history }) => {
     if (result.data.postAddLike) refetch();
     else alert.error("이미 좋아요를 눌렀습니다.");
   };
+
+  const ThreeDotButtonData = [
+    { name: "신고", onClick: () => console.log("신고눌림") },
+    { name: "삭제", onClick: () => console.log("삭제눌림") },
+  ];
+  const [commentAddReport] = useMutation(COMMENT_ADD_REPORT);
+
   return (
     <Background>
       {loading || data === undefined || data.postOne === null ? (
@@ -178,7 +191,7 @@ const Post = ({ history }) => {
               </TimeAuthorWrapper>
               <TitleThreeDotWrapper>
                 <Title>{data.postOne.title}</Title>
-                <ThreeDotButton />
+                <ThreeDotButton data={ThreeDotButtonData} />
               </TitleThreeDotWrapper>
               <CKEditor
                 editor={ClassicEditor}
@@ -223,6 +236,7 @@ const Post = ({ history }) => {
                 return (
                   <Linedivide key={idx}>
                     <CommentItem
+                      commentAddReport={commentAddReport}
                       data={data}
                       refetch={refetch}
                       alert={alert}

@@ -1,7 +1,8 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import CommentThreeDot from "./CommentThreeDot";
+import ThreeDotButton from "./ThreeDotButton";
 import ReplyForm from "./ReplyForm";
+import { getFullIp } from "./Util";
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,7 +28,7 @@ const FirstComment = styled.div`
   font-size: 15px;
 `;
 
-const CommentThreeDotWrapper = styled.div`
+const ThreeDotButtonWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
@@ -50,6 +51,18 @@ class CommentItem extends Component {
     this.closeMenu = this.closeMenu.bind(this);
   }
 
+  addReportHandler = async () => {
+    const result = await this.props.commentAddReport({
+      variables: {
+        id: this.props.item.id,
+        ip: await getFullIp(),
+      },
+    });
+    if (result.data.commentAddReport)
+      this.props.alert.success("신고되었습니다.");
+    else this.props.alert.error("이미 신고하신 글 입니다.");
+  };
+
   showMenu(event) {
     event.preventDefault();
     this.setState({ showMenu: true }, () => {
@@ -66,6 +79,21 @@ class CommentItem extends Component {
   }
 
   render() {
+    const ThreeDotButtonData = [
+      {
+        name: "답글",
+        onClick: () => {
+          this.setState({ showMenu: true }, () => {
+            document.addEventListener("click", this.closeMenu);
+          });
+        },
+      },
+      {
+        name: "신고",
+        onClick: async () => this.addReportHandler(),
+      },
+      { name: "삭제", onClick: () => console.log("삭제눌림") },
+    ];
     return (
       <Wrapper>
         <TimeAuthorWrapper>
@@ -73,12 +101,12 @@ class CommentItem extends Component {
           <div>{this.props.item.ip}</div>&nbsp;&nbsp;
           <div>{this.props.item.author}</div>
         </TimeAuthorWrapper>
-        <CommentThreeDotWrapper>
+        <ThreeDotButtonWrapper>
           <FirstComment onClick={this.showMenu}>
             {this.props.item.content}
           </FirstComment>
-          <CommentThreeDot />
-        </CommentThreeDotWrapper>
+          <ThreeDotButton data={ThreeDotButtonData} />
+        </ThreeDotButtonWrapper>
         {this.props.data.postOne.comments.map((item1, idx1) => {
           if (this.props.item.id === item1.group) {
             return (
@@ -89,10 +117,10 @@ class CommentItem extends Component {
                     <div>{item1.ip}</div>&nbsp;&nbsp;
                     <div>{item1.author}</div>
                   </TimeAuthorWrapper>
-                  <CommentThreeDotWrapper>
+                  <ThreeDotButtonWrapper>
                     <FirstComment>{item1.content}</FirstComment>
-                    <CommentThreeDot />
-                  </CommentThreeDotWrapper>
+                    <ThreeDotButton data={ThreeDotButtonData} />
+                  </ThreeDotButtonWrapper>
                 </ReplyPadding>
                 <br />
               </div>

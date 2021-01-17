@@ -132,6 +132,11 @@ const COMMENT_ADD_REPORT = gql`
     commentAddReport(id: $id, ip: $ip)
   }
 `;
+const POST_ADD_REPORT = gql`
+  mutation postAddReport($id: String!, $ip: String!) {
+    postAddReport(id: $id, ip: $ip)
+  }
+`;
 
 const Post = ({ history }) => {
   const alert = useAlert();
@@ -170,11 +175,24 @@ const Post = ({ history }) => {
     else alert.error("이미 좋아요를 눌렀습니다.");
   };
 
+  const [commentAddReport] = useMutation(COMMENT_ADD_REPORT);
+  const [postAddReport] = useMutation(POST_ADD_REPORT);
+
+  const addReportHandler = async () => {
+    if (loading || data === undefined) return;
+    const result = await postAddReport({
+      variables: {
+        id: data.postOne.id,
+        ip: await getFullIp(),
+      },
+    });
+    if (result.data.postAddReport) alert.success("신고되었습니다.");
+    else alert.error("이미 신고하신 글 입니다.");
+  };
   const ThreeDotButtonData = [
-    { name: "신고", onClick: () => console.log("신고눌림") },
+    { name: "신고", onClick: () => addReportHandler() },
     { name: "삭제", onClick: () => console.log("삭제눌림") },
   ];
-  const [commentAddReport] = useMutation(COMMENT_ADD_REPORT);
 
   return (
     <Background>

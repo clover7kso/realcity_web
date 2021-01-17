@@ -12,7 +12,7 @@ const Button = styled.button`
   border-radius: ${(props) => props.theme.borderRadius};
   color: white;
   font-weight: 400;
-  background-color: red
+  background-color: #4A4848
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;

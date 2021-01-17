@@ -15,6 +15,7 @@ import { useAlert } from "react-alert";
 import ReplyForm from "../Components/ReplyForm";
 import CommentItem from "../Components/CommentItem";
 import DeleteForm from "../Components/DeleteForm";
+import ShareButtons from "../Components/ShareButtons";
 
 const Background = styled.div`
   background-color: white;
@@ -25,7 +26,7 @@ const PostSection = styled.div`
   flex-direction: column;
   font-family: Roboto;
   border-bottom: 1px solid #cecece;
-  padding: 3% 0 1% 0;
+  padding: 0 0 1% 0;
 `;
 
 const PostWrapper = styled.div`
@@ -230,6 +231,11 @@ const Post = ({ history }) => {
         <div>
           <PostSection>
             <PostWrapper>
+              <ShareButtons
+                pathname={
+                  "http://localhost:3000/#/Post" + history.location.search
+                }
+              />
               <TimeAuthorWrapper>
                 <Time>{data.postOne.timeFromToday}</Time>&nbsp;
                 <div>{data.postOne.ip}</div>&nbsp;&nbsp;

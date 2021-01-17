@@ -21,11 +21,11 @@ const Button = styled.button`
 `;
 
 const HeaderWrapper = styled.div`
-background:white;
-  height:100px
+  background: white;
+  height: 120px;
   display: flex;
-  justify-content:center;
-  align-items:center
+  justify-content: center;
+  align-items: center;
 `;
 
 const InWrapper = styled.div`

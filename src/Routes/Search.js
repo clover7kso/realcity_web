@@ -1,17 +1,17 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Menu, MyScrollMenu } from "../Components/MyScrollMenu";
 import { useQuery } from "@apollo/client";
 import InfiniteScroll from "../Components/InfiniteScroll";
 import { gql } from "@apollo/client";
 import { withRouter } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
-import { CategoryListTypeB, removeEmojis } from "../Components/Util";
 import { PC, isPC } from "../Components/MediaQuery";
+import Input from "../Components/Input";
+import { SearchIcon } from "./../Components/Icons";
 
 const BOARD_QUERY = gql`
-  query postMany($cursor: String, $category: String) {
-    postMany(cursor: $cursor, category: $category) {
+  query postSearch($cursor: String, $search: String!) {
+    postSearch(cursor: $cursor, search: $search) {
       cursor
       posts {
         ip
@@ -54,35 +54,60 @@ const BoardWrapper = styled.div`
   width: ${(props) => (props.width ? props.width : "80%")};
 `;
 
-var selectedFirst = "👑 오늘인기글";
-const menuItems = Menu(CategoryListTypeB, selectedFirst);
+const SearchWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: left;
+  border-color: black;
+  border-radius: 50px;
+  border-style: solid;
+  border-width: 2px;
+`;
+
+const SearchInput = styled(Input)`
+  border-color: white;
+  padding: 15px;
+  font-size: 24px;
+  height: 50px;
+  text-align: left;
+  border-radius: 50px;
+  width: 90%;
+  &::placeholder {
+    color: grey;
+  }
+`;
+
+const SearchButton = styled.button`
+  background-color: transparent;
+  border-color: transparent;
+  margin-left:20px
+  cursor: pointer;
+  outline: 0;
+`;
 
 const Board = ({ history }) => {
   const historyState = decodeURI(
     decodeURIComponent(history.location.search.replace("?", ""))
   );
-
-  selectedFirst = historyState !== undefined ? historyState : selectedFirst;
-
-  const [selected, setSelected] = useState(selectedFirst);
+  var searchFirst = historyState !== undefined ? historyState : "";
+  const [search, setSearch] = useState(searchFirst);
+  var word = searchFirst;
 
   const { data, loading, error, refetch, fetchMore } = useQuery(BOARD_QUERY, {
     variables: {
-      category: removeEmojis(selected),
+      search: search,
     },
     notifyOnNetworkStatusChange: true,
   });
-  if (
-    data !== undefined &&
-    data.postMany.cursor !== "end" &&
-    historyState !== undefined &&
-    historyState.refetch
-  )
-    refetch();
 
-  const onSelect = (key) => {
-    setSelected(key);
-    refetch();
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      history.replace({
+        pathname: "Search",
+        search: "?" + word,
+      });
+      setSearch(word);
+    }
   };
 
   const handleRefresh = async () => {
@@ -96,36 +121,49 @@ const Board = ({ history }) => {
         width={pcCheck ? "80%" : "100%"}
         marginRight={pcCheck ? null : "0px"}
       >
-        <MyScrollMenu
-          data={menuItems}
-          selected={selected}
-          onSelect={onSelect}
-        />
-
+        <SearchWrapper>
+          <SearchButton
+            onClick={() => {
+              history.replace({
+                pathname: "Search",
+                search: "?" + word,
+              });
+              setSearch(word);
+            }}
+          >
+            <SearchIcon />
+          </SearchButton>
+          <SearchInput
+            onKeyPress={onKeyPress}
+            placeholder="게시물을 검색해주세요"
+            type="text"
+            onChange={(text) => (word = text)}
+          />
+        </SearchWrapper>
         {error ? (
           <p>{error.message}</p>
         ) : (
           <InfiniteScroll
             onRefresh={() => handleRefresh()}
-            selected={selected}
+            selected={"👑 오늘인기글"}
             loading={loading}
-            data={!loading ? data.postMany.posts : undefined}
+            data={!loading ? data.postSearch.posts : undefined}
             onLoadMore={() => {
-              if (!loading && data.postMany.cursor === "end") {
+              if (!loading && data.postSearch.cursor === "end") {
                 return;
               } else {
                 fetchMore({
                   variables: {
-                    category: removeEmojis(selected),
-                    cursor: data !== undefined ? data.postMany.cursor : null,
+                    search: search,
+                    cursor: data !== undefined ? data.postSearch.cursor : null,
                   },
                   updateQuery: (prevResult, { fetchMoreResult }) => {
-                    const newEdges = fetchMoreResult.postMany.posts;
+                    const newEdges = fetchMoreResult.postSearch.posts;
                     return {
-                      postMany: {
-                        __typename: prevResult.postMany.__typename,
-                        cursor: fetchMoreResult.postMany.cursor,
-                        posts: [...prevResult.postMany.posts, ...newEdges],
+                      postSearch: {
+                        __typename: prevResult.postSearch.__typename,
+                        cursor: fetchMoreResult.postSearch.cursor,
+                        posts: [...prevResult.postSearch.posts, ...newEdges],
                       },
                     };
                   },

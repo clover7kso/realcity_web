@@ -6,6 +6,7 @@ import Home from "../Routes/Home";
 import Writer from "../Routes/Writer";
 import Board from "../Routes/Board";
 import Post from "../Routes/Post";
+import Search from "../Routes/Search";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 const LoggedInRoutes = () => {
@@ -27,6 +28,7 @@ const LoggedInRoutes = () => {
           <Route path="/Writer" component={Writer} />
           <Route path="/Board" component={Board} />
           <Route path="/Post" component={Post} />
+          <Route path="/Search" component={Search} />
           <Redirect from="*" to="/" />
         </Switch>
       </CSSTransition>

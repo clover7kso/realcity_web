@@ -22,6 +22,7 @@ const Input = ({
   onChange,
   type = "text",
   className,
+  onKeyPress,
 }) => (
   <Container
     className={className}
@@ -32,6 +33,7 @@ const Input = ({
       onChange(e.currentTarget.value);
     }}
     type={type}
+    onKeyPress={onKeyPress}
   />
 );
 

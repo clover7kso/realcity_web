@@ -73,16 +73,36 @@ const Title = styled.span`
 
 const Home = ({ history }) => {
   const PCCheck = isPC();
+  var search = "";
+
+  const onKeyPress = (e) => {
+    if (e.key === "Enter") {
+      history.push({
+        pathname: "/Search",
+        search: "?" + search,
+      });
+    }
+  };
   return (
     <Wrapper>
       <SearchWrapper>
-        <SearchButton>
+        <SearchButton
+          onClick={() => {
+            history.push({
+              pathname: "/Search",
+              search: "?" + search,
+            });
+          }}
+        >
           <SearchIcon />
         </SearchButton>
         <SearchInput
           placeholder="게시물을 검색해주세요"
           type="text"
-          onChange={() => {}}
+          onChange={(text) => {
+            search = text;
+          }}
+          onKeyPress={onKeyPress}
         />
       </SearchWrapper>
       <PostZzalDivider>

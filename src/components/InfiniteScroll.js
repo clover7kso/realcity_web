@@ -170,10 +170,7 @@ class InfiniteScroll extends Component {
 
   render() {
     if (!this.props.data && this.props.loading) return <Loader />;
-    const myData =
-      this.props.data.postMany !== undefined
-        ? this.props.data.postMany.posts
-        : [];
+    const myData = this.props.data !== undefined ? this.props.data : [];
 
     return myData.length !== 0 ? (
       <PullToRefresh onRefresh={() => this.props.onRefresh()}>

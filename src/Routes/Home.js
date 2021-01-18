@@ -6,6 +6,7 @@ import { withRouter } from "react-router-dom";
 import Sidebar from "../Components/Sidebar";
 import HomeTop from "../Components/HomeTop";
 import HomeNormal from "../Components/HomeNormal";
+import HomeNotice from "../Components/HomeNotice";
 import { PC, isPC } from "../Components/MediaQuery";
 
 const Wrapper = styled.div`
@@ -107,6 +108,7 @@ const Home = ({ history }) => {
       </SearchWrapper>
       <PostZzalDivider>
         <PostWrapper width={PCCheck ? "80%" : "100%"}>
+          <HomeNotice />
           <HomeTop />
           <HomeNormal />
         </PostWrapper>

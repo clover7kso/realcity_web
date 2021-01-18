@@ -507,7 +507,8 @@ module.exports = function (webpackEnv) {
     plugins: [
       new CKEditorWebpackPlugin({
         // UI 호버 시 설명해주는 언어를 세팅합니다. 일단 영어 en로 설정합니다
-        language: "en",
+        language: "ko",
+        addMainLanguageTranslationsToAllAssets: true,
       }),
       // Generates an `index.html` file with the <script> injected.
       new HtmlWebpackPlugin(

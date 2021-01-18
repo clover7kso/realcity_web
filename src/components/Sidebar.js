@@ -12,8 +12,16 @@ const ZzalBox = styled(Link)`
 `;
 
 const Zzal = styled.img`
+  max-width: 100%;
+  height: auto;
+`;
+
+const ZzalWrapper = styled.div`
   border-radius: 20px;
   margin: 20px 0 10px 0;
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
 `;
 
 const ZzalTitle = styled.span`
@@ -52,7 +60,9 @@ export default () => {
   ) : (
     data.homeZzal.map((item, idx) => (
       <ZzalBox key={idx} to={"/Post?" + item.id}>
-        <Zzal src={item.thumbnail} />
+        <ZzalWrapper>
+          <Zzal style={{ resizeMode: "cover" }} src={item.thumbnail} />
+        </ZzalWrapper>
         <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
           <View />

@@ -78,6 +78,7 @@
     "react-autosize-textarea": "^7.1.0",
     "react-dev-utils": "^8.0.0",
     "react-dom": "^16.8.4",
+    "react-ga": "^3.3.0",
     "react-headroom": "^3.1.0",
     "react-helmet": "^5.2.0",
     "react-horizontal-scrolling-menu": "^0.7.8",

@@ -8,6 +8,9 @@ import Board from "../Routes/Board";
 import Post from "../Routes/Post";
 import Search from "../Routes/Search";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
+import ReactGA from "react-ga";
+
+ReactGA.initialize("데이터스트림태그입력");
 
 const LoggedInRoutes = () => {
   const [toggle, setToggle] = useState(false);
@@ -20,7 +23,12 @@ const LoggedInRoutes = () => {
         classNames="fade"
         in={toggle}
         timeout={300}
-        onEnter={() => setToggle(false)}
+        onEnter={() => {
+          var pathName = location.pathname;
+          ReactGA.set({ page: pathName });
+          ReactGA.pageview(pathName);
+          setToggle(false);
+        }}
         onExited={() => setToggle(true)}
       >
         <Switch location={location}>

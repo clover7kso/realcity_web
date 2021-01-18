@@ -110,8 +110,8 @@ class CommentItem extends Component {
           <ReplyPadding key={this.props.idx1}>
             <TimeAuthorWrapper>
               <Time>{this.props.item1.timeFromToday}</Time>&nbsp;
-              <div>{this.props.item1.ip}</div>&nbsp;&nbsp;
-              <div>{this.props.item1.author}</div>
+              <div>{this.props.item1.author}</div>&nbsp;&nbsp;
+              <Time>{this.props.item1.ip}</Time>
             </TimeAuthorWrapper>
             {this.state.showDelete ? (
               <MenuWrapper

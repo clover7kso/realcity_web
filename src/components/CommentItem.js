@@ -111,9 +111,9 @@ class CommentItem extends Component {
     return (
       <Wrapper>
         <TimeAuthorWrapper>
-          <Time>{this.props.item.timeFromToday}</Time>&nbsp;
-          <div>{this.props.item.ip}</div>&nbsp;&nbsp;
-          <div>{this.props.item.author}</div>
+          <Time>{this.props.item.timeFromToday}</Time>&nbsp;&nbsp;
+          <div>{this.props.item.author}</div>&nbsp;&nbsp;
+          <Time>{this.props.item.ip}</Time>
         </TimeAuthorWrapper>
         {this.state.showDelete ? (
           <MenuWrapper

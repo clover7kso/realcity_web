@@ -237,9 +237,9 @@ const Post = ({ history }) => {
                 }
               />
               <TimeAuthorWrapper>
-                <Time>{data.postOne.timeFromToday}</Time>&nbsp;
-                <div>{data.postOne.ip}</div>&nbsp;&nbsp;
-                <div>{data.postOne.author}</div>
+                <Time>{data.postOne.timeFromToday}</Time>&nbsp;&nbsp;
+                <div>{data.postOne.author}</div>&nbsp;&nbsp;
+                <Time>{data.postOne.ip}</Time>
               </TimeAuthorWrapper>
               {deleteShow ? (
                 <div ref={deleteRef}>

@@ -74,14 +74,24 @@ const InfoGrey1 = styled.span`
   align-items: center;
 `;
 
-const InfoBlack = styled.span`
-  margin-left: 20px;
+const InfoGrey2 = styled.span`
+  color: #8c8c8c;
+  margin-left: 10px;
+  margin-right: 15px;
+  padding-top: 2px;
   font-size: 13px;
   display: flex;
   align-items: center;
 `;
 
-const InfoGrey2 = styled.span`
+const InfoBlack = styled.span`
+  margin-left: 10px;
+  font-size: 13px;
+  display: flex;
+  align-items: center;
+`;
+
+const InfoGrey3 = styled.span`
   margin-left: 7px;
   margin-right: 10px;
   color: #8c8c8c;
@@ -121,7 +131,7 @@ const CategoryBox = styled.div`
   font-size: 13px;
   color: black;
   text-align: center;
-  margin-right: 15px;
+  margin-right: 7px;
 `;
 
 const ClickToRefreshWrapper = styled.div`
@@ -212,10 +222,11 @@ class InfiniteScroll extends Component {
                       </CategoryBox>
                     ) : null}
                     <InfoGrey1>{item.timeFromToday}</InfoGrey1>
-                    <PC>
-                      <InfoBlack>{item.ip}</InfoBlack>
-                    </PC>
+
                     <InfoBlack>{item.author}</InfoBlack>
+                    <PC>
+                      <InfoGrey3>{item.ip}</InfoGrey3>
+                    </PC>
                   </InfoInWrapper>
                   <InfoInWrapper>
                     <CommentsIcon />

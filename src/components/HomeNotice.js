@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import Modal from "./Modal";
+import moment from "moment";
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,6 +33,7 @@ const NoticeIndex = styled.div`
   color: black;
   margin-right: 10px;
 `;
+
 const NoticeTitle = styled.div`
   text-decoration: none;
   color: black;
@@ -65,6 +67,12 @@ const ModalTitle = styled.div`
   font-size: 24px;
   font-weight: bold;
   color: black;
+`;
+
+const ModalDate = styled.div`
+  font-size: 11px;
+  color: grey;
+  margin-bottom: 10px;
 `;
 
 export default () => {
@@ -106,6 +114,7 @@ export default () => {
       clearInterval(timer);
     };
   }, [Tick]);
+
   return (
     <Wrapper>
       {loading || data === undefined || data.homeNotice.length === 0 ? null : (
@@ -124,6 +133,11 @@ export default () => {
           maskClosable={true}
           onClose={closeModal}
         >
+          <ModalDate>
+            {moment(new Date(data.homeNotice[clickedIndex].createdAt)).format(
+              "YYYY년 MM월 DD일 hh:mm:ss"
+            )}
+          </ModalDate>
           <ModalTitle>{data.homeNotice[clickedIndex].title}</ModalTitle>
           <ModalContent>{data.homeNotice[clickedIndex].content}</ModalContent>
         </Modal>

@@ -181,7 +181,7 @@ const Post = ({ history }) => {
     addView();
   }, []);
 
-  const { data, loading, refetch } = useQuery(POSTONE_QUERY, {
+  const { data, loading } = useQuery(POSTONE_QUERY, {
     variables: {
       id: history.location.search.replace("?", ""),
     },
@@ -196,7 +196,7 @@ const Post = ({ history }) => {
         ip: await getFullIp(),
       },
     });
-    if (result.data.postAddLike) refetch();
+    if (result.data.postAddLike) window.location.reload();
     else alert.error("이미 좋아요를 눌렀습니다.");
   };
 
@@ -301,7 +301,7 @@ const Post = ({ history }) => {
                       commentShowOff={commentShowOff}
                       commentAddReport={commentAddReport}
                       data={data}
-                      refetch={refetch}
+                      refetch={() => window.location.reload()}
                       alert={alert}
                       item={item}
                     />
@@ -310,7 +310,11 @@ const Post = ({ history }) => {
               } else return null;
             })}
           </CommentWrapper>
-          <ReplyForm data={data} refetch={refetch} alert={alert} />
+          <ReplyForm
+            data={data}
+            refetch={() => window.location.reload()}
+            alert={alert}
+          />
         </div>
       )}
     </Background>

@@ -10,7 +10,7 @@ import Search from "../Routes/Search";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import ReactGA from "react-ga";
 
-ReactGA.initialize("데이터스트림태그입력");
+ReactGA.initialize("G-XYJ744DH7J");
 
 const LoggedInRoutes = () => {
   const [toggle, setToggle] = useState(false);
@@ -33,6 +33,9 @@ const LoggedInRoutes = () => {
       >
         <Switch location={location}>
           <Route exact path="/" component={Home} />
+          <Route path="/health" component={Home}>
+            <h3>Hey There!!! The App is Healthy</h3>
+          </Route>
           <Route path="/Writer" component={Writer} />
           <Route path="/Board" component={Board} />
           <Route path="/Post" component={Post} />

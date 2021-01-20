@@ -2,7 +2,8 @@
   "name": "REALCITY",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://15.165.249.108:4000",
+  "proxy": "https://api.realcitykr.com",
+  "homepage" : "https://realcitykr.com",
   "dependencies": {
     "@apollo/client": "^3.3.6",
     "@babel/core": "7.2.2",

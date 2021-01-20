@@ -10,7 +10,7 @@ import Search from "../Routes/Search";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import ReactGA from "react-ga";
 
-ReactGA.initialize("G-XYJ744DH7J");
+ReactGA.initialize("UA-187715263-1");
 
 const LoggedInRoutes = () => {
   const [toggle, setToggle] = useState(false);

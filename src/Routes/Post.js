@@ -25,7 +25,6 @@ const PostSection = styled.div`
   display: flex;
   flex-direction: column;
   font-family: Roboto;
-  border-bottom: 1px solid #cecece;
   padding: 0 0 1% 0;
 `;
 
@@ -85,13 +84,48 @@ const LikeView = styled.div`
 `;
 
 const CommentWrapper = styled.div`
+  border-top: 1px solid #cecece;
   display: flex;
   flex-direction: column;
   margin-bottom: 15px;
 `;
 
+const BestCommentWrapper = styled.div`
+  border-top: 1px solid #cecece;
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 30px;
+`;
+
 const Linedivide = styled.div`
   border-bottom: 1px solid #cecece;
+`;
+
+const CommentTitle = styled.div`
+  margin-top: 40px;
+  font-size: 17px;
+  text-decoration: underline;
+  margin-bottom: 20px;
+  font-weight: bold;
+`;
+
+const CommentTitleWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const CommentAlignWrapper = styled.div`
+  display: flex;
+`;
+
+const CommentAlign = styled.button`
+  cursor: pointer;
+  outline: 0;
+  background-color: transparent;
+  border-color: transparent;
+  margin-top: 40px;
+  font-size: 17px;
+  margin-bottom: 20px;
 `;
 
 const POSTONE_QUERY = gql`
@@ -116,6 +150,8 @@ const POSTONE_QUERY = gql`
         content
         password
         createdAt
+        likeAll
+        dislikeAll
         published
       }
     }
@@ -134,6 +170,16 @@ const POSTADDVIEW = gql`
 const COMMENT_ADD_REPORT = gql`
   mutation commentAddReport($id: String!, $ip: String!) {
     commentAddReport(id: $id, ip: $ip)
+  }
+`;
+const COMMENT_ADD_LIKE = gql`
+  mutation commentAddLike($id: String!, $ip: String!) {
+    commentAddLike(id: $id, ip: $ip)
+  }
+`;
+const COMMENT_ADD_DISLIKE = gql`
+  mutation commentAddDislike($id: String!, $ip: String!) {
+    commentAddDislike(id: $id, ip: $ip)
   }
 `;
 const POST_ADD_REPORT = gql`
@@ -201,6 +247,8 @@ const Post = ({ history }) => {
   };
 
   const [commentAddReport] = useMutation(COMMENT_ADD_REPORT);
+  const [commentAddLike] = useMutation(COMMENT_ADD_LIKE);
+  const [commentAddDislike] = useMutation(COMMENT_ADD_DISLIKE);
   const [postAddReport] = useMutation(POST_ADD_REPORT);
 
   const addReportHandler = async () => {
@@ -222,6 +270,31 @@ const Post = ({ history }) => {
 
   const [postShowOff] = useMutation(POST_SHOW_OFF);
   const [commentShowOff] = useMutation(COMMENT_SHOW_OFF);
+
+  var TopComment = !loading
+    ? data.postOne.comments
+        .slice()
+        .sort(function (a, b) {
+          // 오름차순
+          return b["likeAll"] - a["likeAll"];
+        })
+        .slice(0, 3)
+    : null;
+
+  const [commentAlign, setCommentAlign] = useState("createdAt");
+
+  var SortedComment = !loading
+    ? data.postOne.comments.slice().sort(function (a, b) {
+        // 오름차순
+        return b[commentAlign] - a[commentAlign];
+      })
+    : null;
+
+  const commentAlignHandler = (key) => {
+    if (key !== commentAlign) {
+      setCommentAlign(key);
+    }
+  };
 
   return (
     <Background>
@@ -292,14 +365,65 @@ const Post = ({ history }) => {
               </LikeViewWrapper>
             </PostWrapper>
           </PostSection>
+          {TopComment.length > 0 ? (
+            <CommentTitle>베스트댓글</CommentTitle>
+          ) : null}
+          <BestCommentWrapper>
+            {TopComment.map((item, idx) => {
+              if (item.likeAll !== 0)
+                return (
+                  <Linedivide key={idx}>
+                    <CommentItem
+                      commentShowOff={commentShowOff}
+                      commentAddReport={commentAddReport}
+                      commentAddLike={commentAddLike}
+                      commentAddDislike={commentAddDislike}
+                      data={data}
+                      refetch={() => window.location.reload()}
+                      alert={alert}
+                      item={item}
+                    />
+                  </Linedivide>
+                );
+              else return null;
+            })}
+          </BestCommentWrapper>
+          <CommentTitleWrapper>
+            <CommentTitle>댓글</CommentTitle>
+            <CommentAlignWrapper>
+              <CommentAlign
+                onClick={() => commentAlignHandler("createdAt")}
+                style={{
+                  textDecoration:
+                    commentAlign === "createdAt" ? "underline" : null,
+                  fontWeight: commentAlign === "createdAt" ? "bold" : null,
+                }}
+              >
+                최신순
+              </CommentAlign>
+              <CommentAlign
+                onClick={() => commentAlignHandler("likeAll")}
+                style={{
+                  textDecoration:
+                    commentAlign === "likeAll" ? "underline" : null,
+                  fontWeight: commentAlign === "likeAll" ? "bold" : null,
+                  marginLeft: 10,
+                }}
+              >
+                추천순
+              </CommentAlign>
+            </CommentAlignWrapper>
+          </CommentTitleWrapper>
           <CommentWrapper>
-            {data.postOne.comments.map((item, idx) => {
+            {SortedComment.map((item, idx) => {
               if (item.group === null) {
                 return (
                   <Linedivide key={idx}>
                     <CommentItem
                       commentShowOff={commentShowOff}
                       commentAddReport={commentAddReport}
+                      commentAddLike={commentAddLike}
+                      commentAddDislike={commentAddDislike}
                       data={data}
                       refetch={() => window.location.reload()}
                       alert={alert}

@@ -5,10 +5,17 @@ import ReplyForm from "./ReplyForm";
 import DeleteForm from "./DeleteForm";
 import CommentOnItem from "./CommentOnItem";
 import { getFullIp } from "./Util";
+import { GoodButton, BadButton } from "./Icons";
 
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const InfoWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `;
 
 const MenuWrapper = styled.div`
@@ -21,7 +28,17 @@ const Time = styled.div`
   font-size: 14px;
 `;
 
+const Num = styled.div`
+  font-size: 14px;
+  padding-top: 2px;
+`;
+
 const TimeAuthorWrapper = styled.div`
+  display: flex;
+  padding: 20px 0 10px 0;
+`;
+
+const LikeOrDislikeWrapper = styled.div`
   display: flex;
   padding: 20px 0 10px 0;
 `;
@@ -35,6 +52,13 @@ const ThreeDotButtonWrapper = styled.div`
   align-items: flex-end;
   justify-content: space-between;
   padding: 10px 10px 20px 0;
+`;
+
+const Button = styled.button`
+  background-color: transparent;
+  border-color: transparent;
+  cursor: pointer;
+  outline: 0;
 `;
 
 class CommentItem extends Component {
@@ -60,6 +84,32 @@ class CommentItem extends Component {
     if (result.data.commentAddReport)
       this.props.alert.success("신고되었습니다.");
     else this.props.alert.error("이미 신고하신 글 입니다.");
+  };
+
+  addLikeHandler = async () => {
+    const result = await this.props.commentAddLike({
+      variables: {
+        id: this.props.item.id,
+        ip: await getFullIp(),
+      },
+    });
+    if (result.data.commentAddLike) {
+      this.props.alert.success("추천되었습니다.");
+      this.props.refetch();
+    } else this.props.alert.error("이미 추천하신 댓글입니다.");
+  };
+
+  addDislikeHandler = async () => {
+    const result = await this.props.commentAddDislike({
+      variables: {
+        id: this.props.item.id,
+        ip: await getFullIp(),
+      },
+    });
+    if (result.data.commentAddDislike) {
+      this.props.alert.success("비추천되었습니다.");
+      this.props.refetch();
+    } else this.props.alert.error("이미 비추천하신 댓글입니다.");
   };
 
   showMenu(event) {
@@ -110,11 +160,23 @@ class CommentItem extends Component {
     ];
     return (
       <Wrapper>
-        <TimeAuthorWrapper>
-          <Time>{this.props.item.timeFromToday}</Time>&nbsp;&nbsp;
-          <div>{this.props.item.author}</div>&nbsp;&nbsp;
-          <Time>{this.props.item.ip}</Time>
-        </TimeAuthorWrapper>
+        <InfoWrapper>
+          <TimeAuthorWrapper>
+            <Time>{this.props.item.timeFromToday}</Time>&nbsp;&nbsp;
+            <div>{this.props.item.author}</div>&nbsp;&nbsp;
+            <Time>{this.props.item.ip}</Time>
+          </TimeAuthorWrapper>
+          <LikeOrDislikeWrapper>
+            <Button onClick={() => this.addLikeHandler()}>
+              <GoodButton />
+            </Button>
+            <Num>{this.props.item.likeAll}</Num>&nbsp;&nbsp;
+            <Button onClick={() => this.addDislikeHandler()}>
+              <BadButton />
+            </Button>
+            <Num>{this.props.item.dislikeAll}</Num>&nbsp;&nbsp;
+          </LikeOrDislikeWrapper>
+        </InfoWrapper>
         {this.state.showDelete ? (
           <MenuWrapper
             className="menu"
@@ -148,6 +210,8 @@ class CommentItem extends Component {
                 refetch={this.props.refetch}
                 commentShowOff={this.props.commentShowOff}
                 commentAddReport={this.props.commentAddReport}
+                commentAddLike={this.props.commentAddLike}
+                commentAddDislike={this.props.commentAddDislike}
               />
             );
           } else return null;

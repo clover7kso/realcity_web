@@ -94,6 +94,10 @@ const checkValidate = (data, alert) => {
   return result;
 };
 
+const getLevel = (point) => {
+  return Math.floor(Math.sqrt(point) / 4);
+};
+
 export {
   CategoryListTypeA,
   CategoryListTypeB,
@@ -103,4 +107,5 @@ export {
   getIp,
   getFullIp,
   checkValidate,
+  getLevel,
 };

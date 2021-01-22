@@ -7,6 +7,7 @@ import Writer from "../Routes/Writer";
 import Board from "../Routes/Board";
 import Post from "../Routes/Post";
 import Search from "../Routes/Search";
+import Register from "../Routes/Register";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import ReactGA from "react-ga";
 
@@ -40,6 +41,7 @@ const LoggedInRoutes = () => {
           <Route path="/Board" component={Board} />
           <Route path="/Post" component={Post} />
           <Route path="/Search" component={Search} />
+          <Route path="/Register" component={Register} />
           <Redirect from="*" to="/" />
         </Switch>
       </CSSTransition>

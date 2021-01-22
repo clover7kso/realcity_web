@@ -151,7 +151,6 @@ const ListItem = styled("li")`
 `;
 
 // list of items
-
 const Writer = ({ history }) => {
   const alert = useAlert();
 
@@ -172,8 +171,8 @@ const Writer = ({ history }) => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
 
-  const POST_UPLOAD = gql`
-    mutation postUpload(
+  const POST_UPLOAD_NOID = gql`
+    mutation postUploadNoID(
       $ip: String!
       $category: String!
       $title: String!
@@ -182,7 +181,7 @@ const Writer = ({ history }) => {
       $password: String!
       $images: [String]!
     ) {
-      postUpload(
+      postUploadNoID(
         ip: $ip
         category: $category
         title: $title
@@ -193,13 +192,35 @@ const Writer = ({ history }) => {
       )
     }
   `;
-  const [postUpload] = useMutation(POST_UPLOAD);
 
-  const clickConfirm = async () => {
+  const POST_UPLOAD_ID = gql`
+    mutation postUploadID(
+      $ip: String!
+      $category: String!
+      $title: String!
+      $content: String!
+      $userId: String!
+      $images: [String]!
+    ) {
+      postUploadID(
+        ip: $ip
+        category: $category
+        title: $title
+        content: $content
+        userId: $userId
+        images: $images
+      )
+    }
+  `;
+
+  const [postUploadNoID] = useMutation(POST_UPLOAD_NOID);
+  const [postUploadID] = useMutation(POST_UPLOAD_ID);
+
+  const clickConfirmNoID = async () => {
     const ip = await getIp();
     const images = getImages(content);
 
-    const uploadData = [
+    const uploadDataNoID = [
       {
         key: ip,
         tagNull: "올바르지 않은 ip주소 입니다.",
@@ -229,10 +250,10 @@ const Writer = ({ history }) => {
       },
       { key: content, tagNull: "내용을 입력해주세요." },
     ];
-    const validateResult = checkValidate(uploadData, alert);
+    const validateResult = checkValidate(uploadDataNoID, alert);
 
     if (validateResult) {
-      const result = await postUpload({
+      const result = await postUploadNoID({
         variables: {
           ip: ip,
           category: selectedOption.key,
@@ -244,7 +265,52 @@ const Writer = ({ history }) => {
         },
       });
 
-      if (result.data.postUpload) {
+      if (result.data.postUploadNoID) {
+        alert.success("업로드에 성공하였습니다.");
+        history.push({
+          pathname: "/Board",
+          search: "?" + selectedOption.name,
+        });
+      } else alert.error("업로드에 실패하였습니다.");
+    }
+  };
+
+  const clickConfirmID = async () => {
+    const ip = await getIp();
+    const images = getImages(content);
+
+    const uploadDataID = [
+      {
+        key: ip,
+        tagNull: "올바르지 않은 ip주소 입니다.",
+      },
+      {
+        key: selectedOption.name,
+        tagNull: "카테고리를 정해주세요.",
+      },
+      {
+        key: title,
+        tagNull: "제목을 입력해주세요.",
+        regex: /^.{2,200}$/,
+        tagRegex: "제목은 2-200자 입니다.",
+      },
+      { key: content, tagNull: "내용을 입력해주세요." },
+    ];
+    const validateResult = checkValidate(uploadDataID, alert);
+
+    if (validateResult) {
+      const result = await postUploadID({
+        variables: {
+          ip: ip,
+          category: selectedOption.key,
+          title: title,
+          content: content,
+          userId: window.sessionStorage.getItem("id"),
+          images: images,
+        },
+      });
+
+      if (result.data.postUploadID) {
         alert.success("업로드에 성공하였습니다.");
         history.push({
           pathname: "/Board",
@@ -277,22 +343,24 @@ const Writer = ({ history }) => {
         )}
       </DropDownContainer>
 
-      <InfoWrapper>
-        <InputInfo
-          width={pcCheck ? null : "49%"}
-          onChange={setNick}
-          placeholder="닉네임"
-          type="text"
-          marginRight="2%"
-        />
-        <InputInfo
-          width={pcCheck ? null : "49%"}
-          onChange={setPassword}
-          placeholder="비밀번호"
-          type="password"
-          marginRight="0%"
-        />
-      </InfoWrapper>
+      {window.sessionStorage.getItem("id") ? null : (
+        <InfoWrapper>
+          <InputInfo
+            width={pcCheck ? null : "49%"}
+            onChange={setNick}
+            placeholder="닉네임"
+            type="text"
+            marginRight="2%"
+          />
+          <InputInfo
+            width={pcCheck ? null : "49%"}
+            onChange={setPassword}
+            placeholder="비밀번호"
+            type="password"
+            marginRight="0%"
+          />
+        </InfoWrapper>
+      )}
       <Title
         width={pcCheck ? null : "100%"}
         onChange={setTitle}
@@ -315,7 +383,15 @@ const Writer = ({ history }) => {
       </CKEditorWrapper>
       <ButtonWrapper>
         <Cancel onClick={() => history.goBack()}>취소</Cancel>
-        <Confirm onClick={clickConfirm}>완료</Confirm>
+        <Confirm
+          onClick={
+            window.sessionStorage.getItem("id")
+              ? clickConfirmID
+              : clickConfirmNoID
+          }
+        >
+          완료
+        </Confirm>
       </ButtonWrapper>
     </Wrapper>
   );

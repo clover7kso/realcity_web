@@ -66,9 +66,10 @@ export default () => {
         <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
           <View />
-          {item.viewAll.toLocaleString(undefined, {
-            maximumFractionDigits: 0,
-          })}
+          {" " +
+            item.viewAll.toLocaleString(undefined, {
+              maximumFractionDigits: 0,
+            })}
         </ZzalView>
       </ZzalBox>
     ))

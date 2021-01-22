@@ -161,7 +161,10 @@ class CommentItem extends Component {
             <InfoWrapper>
               <TimeAuthorWrapper>
                 <Time>{this.props.item1.timeFromToday}</Time>&nbsp;
-                <div>{this.props.item1.author}</div>&nbsp;&nbsp;
+                {this.props.item1.user === null
+                  ? this.props.item1.author
+                  : this.props.item1.user.nickname}
+                &nbsp;&nbsp;
                 <Time>{this.props.item1.ip}</Time>
               </TimeAuthorWrapper>
 

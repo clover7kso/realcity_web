@@ -25,6 +25,10 @@ const BOARD_QUERY = gql`
         thumbnail
         viewAll
         likeAll
+        user {
+          nickname
+          point
+        }
       }
     }
   }

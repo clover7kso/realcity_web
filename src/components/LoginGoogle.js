@@ -50,8 +50,8 @@ export default function GoogleButton({ onSocial }) {
           <Wrapper width={checkPC ? "130px" : "52px"} onClick={props.onClick}>
             <GoogleImg
               src={require(checkPC
-                ? "../Image/naver_long_white.png"
-                : "../Image/naver_small_white.png")}
+                ? "../Image/google_long_white.png"
+                : "../Image/google_small_white.png")}
             />
           </Wrapper>
         )}

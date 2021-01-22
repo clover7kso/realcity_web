@@ -158,12 +158,18 @@ class CommentItem extends Component {
       },
       { name: "삭제", onClick: (e) => this.showDelete(e) },
     ];
+
     return (
       <Wrapper>
         <InfoWrapper>
           <TimeAuthorWrapper>
             <Time>{this.props.item.timeFromToday}</Time>&nbsp;&nbsp;
-            <div>{this.props.item.author}</div>&nbsp;&nbsp;
+            <div>
+              {this.props.item.user === null
+                ? this.props.item.author
+                : this.props.item.user.nickname}
+            </div>
+            &nbsp;&nbsp;
             <Time>{this.props.item.ip}</Time>
           </TimeAuthorWrapper>
           <LikeOrDislikeWrapper>

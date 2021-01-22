@@ -141,6 +141,10 @@ const POSTONE_QUERY = gql`
       commentCount
       likeAll
       viewAll
+      user {
+        nickname
+        point
+      }
       comments {
         ip
         id
@@ -153,6 +157,10 @@ const POSTONE_QUERY = gql`
         likeAll
         dislikeAll
         published
+        user {
+          nickname
+          point
+        }
       }
     }
   }
@@ -311,7 +319,12 @@ const Post = ({ history }) => {
               />
               <TimeAuthorWrapper>
                 <Time>{data.postOne.timeFromToday}</Time>&nbsp;&nbsp;
-                <div>{data.postOne.author}</div>&nbsp;&nbsp;
+                <div>
+                  {data.postOne.user === null
+                    ? data.postOne.author
+                    : data.postOne.user.nickname}
+                </div>
+                &nbsp;&nbsp;
                 <Time>{data.postOne.ip}</Time>
               </TimeAuthorWrapper>
               {deleteShow ? (
@@ -366,74 +379,80 @@ const Post = ({ history }) => {
             </PostWrapper>
           </PostSection>
           {TopComment.length > 0 ? (
-            <CommentTitle>베스트댓글</CommentTitle>
+            <>
+              <CommentTitle>베스트댓글</CommentTitle>
+              <BestCommentWrapper>
+                {TopComment.map((item, idx) => {
+                  if (item.likeAll !== 0)
+                    return (
+                      <Linedivide key={idx}>
+                        <CommentItem
+                          commentShowOff={commentShowOff}
+                          commentAddReport={commentAddReport}
+                          commentAddLike={commentAddLike}
+                          commentAddDislike={commentAddDislike}
+                          data={data}
+                          refetch={() => window.location.reload()}
+                          alert={alert}
+                          item={item}
+                        />
+                      </Linedivide>
+                    );
+                  else return null;
+                })}
+              </BestCommentWrapper>
+            </>
           ) : null}
-          <BestCommentWrapper>
-            {TopComment.map((item, idx) => {
-              if (item.likeAll !== 0)
-                return (
-                  <Linedivide key={idx}>
-                    <CommentItem
-                      commentShowOff={commentShowOff}
-                      commentAddReport={commentAddReport}
-                      commentAddLike={commentAddLike}
-                      commentAddDislike={commentAddDislike}
-                      data={data}
-                      refetch={() => window.location.reload()}
-                      alert={alert}
-                      item={item}
-                    />
-                  </Linedivide>
-                );
-              else return null;
-            })}
-          </BestCommentWrapper>
-          <CommentTitleWrapper>
-            <CommentTitle>댓글</CommentTitle>
-            <CommentAlignWrapper>
-              <CommentAlign
-                onClick={() => commentAlignHandler("createdAt")}
-                style={{
-                  textDecoration:
-                    commentAlign === "createdAt" ? "underline" : null,
-                  fontWeight: commentAlign === "createdAt" ? "bold" : null,
-                }}
-              >
-                최신순
-              </CommentAlign>
-              <CommentAlign
-                onClick={() => commentAlignHandler("likeAll")}
-                style={{
-                  textDecoration:
-                    commentAlign === "likeAll" ? "underline" : null,
-                  fontWeight: commentAlign === "likeAll" ? "bold" : null,
-                  marginLeft: 10,
-                }}
-              >
-                추천순
-              </CommentAlign>
-            </CommentAlignWrapper>
-          </CommentTitleWrapper>
-          <CommentWrapper>
-            {SortedComment.map((item, idx) => {
-              if (item.group === null) {
-                return (
-                  <Linedivide key={idx}>
-                    <CommentItem
-                      commentShowOff={commentShowOff}
-                      commentAddReport={commentAddReport}
-                      commentAddLike={commentAddLike}
-                      commentAddDislike={commentAddDislike}
-                      data={data}
-                      refetch={() => window.location.reload()}
-                      alert={alert}
-                      item={item}
-                    />
-                  </Linedivide>
-                );
-              } else return null;
-            })}
-          </CommentWrapper>
+          {SortedComment.length > 0 ? (
+            <>
+              <CommentTitleWrapper>
+                <CommentTitle>댓글</CommentTitle>
+                <CommentAlignWrapper>
+                  <CommentAlign
+                    onClick={() => commentAlignHandler("createdAt")}
+                    style={{
+                      textDecoration:
+                        commentAlign === "createdAt" ? "underline" : null,
+                      fontWeight: commentAlign === "createdAt" ? "bold" : null,
+                    }}
+                  >
+                    최신순
+                  </CommentAlign>
+                  <CommentAlign
+                    onClick={() => commentAlignHandler("likeAll")}
+                    style={{
+                      textDecoration:
+                        commentAlign === "likeAll" ? "underline" : null,
+                      fontWeight: commentAlign === "likeAll" ? "bold" : null,
+                      marginLeft: 10,
+                    }}
+                  >
+                    추천순
+                  </CommentAlign>
+                </CommentAlignWrapper>
+              </CommentTitleWrapper>
+              <CommentWrapper>
+                {SortedComment.map((item, idx) => {
+                  if (item.group === null) {
+                    return (
+                      <Linedivide key={idx}>
+                        <CommentItem
+                          commentShowOff={commentShowOff}
+                          commentAddReport={commentAddReport}
+                          commentAddLike={commentAddLike}
+                          commentAddDislike={commentAddDislike}
+                          data={data}
+                          refetch={() => window.location.reload()}
+                          alert={alert}
+                          item={item}
+                        />
+                      </Linedivide>
+                    );
+                  } else return null;
+                })}
+              </CommentWrapper>
+            </>
+          ) : null}
           <ReplyForm
             data={data}
             refetch={() => window.location.reload()}

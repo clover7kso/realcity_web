@@ -64,8 +64,8 @@ const ReplyButton = styled.button`
 
 export default ({ data, refetch, alert, isGroup, group }) => {
   var PC = isPC();
-  const COMMENTUPLOAD = gql`
-    mutation commentUpload(
+  const COMMENTUPLOADNOID = gql`
+    mutation commentUploadNoID(
       $postId: String!
       $group: String
       $ip: String!
@@ -73,7 +73,7 @@ export default ({ data, refetch, alert, isGroup, group }) => {
       $author: String!
       $password: String!
     ) {
-      commentUpload(
+      commentUploadNoID(
         postId: $postId
         group: $group
         ip: $ip
@@ -83,24 +83,33 @@ export default ({ data, refetch, alert, isGroup, group }) => {
       )
     }
   `;
-  const [commentUpload] = useMutation(COMMENTUPLOAD);
+
+  const COMMENTUPLOADID = gql`
+    mutation commentUploadID(
+      $postId: String!
+      $group: String
+      $ip: String!
+      $content: String!
+      $userId: String!
+    ) {
+      commentUploadID(
+        postId: $postId
+        group: $group
+        ip: $ip
+        content: $content
+        userId: $userId
+      )
+    }
+  `;
+
+  const [commentUploadNoID] = useMutation(COMMENTUPLOADNOID);
+  const [commentUploadID] = useMutation(COMMENTUPLOADID);
+
   var id = "";
   var password = "";
   var content = "";
-  const upload = async ({ ip }) => {
-    const result = await commentUpload({
-      variables: {
-        postId: data.postOne.id,
-        ip: ip,
-        group: isGroup ? group : undefined,
-        content: content,
-        author: id,
-        password: password,
-      },
-    });
-    return result.data.commentUpload;
-  };
-  const clickHandler = async () => {
+
+  const clickHandlerNoID = async () => {
     const ip = await getIp();
 
     const uploadData = [
@@ -126,31 +135,69 @@ export default ({ data, refetch, alert, isGroup, group }) => {
     const validateResult = checkValidate(uploadData, alert);
 
     if (validateResult) {
-      const isSuccess = await upload({ ip });
-      if (isSuccess) refetch();
+      const result = await commentUploadNoID({
+        variables: {
+          postId: data.postOne.id,
+          ip: ip,
+          group: isGroup ? group : undefined,
+          content: content,
+          author: id,
+          password: password,
+        },
+      });
+      if (result.data.commentUploadNoID) refetch();
+    }
+  };
+
+  const clickHandlerID = async () => {
+    const ip = await getIp();
+
+    const uploadData = [
+      {
+        key: ip,
+        tagNull: "올바르지 않은 ip주소 입니다.",
+      },
+
+      { key: content, tagNull: "내용을 입력해주세요." },
+    ];
+    const validateResult = checkValidate(uploadData, alert);
+
+    if (validateResult) {
+      const result = await commentUploadID({
+        variables: {
+          postId: data.postOne.id,
+          ip: ip,
+          group: isGroup ? group : undefined,
+          content: content,
+          userId: window.sessionStorage.getItem("id"),
+        },
+      });
+      if (result.data.commentUploadID) refetch();
     }
   };
 
   return (
     <ReplyWrapper>
-      <ReplyInfo>
-        <Id
-          width={PC ? "25%" : "50%"}
-          placeholder="닉네임"
-          type="text"
-          onChange={(text) => {
-            id = text;
-          }}
-        />
-        <Password
-          width={PC ? "25%" : "50%"}
-          placeholder="비밀번호"
-          type="password"
-          onChange={(text) => {
-            password = text;
-          }}
-        />
-      </ReplyInfo>
+      {window.sessionStorage.getItem("id") ? null : (
+        <ReplyInfo>
+          <Id
+            width={PC ? "25%" : "50%"}
+            placeholder="닉네임"
+            type="text"
+            onChange={(text) => {
+              id = text;
+            }}
+          />
+          <Password
+            width={PC ? "25%" : "50%"}
+            placeholder="비밀번호"
+            type="password"
+            onChange={(text) => {
+              password = text;
+            }}
+          />
+        </ReplyInfo>
+      )}
       <ReplyContent>
         <Content
           placeholder="댓글내용"
@@ -159,7 +206,13 @@ export default ({ data, refetch, alert, isGroup, group }) => {
             content = text.currentTarget.value;
           }}
         />
-        <ReplyButton onClick={() => clickHandler()}>
+        <ReplyButton
+          onClick={() => {
+            window.sessionStorage.getItem("id")
+              ? clickHandlerID()
+              : clickHandlerNoID();
+          }}
+        >
           <span role="img" aria-label="pen">
             ✏️
           </span>

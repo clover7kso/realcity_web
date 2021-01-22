@@ -11,7 +11,7 @@ import { gql } from "@apollo/client";
 import { getLevel } from "./Util";
 
 const Button = styled.button`
-  width: 100px;
+  width: 80px;
   height: ${(props) => (props.height ? props.height : "50px")};
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius};
@@ -103,7 +103,6 @@ export default withRouter(({ history, location }) => {
       login(socialId: $socialId, socialType: $socialType) {
         id
         nickname
-        socialId
         point
       }
     }
@@ -129,7 +128,7 @@ export default withRouter(({ history, location }) => {
       ]);
       setSocial(null);
     } else {
-      window.sessionStorage.setItem("id", result.data.login.socialId);
+      window.sessionStorage.setItem("id", result.data.login.id);
       window.sessionStorage.setItem("nickname", result.data.login.nickname);
       window.sessionStorage.setItem("point", result.data.login.point);
       setSocial(null);
@@ -150,8 +149,7 @@ export default withRouter(({ history, location }) => {
           </HeaderColumn>
           <HeaderColumn>
             {location.pathname ===
-            "/Register" ? null : window.sessionStorage.getItem("id") &&
-              window.sessionStorage.getItem("nickname") ? (
+            "/Register" ? null : window.sessionStorage.getItem("id") ? (
               <InfoWrapper>
                 <InfoTopWrapper>
                   <Level>

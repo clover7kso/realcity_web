@@ -223,7 +223,9 @@ class InfiniteScroll extends Component {
                     ) : null}
                     <InfoGrey1>{item.timeFromToday}</InfoGrey1>
 
-                    <InfoBlack>{item.author}</InfoBlack>
+                    <InfoBlack>
+                      {item.user === null ? item.author : item.user.nickname}
+                    </InfoBlack>
                     <PC>
                       <InfoGrey3>{item.ip}</InfoGrey3>
                     </PC>

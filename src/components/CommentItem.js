@@ -6,6 +6,7 @@ import DeleteForm from "./DeleteForm";
 import CommentOnItem from "./CommentOnItem";
 import { getFullIp } from "./Util";
 import { GoodButton, BadButton } from "./Icons";
+import { getLevel } from "./Util";
 
 const Wrapper = styled.div`
   display: flex;
@@ -167,10 +168,15 @@ class CommentItem extends Component {
             <div>
               {this.props.item.user === null
                 ? this.props.item.author
-                : this.props.item.user.nickname}
+                : " Lv." +
+                  getLevel(this.props.item.user.point) +
+                  "  " +
+                  this.props.item.user.nickname}
             </div>
             &nbsp;&nbsp;
-            <Time>{this.props.item.ip}</Time>
+            {this.props.item.user === null ? (
+              <Time>{this.props.item.ip}</Time>
+            ) : null}
           </TimeAuthorWrapper>
           <LikeOrDislikeWrapper>
             <Button onClick={() => this.addLikeHandler()}>

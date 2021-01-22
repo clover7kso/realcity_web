@@ -153,7 +153,7 @@ export default withRouter(({ history, location }) => {
               <InfoWrapper>
                 <InfoTopWrapper>
                   <Level>
-                    LV. {getLevel(window.sessionStorage.getItem("point"))}
+                    Lv.{getLevel(window.sessionStorage.getItem("point"))}
                   </Level>
                   <Nickname>
                     {window.sessionStorage.getItem("nickname")}

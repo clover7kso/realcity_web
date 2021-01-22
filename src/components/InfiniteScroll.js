@@ -7,6 +7,7 @@ import { CategoryListTypeA } from "../Components/Util";
 import PullToRefresh from "react-simple-pull-to-refresh";
 import { RefreshIcon } from "../Components/Icons";
 import { PC } from "../Components/MediaQuery";
+import { getLevel } from "./Util";
 
 const Wrapper = styled.ul`
   margin-top: 15px;
@@ -224,11 +225,18 @@ class InfiniteScroll extends Component {
                     <InfoGrey1>{item.timeFromToday}</InfoGrey1>
 
                     <InfoBlack>
-                      {item.user === null ? item.author : item.user.nickname}
+                      {item.user === null
+                        ? item.author
+                        : " Lv." +
+                          getLevel(item.user.point) +
+                          "  " +
+                          item.user.nickname}
                     </InfoBlack>
-                    <PC>
-                      <InfoGrey3>{item.ip}</InfoGrey3>
-                    </PC>
+                    {item.user === null ? (
+                      <PC>
+                        <InfoGrey3>{item.ip}</InfoGrey3>
+                      </PC>
+                    ) : null}
                   </InfoInWrapper>
                   <InfoInWrapper>
                     <CommentsIcon />

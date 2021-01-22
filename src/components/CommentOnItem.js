@@ -4,6 +4,7 @@ import ThreeDotButton from "./ThreeDotButton";
 import DeleteForm from "./DeleteForm";
 import { getFullIp } from "./Util";
 import { GoodButton, BadButton } from "./Icons";
+import { getLevel } from "./Util";
 
 const Wrapper = styled.div`
   display: flex;
@@ -163,9 +164,14 @@ class CommentItem extends Component {
                 <Time>{this.props.item1.timeFromToday}</Time>&nbsp;
                 {this.props.item1.user === null
                   ? this.props.item1.author
-                  : this.props.item1.user.nickname}
+                  : " Lv." +
+                    getLevel(this.props.item1.user.point) +
+                    "  " +
+                    this.props.item1.user.nickname}
                 &nbsp;&nbsp;
-                <Time>{this.props.item1.ip}</Time>
+                {this.props.item1.user === null ? (
+                  <Time>{this.props.item1.ip}</Time>
+                ) : null}
               </TimeAuthorWrapper>
 
               <LikeOrDislikeWrapper>

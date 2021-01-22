@@ -279,24 +279,28 @@ const Post = ({ history }) => {
   const [postShowOff] = useMutation(POST_SHOW_OFF);
   const [commentShowOff] = useMutation(COMMENT_SHOW_OFF);
 
-  var TopComment = !loading
-    ? data.postOne.comments
-        .slice()
-        .sort(function (a, b) {
-          // 오름차순
-          return b["likeAll"] - a["likeAll"];
-        })
-        .slice(0, 3)
-    : null;
+  try {
+    var TopComment = !loading
+      ? data.postOne.comments
+          .slice()
+          .sort(function (a, b) {
+            // 오름차순
+            return b["likeAll"] - a["likeAll"];
+          })
+          .slice(0, 3)
+      : [];
+  } catch {}
 
   const [commentAlign, setCommentAlign] = useState("createdAt");
 
-  var SortedComment = !loading
-    ? data.postOne.comments.slice().sort(function (a, b) {
-        // 오름차순
-        return b[commentAlign] - a[commentAlign];
-      })
-    : null;
+  try {
+    var SortedComment = !loading
+      ? data.postOne.comments.slice().sort(function (a, b) {
+          // 오름차순
+          return b[commentAlign] - a[commentAlign];
+        })
+      : [];
+  } catch {}
 
   const commentAlignHandler = (key) => {
     if (key !== commentAlign) {
@@ -325,7 +329,9 @@ const Post = ({ history }) => {
                     : data.postOne.user.nickname}
                 </div>
                 &nbsp;&nbsp;
-                <Time>{data.postOne.ip}</Time>
+                {data.postOne.user === null ? (
+                  <Time>{data.postOne.ip}</Time>
+                ) : null}
               </TimeAuthorWrapper>
               {deleteShow ? (
                 <div ref={deleteRef}>

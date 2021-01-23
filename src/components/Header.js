@@ -152,8 +152,14 @@ export default withRouter(({ history, location }) => {
       window.sessionStorage.setItem("id", result.data.login.id);
       window.sessionStorage.setItem("nickname", result.data.login.nickname);
       window.sessionStorage.setItem("point", result.data.login.point);
+      window.location.reload();
       setSocial(null);
     }
+  };
+  const socialLogout = async () => {
+    window.sessionStorage.clear();
+    window.location.reload();
+    setToggle(!toggle);
   };
 
   const refreshLevel = async () => {
@@ -200,14 +206,7 @@ export default withRouter(({ history, location }) => {
                     </Nickname>
                   </InfoTopWrapper>
                   <InfoBottomWrapper>
-                    <Logout
-                      onClick={() => {
-                        window.sessionStorage.clear();
-                        setToggle(!toggle);
-                      }}
-                    >
-                      로그아웃
-                    </Logout>
+                    <Logout onClick={() => socialLogout()}>로그아웃</Logout>
                   </InfoBottomWrapper>
                 </InfoWrapper>
 

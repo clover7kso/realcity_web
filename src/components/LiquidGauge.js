@@ -58,7 +58,7 @@ export default ({ radius = 200, value = 0, ...props }) => {
       riseAnimation
       waveAnimation
       waveFrequency={2}
-      waveAmplitude={1}
+      waveAmplitude={2}
       gradient
       gradientStops={gradientStops}
       circleStyle={{

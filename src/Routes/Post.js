@@ -177,8 +177,8 @@ const POSTADDVIEW = gql`
   }
 `;
 const COMMENT_ADD_REPORT = gql`
-  mutation commentAddReport($id: String!, $ip: String!) {
-    commentAddReport(id: $id, ip: $ip)
+  mutation commentAddReport($id: String!, $ip: String!, $userNick: String) {
+    commentAddReport(id: $id, ip: $ip, userNick: $userNick)
   }
 `;
 const COMMENT_ADD_LIKE = gql`
@@ -192,8 +192,8 @@ const COMMENT_ADD_DISLIKE = gql`
   }
 `;
 const POST_ADD_REPORT = gql`
-  mutation postAddReport($id: String!, $ip: String!) {
-    postAddReport(id: $id, ip: $ip)
+  mutation postAddReport($id: String!, $ip: String!, $userNick: String) {
+    postAddReport(id: $id, ip: $ip, userNick: $userNick)
   }
 `;
 
@@ -272,6 +272,7 @@ const Post = ({ history }) => {
       variables: {
         id: data.postOne.id,
         ip: await getFullIp(),
+        userNick: data.postOne.user ? data.postOne.user.nickname : null,
       },
     });
     if (result.data.postAddReport) alert.success("신고되었습니다.");

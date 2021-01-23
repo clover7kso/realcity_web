@@ -75,6 +75,7 @@ class CommentItem extends Component {
       variables: {
         id: this.props.item.id,
         ip: await getFullIp(),
+        userNick: this.props.item.user ? this.props.item.user.nickname : null,
       },
     });
     if (result.data.commentAddReport)

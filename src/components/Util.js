@@ -98,6 +98,14 @@ const getLevel = (point) => {
   return Math.floor(Math.sqrt(point) / 4);
 };
 
+const getPercentage = (point) => {
+  return (Math.sqrt(point) / 4 - Math.floor(Math.sqrt(point) / 4)) * 100;
+};
+
+const getRemain = (point) => {
+  return (getLevel(point) + 1) * 4 * (getLevel(point) + 1) * 4 - point;
+};
+
 export {
   CategoryListTypeA,
   CategoryListTypeB,
@@ -108,4 +116,6 @@ export {
   getFullIp,
   checkValidate,
   getLevel,
+  getPercentage,
+  getRemain,
 };

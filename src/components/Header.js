@@ -8,7 +8,9 @@ import LoginGoogle from "./LoginGoogle";
 import LoginNaver from "./LoginNaver";
 import { useMutation } from "@apollo/client";
 import { gql } from "@apollo/client";
-import { getLevel } from "./Util";
+import { getLevel, getPercentage, getRemain } from "./Util";
+import LiquidGauge from "./LiquidGauge";
+import { useAlert } from "react-alert";
 
 const Button = styled.button`
   width: 80px;
@@ -51,6 +53,12 @@ const HeaderColumn = styled.div`
 
 const HeaderLink = styled(Link)``;
 
+const InfoOutWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  margin-right: 15px;
+`;
+
 const InfoWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -58,7 +66,6 @@ const InfoWrapper = styled.div`
   align-items: right;
   height: 40px;
   margin-right: 15px;
-  width: min-content;
 `;
 
 const InfoTopWrapper = styled.div`
@@ -104,6 +111,17 @@ export default withRouter(({ history, location }) => {
         id
         nickname
         point
+        socialId
+        socialType
+      }
+    }
+  `;
+
+  const GETME = gql`
+    mutation getMe($id: String!) {
+      getMe(id: $id) {
+        nickname
+        point
       }
     }
   `;
@@ -113,6 +131,9 @@ export default withRouter(({ history, location }) => {
   const [social, setSocial] = useState(null);
 
   const [loginMutation] = useMutation(LOGIN);
+  const [getMeMutation] = useMutation(GETME);
+  const alert = useAlert();
+
   const socialLogin = async () => {
     const result = await loginMutation({
       variables: {
@@ -135,6 +156,24 @@ export default withRouter(({ history, location }) => {
     }
   };
 
+  const refreshLevel = async () => {
+    const result = await getMeMutation({
+      variables: {
+        id: window.sessionStorage.getItem("id"),
+      },
+    });
+    window.sessionStorage.setItem("nickname", result.data.getMe.nickname);
+    window.sessionStorage.setItem("point", result.data.getMe.point);
+    setToggle(!toggle);
+    alert.removeAll();
+    alert.success("경험치가 새로고침되었습니다.");
+    alert.success(
+      "다음레벨까지 좋아요 " +
+        getRemain(window.sessionStorage.getItem("point")) +
+        " 가 남았습니다."
+    );
+  };
+
   if (social !== null) socialLogin();
 
   return (
@@ -150,26 +189,37 @@ export default withRouter(({ history, location }) => {
           <HeaderColumn>
             {location.pathname ===
             "/Register" ? null : window.sessionStorage.getItem("id") ? (
-              <InfoWrapper>
-                <InfoTopWrapper>
-                  <Level>
-                    Lv.{getLevel(window.sessionStorage.getItem("point"))}
-                  </Level>
-                  <Nickname>
-                    {window.sessionStorage.getItem("nickname")}
-                  </Nickname>
-                </InfoTopWrapper>
-                <InfoBottomWrapper>
-                  <Logout
-                    onClick={() => {
-                      window.sessionStorage.clear();
-                      setToggle(!toggle);
-                    }}
-                  >
-                    로그아웃
-                  </Logout>
-                </InfoBottomWrapper>
-              </InfoWrapper>
+              <InfoOutWrapper>
+                <InfoWrapper>
+                  <InfoTopWrapper>
+                    <Level>
+                      Lv.{getLevel(window.sessionStorage.getItem("point"))}
+                    </Level>
+                    <Nickname>
+                      {window.sessionStorage.getItem("nickname")}
+                    </Nickname>
+                  </InfoTopWrapper>
+                  <InfoBottomWrapper>
+                    <Logout
+                      onClick={() => {
+                        window.sessionStorage.clear();
+                        setToggle(!toggle);
+                      }}
+                    >
+                      로그아웃
+                    </Logout>
+                  </InfoBottomWrapper>
+                </InfoWrapper>
+
+                <LiquidGauge
+                  style={{ margin: "0" }}
+                  radius={24}
+                  value={getPercentage(window.sessionStorage.getItem("point"))}
+                  onClick={() => {
+                    refreshLevel();
+                  }}
+                />
+              </InfoOutWrapper>
             ) : (
               <>
                 <LoginGoogle onSocial={(onSocial) => setSocial(onSocial)} />

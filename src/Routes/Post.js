@@ -14,6 +14,7 @@ import { getFullIp } from "../Components/Util";
 import { useAlert } from "react-alert";
 import ReplyForm from "../Components/ReplyForm";
 import CommentItem from "../Components/CommentItem";
+import CommentItemNoOn from "../Components/CommentItemNoOn";
 import DeleteForm from "../Components/DeleteForm";
 import ShareButtons from "../Components/ShareButtons";
 
@@ -392,7 +393,7 @@ const Post = ({ history }) => {
                   if (item.likeAll !== 0)
                     return (
                       <Linedivide key={idx}>
-                        <CommentItem
+                        <CommentItemNoOn
                           commentShowOff={commentShowOff}
                           commentAddReport={commentAddReport}
                           commentAddLike={commentAddLike}

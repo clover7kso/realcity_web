@@ -142,6 +142,7 @@ const POSTONE_QUERY = gql`
       commentCount
       likeAll
       viewAll
+      published
       user {
         nickname
         point
@@ -197,9 +198,15 @@ const POST_ADD_REPORT = gql`
   }
 `;
 
-const POST_SHOW_OFF = gql`
-  mutation postShowOff($id: String!, $password: String!) {
-    postShowOff(id: $id, password: $password)
+const POST_SHOW_OFF_NO_ID = gql`
+  mutation postShowOffNoID($id: String!, $password: String!) {
+    postShowOffNoID(id: $id, password: $password)
+  }
+`;
+
+const POST_SHOW_OFF_ID = gql`
+  mutation postShowOffID($id: String!, $userId: String!) {
+    postShowOffID(id: $id, userId: $userId)
   }
 `;
 
@@ -279,12 +286,32 @@ const Post = ({ history }) => {
     else alert.error("이미 신고하신 글 입니다.");
   };
 
+  const deletePost = async () => {
+    if (!data.postOne.published) {
+      alert.error("이미 삭제되었습니다.");
+      return;
+    }
+    if (window.sessionStorage.getItem("id")) {
+      const result = await postShowOffID({
+        variables: {
+          id: data.postOne.id,
+          userId: window.sessionStorage.getItem("id"),
+        },
+      });
+      if (result.data.postShowOffID) {
+        alert.success("삭제되었습니다.");
+        history.goBack();
+      } else alert.error("본인 글만 삭제가 가능합니다.");
+    } else setDeleteShow(true);
+  };
+
   const ThreeDotButtonData = [
     { name: "신고", onClick: () => addReportHandler() },
-    { name: "삭제", onClick: (e) => setDeleteShow(true) },
+    { name: "삭제", onClick: () => deletePost() },
   ];
 
-  const [postShowOff] = useMutation(POST_SHOW_OFF);
+  const [postShowOffNoID] = useMutation(POST_SHOW_OFF_NO_ID);
+  const [postShowOffID] = useMutation(POST_SHOW_OFF_ID);
   const [commentShowOffID] = useMutation(COMMENT_SHOW_OFF_ID);
   const [commentShowOffNoID] = useMutation(COMMENT_SHOW_OFF_NO_ID);
 
@@ -345,7 +372,7 @@ const Post = ({ history }) => {
               {deleteShow ? (
                 <div ref={deleteRef}>
                   <DeleteForm
-                    funcSend={postShowOff}
+                    funcSend={postShowOffNoID}
                     id={data.postOne.id}
                     funcComplete={() => history.goBack()}
                     alert={alert}

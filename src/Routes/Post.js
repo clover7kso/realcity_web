@@ -14,7 +14,7 @@ import { getFullIp } from "../Components/Util";
 import { useAlert } from "react-alert";
 import ReplyForm from "../Components/ReplyForm";
 import CommentItem from "../Components/CommentItem";
-import CommentItemNoOn from "../Components/CommentItemNoOn";
+import CommentItemBest from "../Components/CommentItemBest";
 import DeleteForm from "../Components/DeleteForm";
 import ShareButtons from "../Components/ShareButtons";
 
@@ -203,9 +203,15 @@ const POST_SHOW_OFF = gql`
   }
 `;
 
-const COMMENT_SHOW_OFF = gql`
-  mutation commentShowOff($id: String!, $password: String!) {
-    commentShowOff(id: $id, password: $password)
+const COMMENT_SHOW_OFF_NO_ID = gql`
+  mutation commentShowOffNoID($id: String!, $password: String!) {
+    commentShowOffNoID(id: $id, password: $password)
+  }
+`;
+
+const COMMENT_SHOW_OFF_ID = gql`
+  mutation commentShowOffID($id: String!, $userId: String!) {
+    commentShowOffID(id: $id, userId: $userId)
   }
 `;
 
@@ -278,7 +284,8 @@ const Post = ({ history }) => {
   ];
 
   const [postShowOff] = useMutation(POST_SHOW_OFF);
-  const [commentShowOff] = useMutation(COMMENT_SHOW_OFF);
+  const [commentShowOffID] = useMutation(COMMENT_SHOW_OFF_ID);
+  const [commentShowOffNoID] = useMutation(COMMENT_SHOW_OFF_NO_ID);
 
   try {
     var TopComment = !loading
@@ -393,8 +400,9 @@ const Post = ({ history }) => {
                   if (item.likeAll !== 0)
                     return (
                       <Linedivide key={idx}>
-                        <CommentItemNoOn
-                          commentShowOff={commentShowOff}
+                        <CommentItemBest
+                          commentShowOffID={commentShowOffID}
+                          commentShowOffNoID={commentShowOffNoID}
                           commentAddReport={commentAddReport}
                           commentAddLike={commentAddLike}
                           commentAddDislike={commentAddDislike}
@@ -444,7 +452,8 @@ const Post = ({ history }) => {
                     return (
                       <Linedivide key={idx}>
                         <CommentItem
-                          commentShowOff={commentShowOff}
+                          commentShowOffID={commentShowOffID}
+                          commentShowOffNoID={commentShowOffNoID}
                           commentAddReport={commentAddReport}
                           commentAddLike={commentAddLike}
                           commentAddDislike={commentAddDislike}

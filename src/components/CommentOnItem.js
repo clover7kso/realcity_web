@@ -147,13 +147,35 @@ class CommentItem extends Component {
     }
   }
 
+  delete = async (e) => {
+    if (!this.props.item1.published) {
+      this.props.alert.error("이미 삭제되었습니다.");
+      return;
+    }
+    if (window.sessionStorage.getItem("id")) {
+      const result = await this.props.commentShowOffID({
+        variables: {
+          id: this.props.item1.id,
+          userId: window.sessionStorage.getItem("id"),
+        },
+      });
+      if (result.data.commentShowOffID) {
+        this.props.alert.success("삭제되었습니다.");
+        window.location.reload();
+      } else this.props.alert.error("본인 글만 삭제가 가능합니다.");
+    } else this.showDelete(e);
+  };
+
   render() {
     const ThreeDotButtonData = [
       {
         name: "신고",
         onClick: async () => this.addReportHandler(),
       },
-      { name: "삭제", onClick: (e) => this.showDelete(e) },
+      {
+        name: "삭제",
+        onClick: (e) => this.delete(e),
+      },
     ];
     return (
       <Wrapper>
@@ -194,7 +216,7 @@ class CommentItem extends Component {
                 }}
               >
                 <DeleteForm
-                  funcSend={this.props.commentShowOff}
+                  funcSend={this.props.commentShowOffNoID}
                   id={this.props.item1.id}
                   funcComplete={this.props.refetch}
                   alert={this.props.alert}

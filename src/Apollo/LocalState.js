@@ -5,7 +5,7 @@ export const defaults = {
 export const resolvers = {
   Mutation: {
     logUserIn: (_, { token }, { cache }) => {
-      localStorage.setItem("token", token);
+      sessionStorage.setItem("token", token);
       cache.writeData({
         data: {
           isLoggedIn: true,
@@ -14,7 +14,7 @@ export const resolvers = {
       return null;
     },
     logUserOut: (_, __, { cache }) => {
-      localStorage.removeItem("token");
+      sessionStorage.removeItem("token");
       window.location = "/";
       return null;
     },

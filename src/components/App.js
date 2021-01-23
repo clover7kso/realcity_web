@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import GlobalStyles from "../Styles/GlobalStyles";
 import Theme from "../Styles/Theme";
-import Routes from "./Routes";
+import MyRoutes from "./Routes";
 import Footer from "./Footer";
 import Header from "./Header";
 import { isPC } from "./MediaQuery";
@@ -22,24 +22,18 @@ const Wrapper = styled.div`
 `;
 
 export default () => {
-  //const { data: { isLoggedIn }, } = useQuery(QUERY);
-
-  const {
-    data: { isLoggedIn },
-  } = { data: { isLoggedIn: true } };
-
   return (
     <ThemeProvider theme={Theme}>
       <>
         <GlobalStyles />
         <BrowserRouter>
           <>
-            {isLoggedIn && <Header />}
+            <Header />
             <Wrapper
               paddingLeft={isPC() ? null : "3%"}
               paddingRight={isPC() ? null : "3%"}
             >
-              <Routes isLoggedIn={isLoggedIn} />
+              <MyRoutes />
               <Footer />
             </Wrapper>
           </>

@@ -25,6 +25,7 @@ const Button = styled.button`
   padding-bottom: 5px;
   font-size: 20px;
   cursor: pointer;
+  margin-right: ${(props) => props.marginRight};
 `;
 
 const HeaderWrapper = styled.div`
@@ -105,6 +106,19 @@ const Logout = styled.div`
 
 export default withRouter(({ history, location }) => {
   const [toggle, setToggle] = useState(true);
+  const [show, setShow] = useState(
+    history.location.hash.includes("access_token")
+  );
+
+  const showLogin = (event) => {
+    event.preventDefault();
+    setShow(true);
+    document.addEventListener("click", closeLogin);
+  };
+  const closeLogin = (event) => {
+    setShow(false);
+    document.removeEventListener("click", closeLogin);
+  };
 
   const LOGIN = gql`
     mutation login($socialId: String!, $socialType: String!) {
@@ -222,8 +236,20 @@ export default withRouter(({ history, location }) => {
               </InfoOutWrapper>
             ) : (
               <>
-                <LoginGoogle onSocial={(onSocial) => setSocial(onSocial)} />
-                <LoginNaver onSocial={(onSocial) => setSocial(onSocial)} />
+                {show ? (
+                  <>
+                    <LoginGoogle onSocial={(onSocial) => setSocial(onSocial)} />
+                    <LoginNaver onSocial={(onSocial) => setSocial(onSocial)} />
+                  </>
+                ) : (
+                  <Button
+                    marginRight="10px"
+                    onClick={(e) => showLogin(e)}
+                    height={pcCheck ? null : "50px"}
+                  >
+                    로그인
+                  </Button>
+                )}
               </>
             )}
             {location.pathname !== "/Writer" ? (

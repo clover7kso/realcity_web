@@ -1,7 +1,6 @@
 import React from "react";
 import NaverLogin from "react-login-by-naver";
 import styled from "styled-components";
-import { isPC } from "./MediaQuery";
 
 const Wrapper = styled.div`
   width: ${(props) => props.width};
@@ -36,19 +35,14 @@ export default function NaverButton({ onSocial }) {
     //console.log(error);
   };
 
-  var checkPC = isPC();
   return (
     <div>
       <NaverLogin
         clientId={clientId}
-        callbackUrl="https://realcitykr.com"
+        callbackUrl="http://localhost:3000"
         render={(props) => (
-          <Wrapper width={checkPC ? "130px" : "52px"} onClick={props.onClick}>
-            <NaverImg
-              src={require(checkPC
-                ? "../Image/naver_long_white.png"
-                : "../Image/naver_small_white.png")}
-            />
+          <Wrapper width={"52px"} onClick={props.onClick}>
+            <NaverImg src={require("../Image/naver_small_white.png")} />
           </Wrapper>
         )}
         onSuccess={(response) => onSuccess(response)}

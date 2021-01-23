@@ -1,9 +1,8 @@
 import React, { Component } from "react";
 import Loader from "./Loader";
 import styled from "styled-components";
-import { CommentsIcon, LikesIcon, ViewsIcon } from "./Icons";
+import { GoodButton, BadButton } from "./Icons";
 import { Link } from "react-router-dom";
-import { CategoryListTypeA } from "../Components/Util";
 import PullToRefresh from "react-simple-pull-to-refresh";
 import { RefreshIcon } from "../Components/Icons";
 import { PC } from "../Components/MediaQuery";
@@ -18,16 +17,6 @@ const WrapperItem = styled.div`
   display: flex;
   flex-direction: column;
   font-family: Roboto;
-`;
-
-const Title = styled(Link)`
-  user-drag: none;
-  color: black;
-  font-size: 18px;
-  font-weight: bold;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 `;
 
 const MainWrapper = styled.div`
@@ -118,23 +107,6 @@ const NoDataWrapper = styled.div`
   font-weight: bold;
 `;
 
-const Thumbnail = styled.img`
-  object-fit: cover;
-  width:90px
-  height:90px
-  border-radius:10px
-  margin-bottom:15px
-  margin-right:15px
-`;
-
-const CategoryBox = styled.div`
-  width: fit-content;
-  font-size: 13px;
-  color: black;
-  text-align: center;
-  margin-right: 7px;
-`;
-
 const ClickToRefreshWrapper = styled.div`
   user-drag: none;
   display: flex;
@@ -164,7 +136,6 @@ class InfiniteScroll extends Component {
   }
 
   handleOnScroll = () => {
-    // http://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
     var scrollTop =
       (document.documentElement && document.documentElement.scrollTop) ||
       document.body.scrollTop;
@@ -197,31 +168,14 @@ class InfiniteScroll extends Component {
             <li key={idx}>
               <WrapperItem>
                 <MainWrapper>
-                  {item.thumbnail ? <Thumbnail src={item.thumbnail} /> : null}
                   <TextWrapper>
-                    <Title to={"/Post?" + item.id}>{item.title}</Title>
-                    <Content to={"/Post?" + item.id}>
+                    <Content to={"/Post?" + item.postId}>
                       {item.content.replace(/(<([^>]+)>)/gi, "")}
                     </Content>
                   </TextWrapper>
                 </MainWrapper>
                 <InfoWrapper>
                   <InfoInWrapper>
-                    {this.props.selected === "👑 오늘인기글" ? (
-                      <CategoryBox
-                        to={
-                          "/Board?" +
-                          CategoryListTypeA.find(
-                            (x) => x.name === item.category
-                          ).emoji +
-                          CategoryListTypeA.find(
-                            (x) => x.name === item.category
-                          ).name
-                        }
-                      >
-                        {item.category}
-                      </CategoryBox>
-                    ) : null}
                     <InfoGrey1>{item.timeFromToday}</InfoGrey1>
 
                     <InfoBlack>
@@ -239,21 +193,15 @@ class InfiniteScroll extends Component {
                     ) : null}
                   </InfoInWrapper>
                   <InfoInWrapper>
-                    <CommentsIcon />
-                    <InfoGrey2>
-                      {item.commentCount.toLocaleString(undefined, {
-                        maximumFractionDigits: 0,
-                      })}
-                    </InfoGrey2>
-                    <LikesIcon />
+                    <GoodButton />
                     <InfoGrey2>
                       {item.likeAll.toLocaleString(undefined, {
                         maximumFractionDigits: 0,
                       })}
                     </InfoGrey2>
-                    <ViewsIcon />
+                    <BadButton />
                     <InfoGrey2>
-                      {item.viewAll.toLocaleString(undefined, {
+                      {item.dislikeAll.toLocaleString(undefined, {
                         maximumFractionDigits: 0,
                       })}
                     </InfoGrey2>

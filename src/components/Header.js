@@ -68,7 +68,8 @@ const InfoWrapper = styled.div`
   margin-right: 15px;
 `;
 
-const InfoTopWrapper = styled.div`
+const InfoTopWrapper = styled(Link)`
+  color: black;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -197,7 +198,7 @@ export default withRouter(({ history, location }) => {
             "/Register" ? null : window.sessionStorage.getItem("id") ? (
               <InfoOutWrapper>
                 <InfoWrapper>
-                  <InfoTopWrapper>
+                  <InfoTopWrapper to="/My">
                     <Level>
                       Lv.{getLevel(window.sessionStorage.getItem("point"))}
                     </Level>

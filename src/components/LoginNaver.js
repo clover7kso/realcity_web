@@ -41,7 +41,7 @@ export default function NaverButton({ onSocial }) {
     <div>
       <NaverLogin
         clientId={clientId}
-        callbackUrl="http://localhost:3000"
+        callbackUrl="https://realcitykr.com"
         render={(props) => (
           <Wrapper width={checkPC ? "130px" : "52px"} onClick={props.onClick}>
             <NaverImg

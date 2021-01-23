@@ -56,7 +56,7 @@ const PostWrapper = styled.div`
   width: ${(props) => props.width};
   height: 100%;
   min-height: 100%;
-  padding: 30px 0 0 0;
+  padding: 5px 0 0 0;
 `;
 
 const ZzalWrapper = styled.div`
@@ -64,7 +64,7 @@ const ZzalWrapper = styled.div`
   display: flex;
   flex-direction: column;
   font-family: Roboto;
-  padding-top:5%
+  padding-top:25px
 `;
 
 const Title = styled.span`

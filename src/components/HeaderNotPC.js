@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Link, withRouter } from "react-router-dom";
-import { Logo } from "./Icons";
+import { SmallLogo } from "./Icons";
 import Headroom from "react-headroom";
 import LoginGoogle from "./LoginGoogle";
 import LoginNaver from "./LoginNaver";
@@ -13,7 +13,7 @@ import { useAlert } from "react-alert";
 
 const Button = styled.button`
   width: 80px;
-  height:50px;
+  height:40px;
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius};
   color: white;
@@ -22,14 +22,16 @@ const Button = styled.button`
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 20px;
+  font-size: 18px;
   cursor: pointer;
   margin-right: ${(props) => props.marginRight};
 `;
 
 const HeaderWrapper = styled.div`
+  padding-left: 3%;
+  padding-right: 3%;
   background: white;
-  height: 120px;
+  height: 80px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -53,7 +55,7 @@ const HeaderLink = styled(Link)``;
 const InfoOutWrapper = styled.div`
   display: flex;
   flex-direction: row;
-  margin-right: 15px;
+  margin-right: 5px;
 `;
 
 const InfoWrapper = styled.div`
@@ -61,8 +63,9 @@ const InfoWrapper = styled.div`
   flex-direction: column;
   justify-content: space-between;
   align-items: right;
-  height: 40px;
-  margin-right: 15px;
+  height: 30px;
+  margin-right: 5px;
+  margin-top: 3px;
 `;
 
 const InfoTopWrapper = styled(Link)`
@@ -81,20 +84,20 @@ const InfoBottomWrapper = styled.div`
 
 const Nickname = styled.div`
   white-space: nowrap;
-  font-size: 20px;
+  font-size: 12px;
   font-weight: bold;
 `;
 
 const Level = styled.div`
-  margin-right: 10px;
+  margin-right: 5px;
   white-space: nowrap;
-  font-size: 14px;
+  font-size: 6px;
   font-weight: bold;
 `;
 
 const Logout = styled.div`
   white-space: nowrap;
-  font-size: 14px;
+  font-size: 6px;
   font-weight: bold;
   cursor: pointer;
   text-decoration: underline;
@@ -197,7 +200,7 @@ export default withRouter(({ history, location }) => {
         <InWrapper>
           <HeaderColumn>
             <Link to="/">
-              <Logo />
+              <SmallLogo />
             </Link>
           </HeaderColumn>
           <HeaderColumn>
@@ -219,8 +222,7 @@ export default withRouter(({ history, location }) => {
                 </InfoWrapper>
 
                 <LiquidGauge
-                  style={{ margin: "0" }}
-                  radius={24}
+                  radius={19}
                   value={getPercentage(window.sessionStorage.getItem("point"))}
                   onClick={() => {
                     refreshLevel();

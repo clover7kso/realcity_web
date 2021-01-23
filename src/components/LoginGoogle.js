@@ -1,6 +1,7 @@
 import React from "react";
 import GoogleLogin from "react-google-login";
 import styled from "styled-components";
+import { isPC } from "./MediaQuery";
 
 const Wrapper = styled.div`
   width: ${(props) => props.width};
@@ -38,13 +39,15 @@ export default function GoogleButton({ onSocial }) {
     //console.log(error);
   };
 
+  var checkPC = isPC();
+
   return (
     <div>
       <GoogleLogin
         clientId={clientId}
         responseType={"id_token"}
         render={(props) => (
-          <Wrapper width={"52px"} onClick={props.onClick}>
+          <Wrapper width={checkPC ? "52px" : "40px"} onClick={props.onClick}>
             <GoogleImg src={require("../Image/google_small_white.png")} />
           </Wrapper>
         )}

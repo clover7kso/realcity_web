@@ -8,6 +8,7 @@ import Theme from "../Styles/Theme";
 import MyRoutes from "./Routes";
 import Footer from "./Footer";
 import Header from "./Header";
+import HeaderNotPC from "./HeaderNotPC";
 import { isPC } from "./MediaQuery";
 
 //const QUERY = gql`{isLoggedIn @client}`;
@@ -28,7 +29,7 @@ export default () => {
         <GlobalStyles />
         <BrowserRouter>
           <>
-            <Header />
+            {isPC() ? <Header /> : <HeaderNotPC />}
             <Wrapper
               paddingLeft={isPC() ? null : "3%"}
               paddingRight={isPC() ? null : "3%"}

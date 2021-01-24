@@ -6,6 +6,7 @@ import { isPC } from "./MediaQuery";
 const Wrapper = styled.div`
   width: ${(props) => props.width};
   margin-right: 10px;
+  cursor: pointer;
 `;
 
 const NaverImg = styled.img`

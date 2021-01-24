@@ -124,6 +124,12 @@ export default withRouter(({ history, location }) => {
         point
         socialId
         socialType
+        BanManager {
+          blockedUntil
+          blockedReason
+          blockedNum
+          blockedDate
+        }
       }
     }
   `;
@@ -137,34 +143,51 @@ export default withRouter(({ history, location }) => {
     }
   `;
 
-  const [social, setSocial] = useState(null);
-
   const [loginMutation] = useMutation(LOGIN);
   const [getMeMutation] = useMutation(GETME);
   const alert = useAlert();
 
-  const socialLogin = async () => {
+  const socialLogin = async (social) => {
+    if (social === null) return;
     const result = await loginMutation({
       variables: {
         socialId: social.socialId,
         socialType: social.socialType,
       },
     });
+
     if (result.data.login === null) {
       history.push("/Register", [
         social.socialId,
         social.socialType,
         social.email,
       ]);
-      setSocial(null);
     } else {
-      window.sessionStorage.setItem("id", result.data.login.id);
-      window.sessionStorage.setItem("nickname", result.data.login.nickname);
-      window.sessionStorage.setItem("point", result.data.login.point);
-      window.location.reload();
-      setSocial(null);
+      if (
+        result.data.login.BanManager === null ||
+        result.data.login.BanManager.blockedUntil === "NOPE" ||
+        result.data.login.BanManager.blockedUntil === "NEED_MANAGING"
+      ) {
+        window.sessionStorage.setItem("id", result.data.login.id);
+        window.sessionStorage.setItem("nickname", result.data.login.nickname);
+        window.sessionStorage.setItem("point", result.data.login.point);
+        window.location.reload();
+      } else {
+        const state = [
+          result.data.login.nickname,
+          result.data.login.BanManager.blockedUntil,
+          result.data.login.BanManager.blockedReason,
+          result.data.login.BanManager.blockedNum,
+          result.data.login.BanManager.blockedDate,
+        ];
+        history.push({
+          pathname: "/Ban",
+          search: "?" + state,
+        });
+      }
     }
   };
+
   const socialLogout = async () => {
     window.sessionStorage.clear();
     window.location.reload();
@@ -189,8 +212,6 @@ export default withRouter(({ history, location }) => {
     );
   };
 
-  if (social !== null) socialLogin();
-
   return (
     <Headroom>
       <HeaderWrapper>
@@ -200,53 +221,61 @@ export default withRouter(({ history, location }) => {
               <Logo />
             </Link>
           </HeaderColumn>
-          <HeaderColumn>
-            {location.pathname ===
-            "/Register" ? null : window.sessionStorage.getItem("id") ? (
-              <InfoOutWrapper>
-                <InfoWrapper>
-                  <InfoTopWrapper to="/My">
-                    <Level>
-                      Lv.{getLevel(window.sessionStorage.getItem("point"))}
-                    </Level>
-                    <Nickname>
-                      {window.sessionStorage.getItem("nickname")}
-                    </Nickname>
-                  </InfoTopWrapper>
-                  <InfoBottomWrapper>
-                    <Logout onClick={() => socialLogout()}>로그아웃</Logout>
-                  </InfoBottomWrapper>
-                </InfoWrapper>
+          {location.pathname === "/Ban" ? null : (
+            <HeaderColumn>
+              {location.pathname ===
+              "/Register" ? null : window.sessionStorage.getItem("id") ? (
+                <InfoOutWrapper>
+                  <InfoWrapper>
+                    <InfoTopWrapper to="/My">
+                      <Level>
+                        Lv.{getLevel(window.sessionStorage.getItem("point"))}
+                      </Level>
+                      <Nickname>
+                        {window.sessionStorage.getItem("nickname")}
+                      </Nickname>
+                    </InfoTopWrapper>
+                    <InfoBottomWrapper>
+                      <Logout onClick={() => socialLogout()}>로그아웃</Logout>
+                    </InfoBottomWrapper>
+                  </InfoWrapper>
 
-                <LiquidGauge
-                  style={{ margin: "0" }}
-                  radius={24}
-                  value={getPercentage(window.sessionStorage.getItem("point"))}
-                  onClick={() => {
-                    refreshLevel();
-                  }}
-                />
-              </InfoOutWrapper>
-            ) : (
-              <>
-                {show ? (
-                  <>
-                    <LoginGoogle onSocial={(onSocial) => setSocial(onSocial)} />
-                    <LoginNaver onSocial={(onSocial) => setSocial(onSocial)} />
-                  </>
-                ) : (
-                  <Button marginRight="4px" onClick={(e) => showLogin(e)}>
-                    로그인
-                  </Button>
-                )}
-              </>
-            )}
-            {location.pathname !== "/Writer" ? (
-              <HeaderLink to="/Writer">
-                <Button>글쓰기</Button>
-              </HeaderLink>
-            ) : null}
-          </HeaderColumn>
+                  <LiquidGauge
+                    style={{ margin: "0" }}
+                    radius={24}
+                    value={getPercentage(
+                      window.sessionStorage.getItem("point")
+                    )}
+                    onClick={() => {
+                      refreshLevel();
+                    }}
+                  />
+                </InfoOutWrapper>
+              ) : (
+                <>
+                  {show ? (
+                    <>
+                      <LoginGoogle
+                        onSocial={(onSocial) => socialLogin(onSocial)}
+                      />
+                      <LoginNaver
+                        onSocial={(onSocial) => socialLogin(onSocial)}
+                      />
+                    </>
+                  ) : (
+                    <Button marginRight="4px" onClick={(e) => showLogin(e)}>
+                      로그인
+                    </Button>
+                  )}
+                </>
+              )}
+              {location.pathname !== "/Writer" ? (
+                <HeaderLink to="/Writer">
+                  <Button>글쓰기</Button>
+                </HeaderLink>
+              ) : null}
+            </HeaderColumn>
+          )}
         </InWrapper>
       </HeaderWrapper>
     </Headroom>

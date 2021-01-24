@@ -235,7 +235,7 @@ export default withRouter(({ history, location }) => {
                     <LoginNaver onSocial={(onSocial) => setSocial(onSocial)} />
                   </>
                 ) : (
-                  <Button marginRight="10px" onClick={(e) => showLogin(e)}>
+                  <Button marginRight="4px" onClick={(e) => showLogin(e)}>
                     로그인
                   </Button>
                 )}

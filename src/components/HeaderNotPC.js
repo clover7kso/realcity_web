@@ -12,8 +12,8 @@ import LiquidGauge from "./LiquidGauge";
 import { useAlert } from "react-alert";
 
 const Button = styled.button`
-  width: 80px;
-  height:40px;
+  width: 50px;
+  height:35px;
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius};
   color: white;
@@ -22,7 +22,7 @@ const Button = styled.button`
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 18px;
+  font-size: 14px;
   cursor: pointer;
   margin-right: ${(props) => props.marginRight};
 `;
@@ -237,7 +237,7 @@ export default withRouter(({ history, location }) => {
                     <LoginNaver onSocial={(onSocial) => setSocial(onSocial)} />
                   </>
                 ) : (
-                  <Button marginRight="10px" onClick={(e) => showLogin(e)}>
+                  <Button marginRight="5px" onClick={(e) => showLogin(e)}>
                     로그인
                   </Button>
                 )}

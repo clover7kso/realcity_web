@@ -5,7 +5,7 @@ import { isPC } from "./MediaQuery";
 
 const Wrapper = styled.div`
   width: ${(props) => props.width};
-  margin-right: 10px;
+  margin-right: 4px;
   cursor: pointer;
 `;
 
@@ -48,7 +48,7 @@ export default function GoogleButton({ onSocial }) {
         clientId={clientId}
         responseType={"id_token"}
         render={(props) => (
-          <Wrapper width={checkPC ? "52px" : "40px"} onClick={props.onClick}>
+          <Wrapper width={checkPC ? "52px" : "35px"} onClick={props.onClick}>
             <GoogleImg src={require("../Image/google_small_white.png")} />
           </Wrapper>
         )}

@@ -120,12 +120,13 @@ const InputInfo = styled(Input)`
 export default class DiceBox extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props.data.getMe.gamblePosition);
     this.state = {
       rollTime: 0,
-      pos: 0,
+      pos: this.props.data.getMe.gamblePosition,
       dice1: 6,
       dice2: 6,
-      screenPos: 0,
+      screenPos: this.props.data.getMe.gamblePosition,
       diceSum: 0,
       message: "",
       betPoint: 0,
@@ -142,13 +143,14 @@ export default class DiceBox extends React.Component {
         var next =
           this.state.screenPos + 1 < 16
             ? this.state.screenPos + 1
-            : Math.floor((this.state.screenPos + 1) % 16);
+            : (this.state.screenPos + 1) % 16;
         this.setState({
           screenPos: next,
           diceSum: this.state.diceSum - 1,
         });
       } else {
         clearTimeout(this.timer);
+        this.props.refreshMe();
         setTimeout(() => {
           this.setState({
             effect: false,
@@ -171,13 +173,21 @@ export default class DiceBox extends React.Component {
       pos:
         this.state.pos + sum < 16
           ? this.state.pos + sum
-          : Math.floor((this.state.pos + sum) % 16),
+          : (this.state.pos + sum) % 16,
       diceSum: randomValue1 + randomValue2,
       message: randomValue1 !== randomValue2 ? "두근두근" : "더블+🎲",
     });
-
+    const myResult = await this.props.gambleResult({
+      variables: {
+        id: window.sessionStorage.getItem("id"),
+        diceSum: randomValue1 + randomValue2,
+        betPoint: Number(this.state.betPoint),
+      },
+    });
+    if (!myResult) return;
     this.reactDice1.rollAll([this.state.dice1]);
     this.reactDice2.rollAll([this.state.dice2]);
+
     console.log(this.state.dice1);
     console.log(this.state.dice2);
     console.log(this.state.pos);

@@ -7,6 +7,7 @@ import { gql } from "@apollo/client";
 import { useAlert } from "react-alert";
 import { getRemain } from "../Components/Util";
 import Loader from "../Components/Loader";
+import { useMutation } from "@apollo/client";
 
 const Title = styled.h1`
   font-family: BMJUA;
@@ -39,6 +40,12 @@ const GETME = gql`
   }
 `;
 
+const GAMBLE_RESULT = gql`
+  mutation gambleResult($id: String!, $diceSum: Int!, $betPoint: Int!) {
+    gambleResult(id: $id, diceSum: $diceSum, betPoint: $betPoint)
+  }
+`;
+
 const Ban = ({ history }) => {
   const alert = useAlert();
 
@@ -48,20 +55,23 @@ const Ban = ({ history }) => {
     },
   });
 
+  const [gambleResult] = useMutation(GAMBLE_RESULT);
   const [toggle, setToggle] = useState();
 
   const refreshMe = async () => {
     refetch();
-    window.sessionStorage.setItem("nickname", data.getMe.nickname);
-    window.sessionStorage.setItem("point", data.getMeQuery.point);
-    setToggle(!toggle);
-    alert.removeAll();
-    alert.success("경험치가 새로고침되었습니다.");
-    alert.success(
-      "다음레벨까지 좋아요 " +
-        getRemain(window.sessionStorage.getItem("point")) +
-        " 가 남았습니다."
-    );
+    if (!loading && data) {
+      window.sessionStorage.setItem("nickname", data.getMe.nickname);
+      window.sessionStorage.setItem("point", data.getMe.point);
+      setToggle(!toggle);
+      alert.removeAll();
+      alert.success("경험치가 새로고침되었습니다.");
+      alert.success(
+        "다음레벨까지 좋아요 " +
+          getRemain(window.sessionStorage.getItem("point")) +
+          " 가 남았습니다."
+      );
+    }
   };
 
   return (
@@ -70,7 +80,12 @@ const Ban = ({ history }) => {
         {!loading && data !== null ? (
           <>
             <Title>인생역전!</Title>
-            <DiceBox data={data} alert={alert} />
+            <DiceBox
+              data={data}
+              alert={alert}
+              gambleResult={gambleResult}
+              refreshMe={refreshMe}
+            />
           </>
         ) : (
           <Loader />

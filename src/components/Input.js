@@ -23,6 +23,7 @@ const Input = ({
   type = "text",
   className,
   onKeyPress,
+  disabled,
 }) => (
   <Container
     className={className}
@@ -34,6 +35,7 @@ const Input = ({
     }}
     type={type}
     onKeyPress={onKeyPress}
+    disabled={disabled}
   />
 );
 
@@ -43,6 +45,7 @@ Input.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func.isRequired,
   type: PropTypes.string,
+  disabled: PropTypes.bool,
 };
 
 export default Input;

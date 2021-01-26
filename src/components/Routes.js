@@ -8,6 +8,7 @@ import Search from "../Routes/Search";
 import Register from "../Routes/Register";
 import My from "../Routes/My";
 import Ban from "../Routes/Ban";
+import Gamble from "../Routes/Gamble";
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 import ReactGA from "react-ga";
 
@@ -44,6 +45,7 @@ const MyRoutes = () => {
           <Route path="/Register" component={Register} />
           <Route path="/My" component={My} />
           <Route path="/Ban" component={Ban} />
+          <Route path="/Gamble" component={Gamble} />
           <Redirect from="*" to="/" />
         </Switch>
       </CSSTransition>

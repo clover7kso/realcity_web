@@ -5,7 +5,7 @@ import { isPC } from "./MediaQuery";
 
 const Wrapper = styled.div`
   width: ${(props) => props.width};
-  margin-right: 4px;
+  margin-right: ${(props) => props.marginRight};
   cursor: pointer;
 `;
 
@@ -45,7 +45,11 @@ export default function NaverButton({ onSocial }) {
         clientId={clientId}
         callbackUrl="http://localhost:3000"
         render={(props) => (
-          <Wrapper width={checkPC ? "52px" : "35px"} onClick={props.onClick}>
+          <Wrapper
+            width={checkPC ? "52px" : "35px"}
+            marginRight={checkPC ? "6px" : "2px"}
+            onClick={props.onClick}
+          >
             <NaverImg src={require("../Image/naver_small_white.png")} />
           </Wrapper>
         )}

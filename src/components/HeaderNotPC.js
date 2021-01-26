@@ -12,7 +12,7 @@ import LiquidGauge from "./LiquidGauge";
 import { useAlert } from "react-alert";
 
 const Button = styled.button`
-  width: 50px;
+  width: 47px;
   height:35px;
   border: 0;
   border-radius: ${(props) => props.theme.borderRadius};
@@ -22,7 +22,7 @@ const Button = styled.button`
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 14px;
+  font-size: 10px;
   cursor: pointer;
   margin-right: ${(props) => props.marginRight};
 `;
@@ -265,12 +265,17 @@ export default withRouter(({ history, location }) => {
                       />
                     </>
                   ) : (
-                    <Button marginRight="5px" onClick={(e) => showLogin(e)}>
+                    <Button marginRight="2px" onClick={(e) => showLogin(e)}>
                       로그인
                     </Button>
                   )}
                 </>
               )}
+              {location.pathname !== "/Gamble" ? (
+                <HeaderLink to="/Gamble">
+                  <Button marginRight="2px">인생역전</Button>
+                </HeaderLink>
+              ) : null}
               {location.pathname !== "/Writer" ? (
                 <HeaderLink to="/Writer">
                   <Button>글쓰기</Button>

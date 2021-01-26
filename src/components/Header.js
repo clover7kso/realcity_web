@@ -22,7 +22,7 @@ const Button = styled.button`
   text-align: center;
   padding-top: 5px;
   padding-bottom: 5px;
-  font-size: 20px;
+  font-size: 15px;
   cursor: pointer;
   margin-right: ${(props) => props.marginRight};
 `;
@@ -263,12 +263,17 @@ export default withRouter(({ history, location }) => {
                       />
                     </>
                   ) : (
-                    <Button marginRight="4px" onClick={(e) => showLogin(e)}>
+                    <Button marginRight="6px" onClick={(e) => showLogin(e)}>
                       로그인
                     </Button>
                   )}
                 </>
               )}
+              {location.pathname !== "/Gamble" ? (
+                <HeaderLink to="/Gamble">
+                  <Button marginRight="6px">인생역전</Button>
+                </HeaderLink>
+              ) : null}
               {location.pathname !== "/Writer" ? (
                 <HeaderLink to="/Writer">
                   <Button>글쓰기</Button>

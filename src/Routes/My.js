@@ -164,7 +164,7 @@ const My = ({ history }) => {
                   postResult.data.postMy.cursor === "end"
                 ) {
                   return;
-                } else {
+                } else if (!postResult.loading) {
                   postResult.fetchMore({
                     variables: {
                       cursor:

@@ -155,7 +155,7 @@ const Board = ({ history }) => {
             onLoadMore={() => {
               if (!loading && data.postSearch.cursor === "end") {
                 return;
-              } else {
+              } else if (!loading) {
                 fetchMore({
                   variables: {
                     search: search,

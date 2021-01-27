@@ -117,7 +117,7 @@ const Board = ({ history }) => {
             onLoadMore={() => {
               if (!loading && data.postMany.cursor === "end") {
                 return;
-              } else {
+              } else if (!loading) {
                 fetchMore({
                   variables: {
                     category: removeEmojis(selected),

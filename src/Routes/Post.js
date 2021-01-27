@@ -354,7 +354,7 @@ const Post = ({ history }) => {
             <PostWrapper>
               <ShareButtons
                 pathname={
-                  "http://localhost:3000/#/Post" + history.location.search
+                  "https://realcitykr.com/Post" + history.location.search
                 }
               />
               <TimeAuthorWrapper>

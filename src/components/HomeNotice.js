@@ -58,12 +58,13 @@ const NoticeTitle = styled.div`
 `;
 
 const ModalContent = styled.div`
-  font-size: 18px;
+  font-size: 14px;
   color: black;
-  margin-top: 20px;
+  margin-bottom: 4px;
 `;
 
 const ModalTitle = styled.div`
+  margin-bottom: 20px;
   font-size: 24px;
   font-weight: bold;
   color: black;
@@ -139,7 +140,18 @@ export default () => {
             )}
           </ModalDate>
           <ModalTitle>{data.homeNotice[clickedIndex].title}</ModalTitle>
-          <ModalContent>{data.homeNotice[clickedIndex].content}</ModalContent>
+          {data.homeNotice[clickedIndex].content !== undefined
+            ? data.homeNotice[clickedIndex].content
+                .split("\\n")
+                .map((item, idx) => {
+                  return (
+                    <ModalContent key={idx}>
+                      {item}
+                      <br />
+                    </ModalContent>
+                  );
+                })
+            : null}
         </Modal>
       )}
     </Wrapper>

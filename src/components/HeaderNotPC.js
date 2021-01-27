@@ -84,12 +84,12 @@ const InfoBottomWrapper = styled.div`
 
 const Nickname = styled.div`
   white-space: nowrap;
-  font-size: 12px;
+  font-size: 10px;
   font-weight: bold;
 `;
 
 const Level = styled.div`
-  margin-right: 5px;
+  margin-right: 10px;
   white-space: nowrap;
   font-size: 6px;
   font-weight: bold;
@@ -232,20 +232,20 @@ export default withRouter(({ history, location }) => {
                 <InfoOutWrapper>
                   <InfoWrapper>
                     <InfoTopWrapper to="/My">
-                      <Level>
-                        Lv.{getLevel(window.sessionStorage.getItem("point"))}
-                      </Level>
                       <Nickname>
                         {window.sessionStorage.getItem("nickname")}
                       </Nickname>
                     </InfoTopWrapper>
                     <InfoBottomWrapper>
+                      <Level>
+                        Lv.{getLevel(window.sessionStorage.getItem("point"))}
+                      </Level>
                       <Logout onClick={() => socialLogout()}>로그아웃</Logout>
                     </InfoBottomWrapper>
                   </InfoWrapper>
 
                   <LiquidGauge
-                    radius={19}
+                    radius={17}
                     value={getPercentage(
                       window.sessionStorage.getItem("point")
                     )}

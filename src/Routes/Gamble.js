@@ -85,7 +85,7 @@ const Ban = ({ history }) => {
   return (
     <Wrapper>
       <DiceWrapper>
-        {!loading && data !== null ? (
+        {!loading && data !== undefined ? (
           <>
             <Title PCcheck={PCcheck}>인생역전!</Title>
             {PCcheck ? (
@@ -104,8 +104,10 @@ const Ban = ({ history }) => {
               />
             )}
           </>
-        ) : (
+        ) : loading ? (
           <Loader />
+        ) : (
+          <Title PCcheck={PCcheck}>로그인이 필요한 기능입니다.</Title>
         )}
       </DiceWrapper>
     </Wrapper>

@@ -287,7 +287,7 @@ export default class DiceBox extends React.Component {
                   Lv.
                   {getLevel(
                     Number(window.sessionStorage.getItem("point")) +
-                      this.state.betPoint * 2
+                      this.state.betPoint * 4
                   )}{" "}
                   입니다.
                 </SmallInfo>
@@ -304,7 +304,7 @@ export default class DiceBox extends React.Component {
                 </SmallInfo>
               </>
             ) : 0 === this.state.betPoint ? (
-              <SmallInfo>배팅 좋아요 수를 입력해주세요.</SmallInfo>
+              <SmallInfo>배팅 좋아요 수를 입력해주세요. 당첨시 4배.</SmallInfo>
             ) : (
               <SmallInfo>
                 최소 1개, 최대 {window.sessionStorage.getItem("point")}개의

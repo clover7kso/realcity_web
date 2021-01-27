@@ -33,13 +33,16 @@ export default () => (
   <Footer>
     <List>
       <ListItem>
-        <Link href="#">서비스 소개</Link>
+        <Link href="/FooterInfo?privacy">개인정보취급방침</Link>
       </ListItem>
       <ListItem>
-        <Link href="#">이용약관</Link>
+        <Link href="/FooterInfo?service">서비스소개</Link>
       </ListItem>
       <ListItem>
-        <Link href="#">개인정보 처리방침</Link>
+        <Link href="/FooterInfo?rule">이용약관</Link>
+      </ListItem>
+      <ListItem>
+        <Link href="/FooterInfo?protect">청소년보호정책</Link>
       </ListItem>
     </List>
     <Copyright>Real City {new Date().getFullYear()} &copy;</Copyright>

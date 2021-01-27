@@ -2,17 +2,19 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 import DiceBox from "../Components/DiceBox";
+import DiceBoxNotPC from "../Components/DiceBoxNotPC";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { useAlert } from "react-alert";
 import { getRemain } from "../Components/Util";
+import { isPC } from "../Components/MediaQuery";
 import Loader from "../Components/Loader";
 import { useMutation } from "@apollo/client";
 
 const Title = styled.h1`
   font-family: BMJUA;
-  font-size: 3rem;
-  margin: 2rem 0;
+  font-size: ${(props) => (props.PCcheck ? "3rem" : "2rem")};
+  margin-top: ${(props) => (props.PCcheck ? "2rem" : ".7rem")};
   text-align: center;
   color: #000;
   margin-bottom: 20px;
@@ -78,18 +80,29 @@ const Ban = ({ history }) => {
     );
   };
 
+  var PCcheck = isPC();
+
   return (
     <Wrapper>
       <DiceWrapper>
         {!loading && data !== null ? (
           <>
-            <Title>인생역전!</Title>
-            <DiceBox
-              data={data}
-              alert={alert}
-              gambleResult={gambleResult}
-              refreshMe={refreshMe}
-            />
+            <Title PCcheck={PCcheck}>인생역전!</Title>
+            {PCcheck ? (
+              <DiceBox
+                data={data}
+                alert={alert}
+                gambleResult={gambleResult}
+                refreshMe={refreshMe}
+              />
+            ) : (
+              <DiceBoxNotPC
+                data={data}
+                alert={alert}
+                gambleResult={gambleResult}
+                refreshMe={refreshMe}
+              />
+            )}
           </>
         ) : (
           <Loader />

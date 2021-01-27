@@ -19,7 +19,6 @@ const Wrapper = styled.div`
   padding-left: ${(props) => (props.paddingLeft ? props.paddingLeft : "auto")};
   padding-right: ${(props) =>
     props.paddingRight ? props.paddingRight : "auto"};
-  width: 100%;
 `;
 
 export default () => {

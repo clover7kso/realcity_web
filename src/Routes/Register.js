@@ -6,6 +6,12 @@ import { checkValidate } from "../Components/Util";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { useAlert } from "react-alert";
+import Modal from "../Components/Modal";
+import {
+  footerDataPrivacy,
+  footerDataMarketing,
+  footerDataRule,
+} from "../Components/Util";
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,16 +38,23 @@ const Title = styled.span`
   text-decoration: underline;
   margin-top: 30px;
   width: 100%;
+  margin-bottom: 30px;
 `;
+
+const NickInfo = styled.div`
+  display: flex;
+  font-size: 15px;
+  width: 100%;
+`;
+
 const InputInfo = styled(Input)`
   border-color: ${(props) => props.theme.grey};
-  margin-top:30px
+  margin-top:20px
   background-color: white;
   height:44px
   font-size: 20px;
   text-align: left;
   padding-left:10px;
-  margin-bottom:20px;
   border-radius:1px
   width:100%
   &::placeholder {
@@ -66,12 +79,38 @@ const Confirm = styled.button`
   font-size: 20px;
   cursor: pointer;
 `;
+
 const ButtonWrapper = styled.div`
   justify-content: flex-end;
   display: flex;
   flex-direction: row;
   width: 100%;
 `;
+
+const AgreeWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin-top: 20px;
+  align-items: center;
+`;
+
+const Info = styled.div`
+  display: flex;
+  font-size: 15px;
+  margin-left: 10px;
+  flex: 1;
+`;
+
+const InfoFull = styled.button`
+  display: flex;
+  font-size: 15px;
+  color: darkGrey;
+  background: white;
+  border: 0;
+  outline: 0;
+`;
+
 const Register = ({ history }) => {
   const alert = useAlert();
 
@@ -81,12 +120,14 @@ const Register = ({ history }) => {
       $socialType: String!
       $email: String!
       $nickname: String!
+      $agreeMarketing: Boolean!
     ) {
       register(
         socialId: $socialId
         socialType: $socialType
         email: $email
         nickname: $nickname
+        agreeMarketing: $agreeMarketing
       )
     }
   `;
@@ -94,8 +135,32 @@ const Register = ({ history }) => {
   const [registerMutation] = useMutation(REGISTER);
 
   const [nick, setNick] = useState("");
+  const [agreeUsage, setAgreeUsage] = useState(false);
+  const [agreePrivacy, setAgreePrivacy] = useState(false);
+  const [agreeMarketing, setAgreeMarketing] = useState(false);
+  const [agreeAll, setAgreeAll] = useState(false);
+  const setAll = () => {
+    setAgreeUsage(!agreeAll);
+    setAgreePrivacy(!agreeAll);
+    setAgreeMarketing(!agreeAll);
+    setAgreeAll(!agreeAll);
+  };
+  const [modalVisible, setModalVisible] = useState(false);
+  const [index, setIndex] = useState(0);
+  const dataList = [footerDataRule, footerDataPrivacy, footerDataMarketing];
+  const openModal = (idx) => {
+    setIndex(idx);
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   const clickConfirm = async () => {
+    if (!agreeUsage) alert.error("이용수칙 동의는 필수사항입니다.");
+    if (!agreePrivacy) alert.error("개인정보처리 동의는 필수사항입니다.");
+
     const uploadData = [
       {
         key: nick,
@@ -106,13 +171,14 @@ const Register = ({ history }) => {
     ];
     const validateResult = checkValidate(uploadData, alert);
 
-    if (validateResult) {
+    if (agreeUsage && agreePrivacy && validateResult) {
       const result = await registerMutation({
         variables: {
           socialId: history.location.state[0],
           socialType: history.location.state[1],
           email: history.location.state[2],
           nickname: nick,
+          agreeMarketing: agreeMarketing,
         },
       });
 
@@ -133,11 +199,61 @@ const Register = ({ history }) => {
     <Wrapper>
       <InnderWrapper>
         <Title>회원가입</Title>
+        <NickInfo>닉네임은 변경 불가하니 신중하게 정해주세요.</NickInfo>
         <InputInfo onChange={setNick} placeholder="닉네임" type="text" />
+        <AgreeWrapper>
+          <input
+            style={{ width: "20px", height: "20px" }}
+            type="checkbox"
+            checked={agreeUsage}
+            onChange={() => setAgreeUsage(!agreeUsage)}
+          />
+          <Info>[필수] 이용수칙 동의 </Info>
+          <InfoFull onClick={() => openModal(0)}>전문보기</InfoFull>
+        </AgreeWrapper>
+        <AgreeWrapper>
+          <input
+            style={{ width: "20px", height: "20px" }}
+            type="checkbox"
+            checked={agreePrivacy}
+            onChange={() => setAgreePrivacy(!agreePrivacy)}
+          />
+          <Info>[필수] 개인정보처리 동의 </Info>{" "}
+          <InfoFull onClick={() => openModal(1)}>전문보기</InfoFull>
+        </AgreeWrapper>
+        <AgreeWrapper>
+          <input
+            style={{ width: "20px", height: "20px" }}
+            type="checkbox"
+            checked={agreeMarketing}
+            onChange={() => setAgreeMarketing(!agreeMarketing)}
+          />
+          <Info>[선택] 마케팅수신 동의</Info>{" "}
+          <InfoFull onClick={() => openModal(2)}>전문보기</InfoFull>
+        </AgreeWrapper>
+        <AgreeWrapper>
+          <input
+            style={{ width: "20px", height: "20px" }}
+            type="checkbox"
+            checked={agreeAll}
+            onChange={() => setAll()}
+          />
+          <Info>전체 동의</Info>
+        </AgreeWrapper>
         <ButtonWrapper>
           <Confirm onClick={() => clickConfirm()}>완료</Confirm>
         </ButtonWrapper>
       </InnderWrapper>
+      {modalVisible && (
+        <Modal
+          visible={modalVisible}
+          closable={true}
+          maskClosable={true}
+          onClose={closeModal}
+        >
+          <span dangerouslySetInnerHTML={{ __html: dataList[index] }} />
+        </Modal>
+      )}
     </Wrapper>
   );
 };

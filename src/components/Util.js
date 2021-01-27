@@ -312,6 +312,11 @@ const footerDataProtect = `<p ><strong><span style='font-size:16px;font-family:"
 <p ><span style='font-size:16px;font-family:"굴림",sans-serif;'>-&nbsp;</span><span style='font-size:16px;font-family:"굴림",sans-serif;'>이메일</span><span style='font-size:16px;font-family:"굴림",sans-serif;'>&nbsp;: &ldquo;real_city_kr@naver.com&rdquo;</span></p>
 <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:justify;line-height:107%;font-size:13px;font-family:"맑은 고딕",sans-serif;'>&nbsp;</p>`;
 
+const footerDataMarketing = `<p ><strong><span style='font-size:16px;'>리얼시티 마케팅정보 수신동의</span></strong></p>
+<p ><span style='font-size:16px;'>개인정보보호법 제22조 제4항에 의해 선택정보 사항에 대해서는 기재하지 않으셔도 서비스를 이용하실 수 있습니다.</span><span style='font-size:16px;'>.</span></p>
+<p ><span style='font-size:16px;'>&nbsp;</span></p>
+<p ><strong><span style='font-size:16px;'>① 마케팅 및 광고에의 활용</span></strong><span style='font-size:16px;'>.</span></p>
+<p ><span style='font-size:16px;'>신규 서비스(제품) 개발 및 맞춤 서비스 제공, 이벤트 및 광고성 정보 제공 및 참여기회 제공, 인구통계학적 특성에 따른 서비스 제공 및 광고 게재, 서비스의 유효성 확인, 접속빈도 파악 또는 회원의 서비스 이용에 대한 통계 등을 목적으로 개인정보를 처리합니다.</span><span style='font-size:16px;'>.</span></p>`;
 export {
   CategoryListTypeA,
   CategoryListTypeB,
@@ -328,4 +333,5 @@ export {
   footerDataService,
   footerDataRule,
   footerDataProtect,
+  footerDataMarketing,
 };

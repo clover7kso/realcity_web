@@ -59,6 +59,10 @@ const ModalWrapper = styled.div`
   z-index: 1000;
   overflow: auto;
   outline: 0;
+  margin-left:10px
+  margin-right:10px
+  margin-top:20px
+  margin-bottom:20px
 `;
 
 const ModalOverlay = styled.div`
@@ -75,25 +79,20 @@ const ModalOverlay = styled.div`
 
 const ModalInner = styled.div`
   box-sizing: border-box;
-  position: relative;
+  position: flex;
   box-shadow: 0 0 6px 0 rgba(0, 0, 0, 0.5);
   background-color: #fff;
   border-radius: 10px;
-  width: 360px;
+  width: 100%;
   max-width: 480px;
-  top: 50%;
-  transform: translateY(-50%);
   margin: 0 auto;
-  padding: 40px 20px;
+  padding: 10px 20px;
 `;
 
 const CloseButton = styled.button`
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 10px;
   background: white;
   outline: 0;
   border: 0;
+  margin-left: 92%;
 `;
 export default Modal;

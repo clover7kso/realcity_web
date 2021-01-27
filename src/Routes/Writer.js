@@ -16,6 +16,7 @@ import {
   checkValidate,
 } from "../Components/Util";
 import { isPC } from "../Components/MediaQuery";
+import Loader from "../Components/Loader";
 
 const CKEditorWrapper = styled.div`
   border: 1px solid ${(props) => props.theme.lightGreyColor};
@@ -213,10 +214,13 @@ const Writer = ({ history }) => {
     }
   `;
 
+  const [uploadLoading, setUploadLoading] = useState(false);
   const [postUploadNoID] = useMutation(POST_UPLOAD_NOID);
   const [postUploadID] = useMutation(POST_UPLOAD_ID);
 
   const clickConfirmNoID = async () => {
+    if (uploadLoading) return;
+    setUploadLoading(true);
     const ip = await getIp();
     const images = getImages(content);
 
@@ -273,9 +277,13 @@ const Writer = ({ history }) => {
         });
       } else alert.error("업로드에 실패하였습니다.");
     }
+    setUploadLoading(false);
   };
 
   const clickConfirmID = async () => {
+    if (uploadLoading) return;
+    setUploadLoading(true);
+
     const ip = await getIp();
     const images = getImages(content);
 
@@ -318,6 +326,7 @@ const Writer = ({ history }) => {
         });
       } else alert.error("업로드에 실패하였습니다.");
     }
+    setUploadLoading(false);
   };
 
   const ImgurUploader = ImgurUploaderInit({ clientID: "818d43b4be21dd8" });
@@ -390,7 +399,7 @@ const Writer = ({ history }) => {
               : clickConfirmNoID
           }
         >
-          완료
+          {!uploadLoading ? "완료" : <Loader />}
         </Confirm>
       </ButtonWrapper>
     </Wrapper>

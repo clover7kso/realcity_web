@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Input from "./Input";
 import styled from "styled-components";
 import TextareaAutosize from "react-autosize-textarea";
@@ -6,6 +6,7 @@ import { isPC } from "./MediaQuery";
 import { gql } from "@apollo/client";
 import { useMutation } from "@apollo/client";
 import { getIp, checkValidate } from "./Util";
+import Loader from "./Loader";
 
 const ReplyWrapper = styled.div`
   display: flex;
@@ -109,7 +110,11 @@ export default ({ data, refetch, alert, isGroup, group }) => {
   var password = "";
   var content = "";
 
+  const [uploadLoading, setUploadLoading] = useState(false);
+
   const clickHandlerNoID = async () => {
+    if (uploadLoading) return;
+    setUploadLoading(true);
     const ip = await getIp();
 
     const uploadData = [
@@ -147,9 +152,12 @@ export default ({ data, refetch, alert, isGroup, group }) => {
       });
       if (result.data.commentUploadNoID) refetch();
     }
+    setUploadLoading(false);
   };
 
   const clickHandlerID = async () => {
+    if (uploadLoading) return;
+    setUploadLoading(true);
     const ip = await getIp();
 
     const uploadData = [
@@ -174,6 +182,7 @@ export default ({ data, refetch, alert, isGroup, group }) => {
       });
       if (result.data.commentUploadID) refetch();
     }
+    setUploadLoading(false);
   };
 
   return (
@@ -214,7 +223,7 @@ export default ({ data, refetch, alert, isGroup, group }) => {
           }}
         >
           <span role="img" aria-label="pen">
-            ✏️
+            {!uploadLoading ? "✏️" : <Loader />}
           </span>
         </ReplyButton>
       </ReplyContent>

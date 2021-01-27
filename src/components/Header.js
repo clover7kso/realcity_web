@@ -5,7 +5,7 @@ import { Logo } from "./Icons";
 import Headroom from "react-headroom";
 import LoginGoogle from "./LoginGoogle";
 import LoginNaver from "./LoginNaver";
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { getLevel, getPercentage, getRemain } from "./Util";
 import LiquidGauge from "./LiquidGauge";

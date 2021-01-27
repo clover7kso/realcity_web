@@ -41,15 +41,20 @@ const GETME = gql`
 `;
 
 const GAMBLE_RESULT = gql`
-  mutation gambleResult($id: String!, $diceSum: Int!, $betPoint: Int!) {
-    gambleResult(id: $id, diceSum: $diceSum, betPoint: $betPoint)
+  mutation gambleResult(
+    $id: String!
+    $dice1: Int!
+    $dice2: Int!
+    $betPoint: Int!
+  ) {
+    gambleResult(id: $id, dice1: $dice1, dice2: $dice2, betPoint: $betPoint)
   }
 `;
 
 const Ban = ({ history }) => {
   const alert = useAlert();
 
-  const { data, loading, refetch } = useQuery(GETME, {
+  var { data, loading, refetch } = useQuery(GETME, {
     variables: {
       id: window.sessionStorage.getItem("id"),
     },
@@ -59,19 +64,18 @@ const Ban = ({ history }) => {
   const [toggle, setToggle] = useState();
 
   const refreshMe = async () => {
-    refetch();
-    if (!loading && data) {
-      window.sessionStorage.setItem("nickname", data.getMe.nickname);
-      window.sessionStorage.setItem("point", data.getMe.point);
-      setToggle(!toggle);
-      alert.removeAll();
-      alert.success("경험치가 새로고침되었습니다.");
-      alert.success(
-        "다음레벨까지 좋아요 " +
-          getRemain(window.sessionStorage.getItem("point")) +
-          " 가 남았습니다."
-      );
-    }
+    const result = await refetch();
+    data = result.data;
+    window.sessionStorage.setItem("nickname", data.getMe.nickname);
+    window.sessionStorage.setItem("point", data.getMe.point);
+    setToggle(!toggle);
+    alert.removeAll();
+    alert.success("경험치가 새로고침되었습니다.");
+    alert.success(
+      "다음레벨까지 좋아요 " +
+        getRemain(window.sessionStorage.getItem("point")) +
+        " 가 남았습니다."
+    );
   };
 
   return (

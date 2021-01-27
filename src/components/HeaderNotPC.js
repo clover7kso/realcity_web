@@ -5,7 +5,7 @@ import { SmallLogo } from "./Icons";
 import Headroom from "react-headroom";
 import LoginGoogle from "./LoginGoogle";
 import LoginNaver from "./LoginNaver";
-import { useMutation } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { getLevel, getPercentage, getRemain } from "./Util";
 import LiquidGauge from "./LiquidGauge";
@@ -138,7 +138,7 @@ export default withRouter(({ history, location }) => {
   `;
 
   const GETME = gql`
-    mutation getMe($id: String!) {
+    query getMe($id: String!) {
       getMe(id: $id) {
         nickname
         point
@@ -147,7 +147,11 @@ export default withRouter(({ history, location }) => {
   `;
 
   const [loginMutation] = useMutation(LOGIN);
-  const [getMeMutation] = useMutation(GETME);
+  const { data, refetch } = useQuery(GETME, {
+    variables: {
+      id: window.sessionStorage.getItem("id"),
+    },
+  });
   const alert = useAlert();
 
   const socialLogin = async (social) => {
@@ -198,13 +202,10 @@ export default withRouter(({ history, location }) => {
   };
 
   const refreshLevel = async () => {
-    const result = await getMeMutation({
-      variables: {
-        id: window.sessionStorage.getItem("id"),
-      },
-    });
-    window.sessionStorage.setItem("nickname", result.data.getMe.nickname);
-    window.sessionStorage.setItem("point", result.data.getMe.point);
+    await refetch();
+    console.log(data);
+    window.sessionStorage.setItem("nickname", data.getMe.nickname);
+    window.sessionStorage.setItem("point", data.getMe.point);
     setToggle(!toggle);
     alert.removeAll();
     alert.success("경험치가 새로고침되었습니다.");

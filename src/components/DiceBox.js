@@ -120,7 +120,6 @@ const InputInfo = styled(Input)`
 export default class DiceBox extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props.data.getMe.gamblePosition);
     this.state = {
       rollTime: 0,
       pos: this.props.data.getMe.gamblePosition,
@@ -180,11 +179,15 @@ export default class DiceBox extends React.Component {
     const myResult = await this.props.gambleResult({
       variables: {
         id: window.sessionStorage.getItem("id"),
-        diceSum: randomValue1 + randomValue2,
+        dice1: randomValue1,
+        dice2: randomValue2,
         betPoint: Number(this.state.betPoint),
       },
     });
-    if (!myResult) return;
+    if (!myResult.data.gambleResult) {
+      this.setState({ effect: false });
+      return;
+    }
     this.reactDice1.rollAll([this.state.dice1]);
     this.reactDice2.rollAll([this.state.dice2]);
 

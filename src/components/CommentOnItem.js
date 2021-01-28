@@ -162,7 +162,7 @@ class CommentItem extends Component {
       });
       if (result.data.commentShowOffID) {
         this.props.alert.success("삭제되었습니다.");
-        window.location.reload();
+        this.props.refetch();
       } else this.props.alert.error("본인 글만 삭제가 가능합니다.");
     } else this.showDelete(e);
   };

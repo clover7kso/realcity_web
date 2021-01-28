@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
-import ImgurUploaderInit from "ckeditor5-imgur-uploader";
 import { installedPlugins, toolbarSetting } from "../Components/CKEditorPlugin";
 import styled from "styled-components";
 import Input from "../Components/Input";
@@ -329,8 +328,6 @@ const Writer = ({ history }) => {
     setUploadLoading(false);
   };
 
-  const ImgurUploader = ImgurUploaderInit({ clientID: "818d43b4be21dd8" });
-
   var pcCheck = isPC();
 
   return (
@@ -380,9 +377,15 @@ const Writer = ({ history }) => {
         <CKEditor
           editor={ClassicEditor}
           config={{
-            extraPlugins: [ImgurUploader],
             plugins: [...installedPlugins],
             toolbar: [...toolbarSetting],
+            simpleUpload: {
+              uploadUrl: "http://localhost:4000/api/upload",
+              headers: {
+                "X-CSRF-TOKEN": "CSFR-Token",
+                // Authorization: 'Bearer <JSON Web Token>'
+              },
+            },
           }}
           onChange={(event, editor) => {
             const data = editor.getData();

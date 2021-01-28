@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Link, withRouter } from "react-router-dom";
 import { Logo } from "./Icons";
 import Headroom from "react-headroom";
@@ -10,6 +10,34 @@ import { gql } from "@apollo/client";
 import { getLevel, getPercentage, getRemain } from "./Util";
 import LiquidGauge from "./LiquidGauge";
 import { useAlert } from "react-alert";
+
+const fadeIn = keyframes`
+  from {
+    opacity: 0
+  }
+  to {
+    opacity: 1
+  }
+`;
+
+const fadeOut = keyframes`
+  from {
+    opacity: 1
+  }
+  to {
+    opacity: 0
+  }
+`;
+
+const LoginWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+
+  animation: ${(props) => {
+      return props.loginShow ? fadeIn : fadeOut;
+    }}
+    0.5s linear;
+`;
 
 const Button = styled.button`
   width: 80px;
@@ -25,6 +53,11 @@ const Button = styled.button`
   font-size: 15px;
   cursor: pointer;
   margin-right: ${(props) => props.marginRight};
+
+  animation: ${(props) => {
+    return props.loginShow ? fadeOut : fadeIn;
+  }}
+  0.5s linear;
 `;
 
 const HeaderWrapper = styled.div`
@@ -255,16 +288,20 @@ export default withRouter(({ history, location }) => {
               ) : (
                 <>
                   {show ? (
-                    <>
+                    <LoginWrapper loginShow={show}>
                       <LoginGoogle
                         onSocial={(onSocial) => socialLogin(onSocial)}
                       />
                       <LoginNaver
                         onSocial={(onSocial) => socialLogin(onSocial)}
                       />
-                    </>
+                    </LoginWrapper>
                   ) : (
-                    <Button marginRight="6px" onClick={(e) => showLogin(e)}>
+                    <Button
+                      loginShow={show}
+                      marginRight="6px"
+                      onClick={(e) => showLogin(e)}
+                    >
                       로그인
                     </Button>
                   )}

@@ -9,7 +9,7 @@ import { useAlert } from "react-alert";
 import Modal from "../Components/Modal";
 import {
   footerDataPrivacy,
-  footerDataMarketing,
+  dataMarketing,
   footerDataRule,
 } from "../Components/Util";
 
@@ -147,7 +147,7 @@ const Register = ({ history }) => {
   };
   const [modalVisible, setModalVisible] = useState(false);
   const [index, setIndex] = useState(0);
-  const dataList = [footerDataRule, footerDataPrivacy, footerDataMarketing];
+  const dataList = [footerDataRule, footerDataPrivacy, dataMarketing];
   const openModal = (idx) => {
     setIndex(idx);
     setModalVisible(true);

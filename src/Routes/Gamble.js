@@ -56,11 +56,12 @@ const GAMBLE_RESULT = gql`
 const Ban = ({ history }) => {
   const alert = useAlert();
 
-  var { data, loading, refetch } = useQuery(GETME, {
-    variables: {
-      id: window.sessionStorage.getItem("id"),
-    },
-  });
+  if (window.sessionStorage.getItem("id"))
+    var { data, loading, refetch } = useQuery(GETME, {
+      variables: {
+        id: window.sessionStorage.getItem("id"),
+      },
+    });
 
   const [gambleResult] = useMutation(GAMBLE_RESULT);
   const [toggle, setToggle] = useState();

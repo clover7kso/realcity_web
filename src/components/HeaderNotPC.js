@@ -172,11 +172,13 @@ export default withRouter(({ history, location }) => {
   `;
 
   const [loginMutation] = useMutation(LOGIN);
-  const { data, refetch } = useQuery(GETME, {
-    variables: {
-      id: window.sessionStorage.getItem("id"),
-    },
-  });
+  const { data, refetch } = window.sessionStorage.getItem("id")
+    ? useQuery(GETME, {
+        variables: {
+          id: window.sessionStorage.getItem("id"),
+        },
+      })
+    : { data: null, refetch: null };
   const alert = useAlert();
 
   const socialLogin = async (social) => {

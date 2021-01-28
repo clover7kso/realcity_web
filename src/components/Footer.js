@@ -29,6 +29,7 @@ const Link = styled.a`
 `;
 
 const Copyright = styled.span`
+  white-space: nowrap;
   color: ${(props) => props.theme.darkGreyColor};
 `;
 
@@ -43,16 +44,19 @@ export default () => {
         <ListItem marginRight={PCcheck ? "16px" : "5px"}>
           <Link href="/FooterInfo?privacy">개인정보처리방침</Link>
         </ListItem>
-        <ListItem marginRight={PCcheck ? "16px" : "5px"}>
-          <PC>
+        <PC>
+          <ListItem marginRight={PCcheck ? "16px" : "5px"}>
             <Link href="/FooterInfo?service">서비스소개</Link>
-          </PC>
-        </ListItem>
+          </ListItem>
+        </PC>
         <ListItem marginRight={PCcheck ? "16px" : "5px"}>
           <Link href="/FooterInfo?rule">이용약관</Link>
         </ListItem>
         <ListItem marginRight={PCcheck ? "16px" : "5px"}>
           <Link href="/FooterInfo?protect">청소년보호정책</Link>
+        </ListItem>
+        <ListItem marginRight={PCcheck ? "16px" : "5px"}>
+          <Link href="/FooterInfo?contact">고객센터</Link>
         </ListItem>
       </List>
       <Copyright>Real City {new Date().getFullYear()} &copy;</Copyright>

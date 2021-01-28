@@ -6,6 +6,7 @@ import {
   footerDataService,
   footerDataRule,
   footerDataProtect,
+  footerDataContact,
 } from "../Components/Util";
 const Wrapper = styled.div`
   display: flex;
@@ -29,6 +30,7 @@ const getTitle = (info) => {
   else if (info === "service") return "서비스소개";
   else if (info === "rule") return "이용약관";
   else if (info === "protect") return "청소년보호정책";
+  else if (info === "contact") return "고객센터";
   else return "잘못된 경로입니다.";
 };
 
@@ -37,6 +39,7 @@ const getInfo = (info) => {
   else if (info === "service") return footerDataService;
   else if (info === "rule") return footerDataRule;
   else if (info === "protect") return footerDataProtect;
+  else if (info === "contact") return footerDataContact;
   else return "뒤로 돌아가기를 눌러주세요.";
 };
 

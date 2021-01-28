@@ -312,6 +312,16 @@ const footerDataProtect = `<p ><strong><span style='font-size:16px;font-family:"
 <p ><span style='font-size:16px;font-family:"굴림",sans-serif;'>-&nbsp;</span><span style='font-size:16px;font-family:"굴림",sans-serif;'>이메일</span><span style='font-size:16px;font-family:"굴림",sans-serif;'>&nbsp;: &ldquo;real_city_kr@naver.com&rdquo;</span></p>
 <p style='margin-top:0cm;margin-right:0cm;margin-bottom:8.0pt;margin-left:0cm;text-align:justify;line-height:107%;font-size:13px;font-family:"맑은 고딕",sans-serif;'>&nbsp;</p>`;
 
+const footerDataContact = `<p ><strong><span style='font-size:16px;font-family:"굴림",sans-serif;'>리얼시티 고객센터</span></strong></p>
+<p ><strong><span style='font-size:12px;font-family:"돋움",sans-serif;color:black;'>&nbsp;</span></strong></p>
+<p ><strong><span style='font-size:20px;font-family:"돋움",sans-serif;color:black;'>운영자 이메일</span></strong></p>
+<p ><strong><span style='font-size:16px;font-family:"굴림",sans-serif;'>운영정책, 사용자관리, 광고문의 문의사항은 이쪽으로 연락주시기 바랍니다.</span></strong></p>
+<p ><strong><span style='font-size:16px;font-family:"굴림",sans-serif;'>real_city_kr@naver.com</span></strong></p>
+<p ><strong><span style='font-size:12px;font-family:"돋움",sans-serif;color:black;'>&nbsp;</span></strong></p>
+<p ><strong><span style='font-size:20px;font-family:"돋움",sans-serif;color:black;'>개발자 이메일</span></strong></p>
+<p ><strong><span style='font-size:16px;font-family:"굴림",sans-serif;'>버그 및 시스템 관련 문의는 이쪽으로 연락주시기 바랍니다.</span></strong></p>
+<p ><strong><span style='font-size:16px;font-family:"굴림",sans-serif;'>Real.City.Korea@gmail.com</span></strong></p>`;
+
 const dataMarketing = `<p ><strong><span style='font-size:16px;'>리얼시티 마케팅정보 수신동의</span></strong></p>
 <p ><span style='font-size:16px;'>개인정보보호법 제22조 제4항에 의해 선택정보 사항에 대해서는 기재하지 않으셔도 서비스를 이용하실 수 있습니다.</span><span style='font-size:16px;'>.</span></p>
 <p ><span style='font-size:16px;'>&nbsp;</span></p>
@@ -334,5 +344,6 @@ export {
   footerDataService,
   footerDataRule,
   footerDataProtect,
+  footerDataContact,
   dataMarketing,
 };

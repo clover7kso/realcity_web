@@ -250,11 +250,10 @@ const Post = ({ history }) => {
     addView();
   }, []);
 
-  const { data, loading } = useQuery(POSTONE_QUERY, {
+  const { data, loading, refetch } = useQuery(POSTONE_QUERY, {
     variables: {
       id: history.location.search.replace("?", ""),
     },
-    notifyOnNetworkStatusChange: true,
   });
 
   const [postAddLike] = useMutation(POSTADDLIKE);
@@ -265,7 +264,7 @@ const Post = ({ history }) => {
         ip: await getFullIp(),
       },
     });
-    if (result.data.postAddLike) window.location.reload();
+    if (result.data.postAddLike) refetch();
     else alert.error("이미 좋아요를 눌렀습니다.");
   };
 
@@ -436,7 +435,7 @@ const Post = ({ history }) => {
                           commentAddLike={commentAddLike}
                           commentAddDislike={commentAddDislike}
                           data={data}
-                          refetch={() => window.location.reload()}
+                          refetch={() => refetch()}
                           alert={alert}
                           item={item}
                         />
@@ -487,7 +486,7 @@ const Post = ({ history }) => {
                           commentAddLike={commentAddLike}
                           commentAddDislike={commentAddDislike}
                           data={data}
-                          refetch={() => window.location.reload()}
+                          refetch={() => refetch()}
                           alert={alert}
                           item={item}
                         />
@@ -498,11 +497,7 @@ const Post = ({ history }) => {
               </CommentWrapper>
             </>
           ) : null}
-          <ReplyForm
-            data={data}
-            refetch={() => window.location.reload()}
-            alert={alert}
-          />
+          <ReplyForm data={data} refetch={() => refetch()} alert={alert} />
         </div>
       )}
     </Background>

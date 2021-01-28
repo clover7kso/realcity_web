@@ -21,19 +21,19 @@ const SearchWrapper = styled.div`
   display: flex;
   align-items: left;
   border-color: black;
-  border-radius: 50px;
+  border-radius: 10px;
   border-style: solid;
   border-width: 2px;
 `;
 
 const SearchInput = styled(Input)`
   border-color: white;
-  padding: 15px;
-  font-size: 24px;
-  height: 50px;
+  padding: ${(props) => (props.PCCheck ? "15px" : "5px")};
+  font-size: ${(props) => (props.PCCheck ? "24px" : "17px")};
+  height: ${(props) => (props.PCCheck ? "50px" : "35px")};
   text-align: left;
   border-radius: 50px;
-  width: 90%;
+  width: 100%;
   &::placeholder {
     color: grey;
   }
@@ -42,7 +42,7 @@ const SearchInput = styled(Input)`
 const SearchButton = styled.button`
   background-color: transparent;
   border-color: transparent;
-  margin-left:20px
+  margin-left: ${(props) => (props.PCCheck ? "20px" : "10px")};
   cursor: pointer;
   outline: 0;
 `;
@@ -88,6 +88,7 @@ const Home = ({ history }) => {
     <Wrapper>
       <SearchWrapper>
         <SearchButton
+          PCCheck={PCCheck}
           onClick={() => {
             history.push({
               pathname: "/Search",
@@ -98,6 +99,7 @@ const Home = ({ history }) => {
           <SearchIcon />
         </SearchButton>
         <SearchInput
+          PCCheck={PCCheck}
           placeholder="게시물을 검색해주세요"
           type="text"
           onChange={(text) => {

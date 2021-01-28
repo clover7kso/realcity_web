@@ -35,6 +35,7 @@ const PostWrapper = styled.div`
 
 const TimeAuthorWrapper = styled.div`
   display: flex;
+  margin-top:20px
   padding: 0 0 10px 0;
 `;
 

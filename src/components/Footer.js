@@ -36,7 +36,7 @@ export default () => {
   var PCcheck = isPC();
   return (
     <Footer
-      fontSize={PCcheck ? "12px" : "2px"}
+      fontSize={PCcheck ? "12px" : "10px"}
       fontWeight={PCcheck ? "600" : "400"}
     >
       <List>

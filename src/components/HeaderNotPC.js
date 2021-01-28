@@ -33,14 +33,22 @@ const HeaderWrapper = styled.div`
   background: white;
   height: 80px;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
 
 const InWrapper = styled.div`
   display: flex;
-  width: ${(props) => props.theme.maxWidth};
   justify-content: space-between;
+  width: 100%;
+`;
+
+const IdWrapper = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 5px;
+  width: 100%;
 `;
 
 const HeaderColumn = styled.div`
@@ -58,16 +66,6 @@ const InfoOutWrapper = styled.div`
   margin-right: 5px;
 `;
 
-const InfoWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: right;
-  height: 30px;
-  margin-right: 5px;
-  margin-top: 3px;
-`;
-
 const InfoTopWrapper = styled(Link)`
   color: black;
   display: flex;
@@ -76,16 +74,11 @@ const InfoTopWrapper = styled(Link)`
   align-items: baseline;
 `;
 
-const InfoBottomWrapper = styled.div`
-  display: flex;
-  flex-direction:row
-  justify-content: flex-end;
-`;
-
 const Nickname = styled.div`
   white-space: nowrap;
   font-size: 10px;
   font-weight: bold;
+  margin-right: 10px;
 `;
 
 const Level = styled.div`
@@ -219,6 +212,15 @@ export default withRouter(({ history, location }) => {
   return (
     <Headroom>
       <HeaderWrapper>
+        {window.sessionStorage.getItem("id") ? (
+          <IdWrapper>
+            <Level>Lv.{getLevel(window.sessionStorage.getItem("point"))}</Level>
+            <InfoTopWrapper to="/My">
+              <Nickname>{window.sessionStorage.getItem("nickname")}</Nickname>
+            </InfoTopWrapper>
+            <Logout onClick={() => socialLogout()}>로그아웃</Logout>
+          </IdWrapper>
+        ) : null}
         <InWrapper>
           <HeaderColumn>
             <Link to="/">
@@ -230,20 +232,6 @@ export default withRouter(({ history, location }) => {
               {location.pathname ===
               "/Register" ? null : window.sessionStorage.getItem("id") ? (
                 <InfoOutWrapper>
-                  <InfoWrapper>
-                    <InfoTopWrapper to="/My">
-                      <Nickname>
-                        {window.sessionStorage.getItem("nickname")}
-                      </Nickname>
-                    </InfoTopWrapper>
-                    <InfoBottomWrapper>
-                      <Level>
-                        Lv.{getLevel(window.sessionStorage.getItem("point"))}
-                      </Level>
-                      <Logout onClick={() => socialLogout()}>로그아웃</Logout>
-                    </InfoBottomWrapper>
-                  </InfoWrapper>
-
                   <LiquidGauge
                     radius={17}
                     value={getPercentage(

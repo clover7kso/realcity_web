@@ -151,7 +151,7 @@ const Board = ({ history }) => {
         ) : (
           <InfiniteScroll
             onRefresh={() => handleRefresh()}
-            selected={"👑 오늘인기글"}
+            selected={"👑 실시간 인기글"}
             loading={loading}
             data={!loading ? data.postSearch.posts : undefined}
             onLoadMore={() => {

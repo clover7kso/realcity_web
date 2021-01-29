@@ -1,9 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { View } from "./../Components/Icons";
 import { CategoryListTypeA } from "./Util";
-import { Ddabong } from "./../Components/Icons";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import Loader from "./Loader";
@@ -102,6 +100,13 @@ const InfoWrapper = styled.div`
   flex-direction: row;
 `;
 
+const InfoIcon = styled.img`
+  object-fit: cover;
+  width:15px
+  height:15px
+  margin-right:5px
+`;
+
 export default () => {
   const HOMENORMAL_QUERY = gql`
     query homeNormal {
@@ -148,13 +153,13 @@ export default () => {
                   </StyledLink>
                   <CommentCount>[{item1.commentCount}]</CommentCount>
                   <InfoWrapper>
-                    <Ddabong />
+                    <InfoIcon src={require("../Image/info_like.png")} />
                     <LikeView>
                       {item1.likeAll.toLocaleString(undefined, {
                         maximumFractionDigits: 0,
                       })}
                     </LikeView>
-                    <View />
+                    <InfoIcon src={require("../Image/info_view.png")} />
                     <LikeView>
                       {item1.viewAll.toLocaleString(undefined, {
                         maximumFractionDigits: 0,

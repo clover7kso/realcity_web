@@ -1,6 +1,5 @@
 import React from "react";
 import styled from "styled-components";
-import { Ddabong, View } from "./../Components/Icons";
 import { Link } from "react-router-dom";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
@@ -97,6 +96,13 @@ const InfoWrapper = styled.div`
   flex-direction: row;
 `;
 
+const InfoIcon = styled.img`
+  object-fit: cover;
+  width:15px
+  height:15px
+  margin-right:5px
+`;
+
 export default () => {
   const HOMETOP_QUERY = gql`
     query homeTop {
@@ -122,8 +128,8 @@ export default () => {
       ) : (
         <NormalPost paddingRight={pcCheck ? "3%" : "0%"}>
           <TitleBar>
-            <Title to={"/Board?👑 오늘인기글"}>{"👑 오늘인기글"}</Title>
-            <NormalMoreView to={"/Board?👑 오늘인기글"}>
+            <Title to={"/Board?👑 실시간 인기글"}>{"👑 실시간 인기글"}</Title>
+            <NormalMoreView to={"/Board?👑 실시간 인기글"}>
               더보기 &gt;
             </NormalMoreView>
           </TitleBar>
@@ -146,13 +152,13 @@ export default () => {
                 <StyledLink to={"/Post?" + item.id}>{item.title}</StyledLink>
                 <CommentCount>[{item.commentCount}]</CommentCount>
                 <InfoWrapper>
-                  <Ddabong />
+                  <InfoIcon src={require("../Image/info_like.png")} />
                   <LikeView>
                     {item.likeAll.toLocaleString(undefined, {
                       maximumFractionDigits: 0,
                     })}
                   </LikeView>
-                  <View />
+                  <InfoIcon src={require("../Image/info_view.png")} />
                   <LikeView>
                     {item.viewAll.toLocaleString(undefined, {
                       maximumFractionDigits: 0,

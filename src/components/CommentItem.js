@@ -19,6 +19,12 @@ const InfoWrapper = styled.div`
   justify-content: space-between;
 `;
 
+const Ip = styled.div`
+  color: #8c8c8c;
+  font-size: 9px;
+  padding-top: 3px;
+`;
+
 const MenuWrapper = styled.div`
   display: flex;
   flex-direction: column;
@@ -36,12 +42,12 @@ const Num = styled.div`
 
 const TimeAuthorWrapper = styled.div`
   display: flex;
-  padding: 20px 0 10px 0;
+  padding: 10px 0 10px 0;
 `;
 
 const LikeOrDislikeWrapper = styled.div`
   display: flex;
-  padding: 20px 0 10px 0;
+  padding: 10px 0 10px 0;
 `;
 
 const FirstComment = styled.div`
@@ -52,7 +58,7 @@ const ThreeDotButtonWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
-  padding: 10px 10px 20px 0;
+  padding: 0px 10px 10px 0px;
 `;
 
 const Button = styled.button`
@@ -199,7 +205,7 @@ class CommentItem extends Component {
             </div>
             &nbsp;&nbsp;
             {this.props.item.user === null ? (
-              <Time>{this.props.item.ip}</Time>
+              <Ip>{this.props.item.ip}</Ip>
             ) : null}
           </TimeAuthorWrapper>
           <LikeOrDislikeWrapper>

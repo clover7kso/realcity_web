@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import { CommentsIcon, Ddabong, View, LikeButton } from "../Components/Icons";
+import { LikeButton } from "../Components/Icons";
 import { gql } from "@apollo/client";
 import { useQuery, useMutation } from "@apollo/client";
 import { withRouter } from "react-router-dom";
@@ -128,6 +128,12 @@ const CommentAlign = styled.button`
   margin-top: 40px;
   font-size: 17px;
   margin-bottom: 20px;
+`;
+
+const InfoIcon = styled.img`
+  object-fit: cover;
+  width:15px
+  height:15px
 `;
 
 const POSTONE_QUERY = gql`
@@ -398,19 +404,19 @@ const Post = ({ history }) => {
                   </Button>
                 </LikeButtonWrapper>
                 <Info>
-                  <CommentsIcon />
-                  <LikeView>
-                    {data.postOne.commentCount.toLocaleString(undefined, {
-                      maximumFractionDigits: 0,
-                    })}
-                  </LikeView>
-                  <Ddabong />
+                  <InfoIcon src={require("../Image/info_like.png")} />
                   <LikeView>
                     {data.postOne.likeAll.toLocaleString(undefined, {
                       maximumFractionDigits: 0,
                     })}
                   </LikeView>
-                  <View />
+                  <InfoIcon src={require("../Image/info_comment.png")} />
+                  <LikeView>
+                    {data.postOne.commentCount.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
+                  </LikeView>
+                  <InfoIcon src={require("../Image/info_view.png")} />
                   <LikeView>
                     {data.postOne.viewAll.toLocaleString(undefined, {
                       maximumFractionDigits: 0,

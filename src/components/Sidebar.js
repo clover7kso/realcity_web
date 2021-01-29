@@ -1,5 +1,4 @@
 import React from "react";
-import { View } from "./../Components/Icons";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useQuery } from "@apollo/client";
@@ -41,6 +40,13 @@ const ZzalView = styled.span`
   text-align: right;
 `;
 
+const InfoIcon = styled.img`
+  object-fit: cover;
+  width:15px
+  height:15px
+  margin-right:5px
+`;
+
 export default () => {
   const HOMEZZAL_QUERY = gql`
     query homeZzal {
@@ -65,7 +71,7 @@ export default () => {
         </ZzalWrapper>
         <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
-          <View />
+          <InfoIcon src={require("../Image/info_view.png")} />
           {" " +
             item.viewAll.toLocaleString(undefined, {
               maximumFractionDigits: 0,

@@ -13,7 +13,7 @@ const CategoryListTypeA = [
 
 // list of items
 const CategoryListTypeB = [
-  { name: "👑 오늘인기글" },
+  { name: "👑 실시간 인기글" },
   { name: "🤣 유머게시판" },
   { name: "⚽️ 해외축구" },
   { name: "📈 주식투자" },

@@ -153,7 +153,7 @@ const My = ({ history }) => {
           ) : (
             <InfiniteScroll
               onRefresh={() => handlePostRefresh()}
-              selected={"👑 오늘인기글"}
+              selected={"👑 실시간 인기글"}
               loading={postResult.loading}
               data={
                 !postResult.loading ? postResult.data.postMy.posts : undefined

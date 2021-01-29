@@ -18,7 +18,6 @@ const BOARD_QUERY = gql`
         category
         id
         title
-        content
         author
         timeFromToday
         commentCount
@@ -58,7 +57,7 @@ const BoardWrapper = styled.div`
   width: ${(props) => (props.width ? props.width : "80%")};
 `;
 
-var selectedFirst = "👑 오늘인기글";
+var selectedFirst = "👑 실시간 인기글";
 const menuItems = Menu(CategoryListTypeB, selectedFirst);
 
 const Board = ({ history }) => {

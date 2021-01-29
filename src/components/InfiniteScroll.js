@@ -68,6 +68,14 @@ const InfoGrey2 = styled.span`
   align-items: center;
 `;
 
+const InfoGrey4 = styled.span`
+  color: #8c8c8c;
+  margin-left: 5px;
+  font-size: 11px;
+  display: flex;
+  align-items: center;
+`;
+
 const InfoBlack = styled.span`
   margin-left: 10px;
   font-size: 11px;
@@ -245,11 +253,11 @@ class InfiniteScroll extends Component {
                           })}
                         </InfoGrey2>
                         <InfoIcon src={require("../Image/info_view.png")} />
-                        <InfoGrey2>
+                        <InfoGrey4>
                           {item.viewAll.toLocaleString(undefined, {
                             maximumFractionDigits: 0,
                           })}
-                        </InfoGrey2>
+                        </InfoGrey4>
                       </InfoInWrapper>
                     </InfoWrapper>
                   </TextWrapper>

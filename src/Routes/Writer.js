@@ -380,7 +380,7 @@ const Writer = ({ history }) => {
             plugins: [...installedPlugins],
             toolbar: [...toolbarSetting],
             simpleUpload: {
-              uploadUrl: "http://localhost:4000/api/upload",
+              uploadUrl: "https://api.realcitykr.com/api/upload", //"http://localhost:4000/api/upload",
               headers: {
                 "X-CSRF-TOKEN": "CSFR-Token",
                 // Authorization: 'Bearer <JSON Web Token>'

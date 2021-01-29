@@ -47,6 +47,13 @@ const InfoIcon = styled.img`
   margin-right:5px
 `;
 
+const LikeView = styled.span`
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 10px;
+  color: #818181;
+`;
+
 export default () => {
   const HOMEZZAL_QUERY = gql`
     query homeZzal {
@@ -54,7 +61,7 @@ export default () => {
         id
         title
         thumbnail
-        viewAll
+        likeAll
       }
     }
   `;
@@ -67,15 +74,16 @@ export default () => {
     data.homeZzal.map((item, idx) => (
       <ZzalBox key={idx} to={"/Post?" + item.id}>
         <ZzalWrapper>
-          <Zzal style={{ resizeMode: "cover" }} src={item.thumbnail} />
+          <Zzal style={{ resizeMode: "contain" }} src={item.thumbnail} />
         </ZzalWrapper>
         <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
-          <InfoIcon src={require("../Image/info_view.png")} />
-          {" " +
-            item.viewAll.toLocaleString(undefined, {
+          <InfoIcon src={require("../Image/info_like.png")} />
+          <LikeView>
+            {item.likeAll.toLocaleString(undefined, {
               maximumFractionDigits: 0,
             })}
+          </LikeView>
         </ZzalView>
       </ZzalBox>
     ))

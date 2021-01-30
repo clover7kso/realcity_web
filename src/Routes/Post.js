@@ -6,6 +6,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { withRouter } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
+import { Helmet } from "react-helmet";
 
 import { installedPlugins } from "../Components/CKEditorPlugin";
 import ThreeDotButton from "../Components/ThreeDotButton";
@@ -17,7 +18,6 @@ import CommentItem from "../Components/CommentItem";
 import CommentItemBest from "../Components/CommentItemBest";
 import DeleteForm from "../Components/DeleteForm";
 import ShareButtons from "../Components/ShareButtons";
-import ReactHelmet from "../Components/ReactHelmet";
 
 const Background = styled.div`
   background-color: white;
@@ -150,7 +150,6 @@ const POSTONE_QUERY = gql`
       commentCount
       likeAll
       viewAll
-      thumbnail
       published
       user {
         nickname
@@ -358,17 +357,6 @@ const Post = ({ history }) => {
         <Loader />
       ) : (
         <div>
-          <ReactHelmet
-            title={"리얼시티-" + data.postOne.title}
-            description={data.postOne.content}
-            keywords="리얼시티, RealCity"
-            favicon={
-              data.postOne.thumbnail !== null
-                ? data.postOne.thumbnail
-                : "../Image/logo.png"
-            }
-          />
-
           <PostSection>
             <PostWrapper>
               <ShareButtons

@@ -17,6 +17,7 @@ import CommentItem from "../Components/CommentItem";
 import CommentItemBest from "../Components/CommentItemBest";
 import DeleteForm from "../Components/DeleteForm";
 import ShareButtons from "../Components/ShareButtons";
+import { Helmet } from "react-helmet";
 
 const Background = styled.div`
   background-color: white;
@@ -150,6 +151,7 @@ const POSTONE_QUERY = gql`
       likeAll
       viewAll
       published
+      thumbnail
       user {
         nickname
         point
@@ -356,6 +358,20 @@ const Post = ({ history }) => {
         <Loader />
       ) : (
         <div>
+          <Helmet>
+            <meta property="og:url" content={window.location.href} />
+            <meta property="og:type" content="website" />
+            <meta property="og:title" content={data.postOne.title} />
+            <meta property="og:description" content={data.postOne.content} />
+            <meta
+              property="og:image"
+              content={
+                data.postOne.thumbnail
+                  ? data.postOne.thumbnail
+                  : "https://realcitykr.com/logo.png"
+              }
+            />
+          </Helmet>
           <PostSection>
             <PostWrapper>
               <ShareButtons

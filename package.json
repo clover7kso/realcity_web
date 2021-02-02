@@ -84,6 +84,7 @@
     "react-ga": "^3.3.0",
     "react-google-login": "^5.2.2",
     "react-headroom": "^3.1.0",
+    "react-helmet": "^6.1.0",
     "react-horizontal-scrolling-menu": "^0.7.8",
     "react-liquid-gauge": "^1.2.4",
     "react-login-by-naver": "^0.1.8",
@@ -91,6 +92,7 @@
     "react-router-dom": "^5.1.0",
     "react-share": "^4.3.1",
     "react-simple-pull-to-refresh": "^1.2.1",
+    "react-snap": "^1.23.0",
     "react-toastify": "^6.2.0",
     "react-transition-group": "^4.4.1",
     "resolve": "1.10.0",
@@ -110,7 +112,8 @@
   "scripts": {
     "start": "node scripts/start.js",
     "build": "GENERATE_SOURCEMAP=false node scripts/build.js",
-    "test": "node scripts/test.js"
+    "test": "node scripts/test.js",
+    "postbuild": "react-snap"
   },
   "eslintConfig": {
     "extends": "react-app"

@@ -10,10 +10,12 @@ import { isPC } from "./MediaQuery";
 
 const CategoryBox = styled(Link)`
   text-decoration: none;
-  font-size: 13px;
+  font-size: 11px;
   color: #818181;
   border: 1px solid #cecece;
-  padding: 3px;
+  padding-left: 3px;
+  padding-right: 3px;
+  padding-top: 1px;
   margin-right: 10px;
   white-space: nowrap;
 `;
@@ -58,8 +60,8 @@ const NormalPostWrapper = styled.div`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
-  font-size: 18px;
-  height: 18px;
+  font-size: 15px;
+  height: 15px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -69,8 +71,8 @@ const NormalTextBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 18px;
-  margin: 15px 0 15px 0;
+  height: 15px;
+  margin: 10px 0 10px 0;
 `;
 
 const LikeView = styled.span`

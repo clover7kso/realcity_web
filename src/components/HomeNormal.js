@@ -47,34 +47,20 @@ const NormalPostWrapper = styled.div`
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: black;
-  font-size: 18px;
-  height: 18px;
+  font-size: 15px;
+  height: 15px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
   font-family: Roboto;
-  &:focus,
-  &:hover,
-  &:visited,
-  &:link,
-  &:active {
-    text-decoration: none;
-    color: black;
-    font-size: 18px;
-    height: 18px;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    font-family: Roboto;
-  }
 `;
 
 const NormalTextBox = styled.div`
   display: flex;
   justify-content: space-between;
   width: 100%;
-  height: 18px;
-  margin: 15px 0 15px 0;
+  height: 15px;
+  margin: 10px 0 10px 0;
 `;
 
 const LikeView = styled.span`

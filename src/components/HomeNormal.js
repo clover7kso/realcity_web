@@ -148,7 +148,7 @@ export default () => {
             {data.homeNormal.map((item1, idx1) => {
               return item.name === item1.category ? (
                 <NormalTextBox key={idx1}>
-                  <StyledLink to={"/Post?" + item1.id}>
+                  <StyledLink to={"/post?id=" + item1.id}>
                     {item1.title}
                   </StyledLink>
                   <CommentCount>[{item1.commentCount}]</CommentCount>

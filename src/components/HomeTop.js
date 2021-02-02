@@ -149,7 +149,7 @@ export default () => {
                     {item.category}
                   </CategoryBox>
                 </PC>
-                <StyledLink to={"/Post?" + item.id}>{item.title}</StyledLink>
+                <StyledLink to={"/post?id=" + item.id}>{item.title}</StyledLink>
                 <CommentCount>[{item.commentCount}]</CommentCount>
                 <InfoWrapper>
                   <InfoIcon src={require("../Image/info_like.png")} />

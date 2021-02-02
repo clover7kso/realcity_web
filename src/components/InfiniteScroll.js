@@ -205,7 +205,7 @@ class InfiniteScroll extends Component {
                     }
                   />
                   <TextWrapper>
-                    <Title to={"/Post?" + item.id}>{item.title}</Title>
+                    <Title to={"/post?id=" + item.id}>{item.title}</Title>
                     <InfoWrapper>
                       <InfoInWrapper>
                         {this.props.selected === "👑 실시간 인기글" ? (

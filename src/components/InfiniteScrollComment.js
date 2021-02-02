@@ -169,7 +169,7 @@ class InfiniteScroll extends Component {
               <WrapperItem>
                 <MainWrapper>
                   <TextWrapper>
-                    <Content to={"/Post?" + item.postId}>
+                    <Content to={"/post?id=" + item.postId}>
                       {item.content.replace(/(<([^>]+)>)/gi, "")}
                     </Content>
                   </TextWrapper>

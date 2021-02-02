@@ -247,7 +247,7 @@ const Post = ({ history }) => {
   const addView = async () => {
     await postAddView({
       variables: {
-        id: history.location.search.replace("?", ""),
+        id: history.location.search.replace("?id=", ""),
         ip: await getFullIp(),
       },
     });
@@ -258,7 +258,7 @@ const Post = ({ history }) => {
 
   const { data, loading, refetch } = useQuery(POSTONE_QUERY, {
     variables: {
-      id: history.location.search.replace("?", ""),
+      id: history.location.search.replace("?id=", ""),
     },
   });
 
@@ -266,7 +266,7 @@ const Post = ({ history }) => {
   const clickConfirm = async () => {
     const result = await postAddLike({
       variables: {
-        id: history.location.search.replace("?", ""),
+        id: history.location.search.replace("?id=", ""),
         ip: await getFullIp(),
       },
     });

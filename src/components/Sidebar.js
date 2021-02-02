@@ -72,11 +72,11 @@ export default () => {
     <Loader />
   ) : (
     data.homeZzal.map((item, idx) => (
-      <ZzalBox key={idx} to={"/Post?" + item.id}>
+      <ZzalBox key={idx} to={"/post?id=" + item.id}>
         <ZzalWrapper>
           <Zzal style={{ resizeMode: "contain" }} src={item.thumbnail} />
         </ZzalWrapper>
-        <ZzalTitle to={"/Post?" + item.id}>{item.title}</ZzalTitle>
+        <ZzalTitle to={"/post?id=" + item.id}>{item.title}</ZzalTitle>
         <ZzalView>
           <InfoIcon src={require("../Image/info_like.png")} />
           <LikeView>

@@ -63,6 +63,10 @@ const ReplyButton = styled.button`
   cursor: pointer;
 `;
 
+var id = "";
+var password = "";
+var content = "";
+
 export default ({ data, refetch, alert, isGroup, group }) => {
   var PC = isPC();
   const COMMENTUPLOADNOID = gql`
@@ -105,10 +109,6 @@ export default ({ data, refetch, alert, isGroup, group }) => {
 
   const [commentUploadNoID] = useMutation(COMMENTUPLOADNOID);
   const [commentUploadID] = useMutation(COMMENTUPLOADID);
-
-  var id = "";
-  var password = "";
-  var content = "";
 
   const [uploadLoading, setUploadLoading] = useState(false);
 

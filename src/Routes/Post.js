@@ -69,6 +69,7 @@ const LikeViewWrapper = styled.div`
   align-items: baseline;
   display: flex;
   justify-content: space-between;
+  margin-bottom: 12px;
 `;
 
 const LikeButtonWrapper = styled.div``;
@@ -374,11 +375,6 @@ const Post = ({ history }) => {
           </Helmet>
           <PostSection>
             <PostWrapper>
-              <ShareButtons
-                pathname={
-                  "https://realcitykr.com/Post" + history.location.search
-                }
-              />
               <TimeAuthorWrapper>
                 <Time>{data.postOne.timeFromToday}</Time>&nbsp;&nbsp;
                 <div>
@@ -440,6 +436,11 @@ const Post = ({ history }) => {
                   </LikeView>
                 </Info>
               </LikeViewWrapper>
+              <ShareButtons
+                pathname={
+                  "https://realcitykr.com/Post" + history.location.search
+                }
+              />
             </PostWrapper>
           </PostSection>
           {TopComment.length > 0 ? (

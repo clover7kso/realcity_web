@@ -17,6 +17,7 @@ import CommentItem from "../Components/CommentItem";
 import CommentItemBest from "../Components/CommentItemBest";
 import DeleteForm from "../Components/DeleteForm";
 import ShareButtons from "../Components/ShareButtons";
+import { getLevel } from "../Components/Util";
 import { Helmet } from "react-helmet";
 
 const Background = styled.div`
@@ -406,9 +407,11 @@ const Post = ({ history }) => {
                   <div>
                     {data.postOne.user === null
                       ? data.postOne.author
-                      : data.postOne.user.nickname}
+                      : " Lv." +
+                        getLevel(data.postOne.user.point) +
+                        "  " +
+                        data.postOne.user.nickname}
                   </div>
-                  &nbsp;&nbsp;
                   {data.postOne.user === null ? (
                     <IP>{data.postOne.ip}</IP>
                   ) : null}

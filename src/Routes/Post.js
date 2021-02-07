@@ -412,6 +412,7 @@ const Post = ({ history }) => {
                         "  " +
                         data.postOne.user.nickname}
                   </div>
+                  &nbsp;&nbsp;
                   {data.postOne.user === null ? (
                     <IP>{data.postOne.ip}</IP>
                   ) : null}

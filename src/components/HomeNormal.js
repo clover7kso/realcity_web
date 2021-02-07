@@ -5,7 +5,7 @@ import { CategoryListTypeA } from "./Util";
 import { useQuery } from "@apollo/client";
 import { gql } from "@apollo/client";
 import Loader from "./Loader";
-import { isPC } from "./MediaQuery";
+import { isPC, PC } from "./MediaQuery";
 
 const TitleBar = styled.div`
   display: flex;
@@ -145,12 +145,14 @@ export default () => {
                         maximumFractionDigits: 0,
                       })}
                     </LikeView>
-                    <InfoIcon src={require("../Image/info_view.png")} />
-                    <LikeView>
-                      {item1.viewAll.toLocaleString(undefined, {
-                        maximumFractionDigits: 0,
-                      })}
-                    </LikeView>
+                    <PC>
+                      <InfoIcon src={require("../Image/info_view.png")} />
+                      <LikeView>
+                        {item1.viewAll.toLocaleString(undefined, {
+                          maximumFractionDigits: 0,
+                        })}
+                      </LikeView>
+                    </PC>
                   </InfoWrapper>
                 </NormalTextBox>
               ) : null;

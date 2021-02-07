@@ -36,8 +36,13 @@ const PostWrapper = styled.div`
 
 const TimeAuthorWrapper = styled.div`
   display: flex;
-  margin-top:20px
-  padding: 0 0 10px 0;
+  margin-bottom: 20px;
+  align-items: baseline;
+`;
+
+const TimeAuthorViewWrapper = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Time = styled.div`
@@ -45,10 +50,15 @@ const Time = styled.div`
   font-size: 14px;
 `;
 
+const IP = styled.div`
+  color: #8c8c8c;
+  font-size: 10px;
+`;
+
 const Title = styled.div`
   font-size: 24px;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 `;
 
 const Button = styled.button`
@@ -59,9 +69,9 @@ const Button = styled.button`
 `;
 
 const TitleThreeDotWrapper = styled.div`
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
-  margin-top: 10px;
 `;
 
 const LikeViewWrapper = styled.div`
@@ -375,18 +385,6 @@ const Post = ({ history }) => {
           </Helmet>
           <PostSection>
             <PostWrapper>
-              <TimeAuthorWrapper>
-                <Time>{data.postOne.timeFromToday}</Time>&nbsp;&nbsp;
-                <div>
-                  {data.postOne.user === null
-                    ? data.postOne.author
-                    : data.postOne.user.nickname}
-                </div>
-                &nbsp;&nbsp;
-                {data.postOne.user === null ? (
-                  <Time>{data.postOne.ip}</Time>
-                ) : null}
-              </TimeAuthorWrapper>
               {deleteShow ? (
                 <div ref={deleteRef}>
                   <DeleteForm
@@ -401,6 +399,30 @@ const Post = ({ history }) => {
                 <Title>{data.postOne.title}</Title>
                 <ThreeDotButton data={ThreeDotButtonData} />
               </TitleThreeDotWrapper>
+
+              <TimeAuthorViewWrapper>
+                <TimeAuthorWrapper>
+                  <Time>{data.postOne.timeFromToday}</Time>&nbsp;&nbsp;
+                  <div>
+                    {data.postOne.user === null
+                      ? data.postOne.author
+                      : data.postOne.user.nickname}
+                  </div>
+                  &nbsp;&nbsp;
+                  {data.postOne.user === null ? (
+                    <IP>{data.postOne.ip}</IP>
+                  ) : null}
+                </TimeAuthorWrapper>
+                <Info>
+                  <LikeView>
+                    조회 :{" "}
+                    {data.postOne.viewAll.toLocaleString(undefined, {
+                      maximumFractionDigits: 0,
+                    })}
+                  </LikeView>
+                </Info>
+              </TimeAuthorViewWrapper>
+
               <CKEditor
                 editor={ClassicEditor}
                 config={{
@@ -425,12 +447,6 @@ const Post = ({ history }) => {
                   <InfoIcon src={require("../Image/info_comment.png")} />
                   <LikeView>
                     {data.postOne.commentCount.toLocaleString(undefined, {
-                      maximumFractionDigits: 0,
-                    })}
-                  </LikeView>
-                  <InfoIcon src={require("../Image/info_view.png")} />
-                  <LikeView>
-                    {data.postOne.viewAll.toLocaleString(undefined, {
                       maximumFractionDigits: 0,
                     })}
                   </LikeView>

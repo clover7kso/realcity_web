@@ -62,7 +62,7 @@ const InfoGrey1 = styled.span`
 const InfoGrey2 = styled.span`
   color: #8c8c8c;
   margin-left: 5px;
-  margin-right: 15px;
+  margin-right: 8px;
   font-size: 11px;
   display: flex;
   align-items: center;

@@ -160,12 +160,14 @@ export default () => {
                       maximumFractionDigits: 0,
                     })}
                   </LikeView>
-                  <InfoIcon src={require("../Image/info_view.png")} />
-                  <LikeView>
-                    {item.viewAll.toLocaleString(undefined, {
-                      maximumFractionDigits: 0,
-                    })}
-                  </LikeView>
+                  <PC>
+                    <InfoIcon src={require("../Image/info_view.png")} />
+                    <LikeView>
+                      {item.viewAll.toLocaleString(undefined, {
+                        maximumFractionDigits: 0,
+                      })}
+                    </LikeView>
+                  </PC>
                 </InfoWrapper>
               </NormalTextBox>
             );

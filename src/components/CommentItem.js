@@ -227,7 +227,7 @@ class CommentItem extends Component {
             }}
           >
             <DeleteForm
-              funcSend={this.props.commentShowOff}
+              funcSend={this.props.commentShowOffNoID}
               id={this.props.item.id}
               funcComplete={this.props.refetch}
               alert={this.props.alert}

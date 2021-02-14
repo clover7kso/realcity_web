@@ -57,8 +57,10 @@ export default ({ funcSend, id, funcComplete, alert }) => {
     const validateResult = checkValidate(uploadData, alert);
 
     if (validateResult) {
-      const { postShowOff, commentShowOff } = await upload({ password });
-      if (postShowOff || commentShowOff) {
+      const { postShowOffNoID, commentShowOffNoID } = await upload({
+        password,
+      });
+      if (postShowOffNoID || commentShowOffNoID) {
         alert.success("해당 글이 삭제되었습니다.");
         funcComplete();
       } else alert.error("올바르지 않은 비밀번호입니다.");

@@ -52,11 +52,33 @@ const Button = styled.button`
   font-size: 15px;
   cursor: pointer;
   margin-right: ${(props) => props.marginRight};
-
+  white-space: nowrap;
   animation: ${(props) => {
     return props.loginShow ? fadeOut : fadeIn;
   }}
   0.5s linear;
+`;
+
+const ButtonReverse = styled.button`
+  width: 80px;
+  height: 50px;
+  border: 0;
+  border-radius: ${(props) => props.theme.borderRadius};
+  color: #4a4848;
+  font-weight: 400;
+  background-color: white;
+  text-align: center;
+  border: 1px solid #4a4848;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  font-size: 15px;
+  cursor: pointer;
+  margin-right: ${(props) => props.marginRight};
+  white-space: nowrap;
+  animation: ${(props) => {
+      return props.loginShow ? fadeOut : fadeIn;
+    }}
+    0.5s linear;
 `;
 
 const HeaderWrapper = styled.div`
@@ -295,19 +317,19 @@ export default withRouter(({ history, location }) => {
                       />
                     </LoginWrapper>
                   ) : (
-                    <Button
+                    <ButtonReverse
                       loginShow={show}
                       marginRight="6px"
                       onClick={(e) => showLogin(e)}
                     >
                       로그인
-                    </Button>
+                    </ButtonReverse>
                   )}
                 </>
               )}
               {location.pathname !== "/Gamble" ? (
                 <HeaderLink to="/Gamble">
-                  <Button marginRight="6px">인생역전</Button>
+                  <ButtonReverse marginRight="6px">인생역전</ButtonReverse>
                 </HeaderLink>
               ) : null}
               {location.pathname !== "/Writer" ? (

@@ -48,7 +48,8 @@ const Button = styled.button`
   background-color: #4A4848
   text-align: center;
   padding-top: 5px;
-  padding-bottom: 5px;
+  padding-bottom: 5px
+  margin-bottom:8px;
   font-size: 15px;
   cursor: pointer;
   margin-right: ${(props) => props.marginRight};
@@ -71,6 +72,7 @@ const ButtonReverse = styled.button`
   border: 1px solid #4a4848;
   padding-top: 5px;
   padding-bottom: 5px;
+  margin-bottom: 8px;
   font-size: 15px;
   cursor: pointer;
   margin-right: ${(props) => props.marginRight};
@@ -98,8 +100,7 @@ const InWrapper = styled.div`
 const HeaderColumn = styled.div`
   display: flex;
   flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
+  align-items: flex-end;
 `;
 
 const HeaderLink = styled(Link)``;

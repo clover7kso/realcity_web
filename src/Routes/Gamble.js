@@ -108,7 +108,12 @@ const Ban = ({ history }) => {
         ) : loading ? (
           <Loader />
         ) : (
-          <Title PCcheck={PCcheck}>로그인이 필요한 기능입니다.</Title>
+          <>
+            <Title PCcheck={PCcheck}>로그인이 필요한 기능입니다.</Title>
+            <Title PCcheck={PCcheck}>
+              로그인하면 액션쾌감 부르마블 시스템을 즐기실 수 있습니다.
+            </Title>
+          </>
         )}
       </DiceWrapper>
     </Wrapper>

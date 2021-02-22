@@ -7,7 +7,8 @@ const Wrapper = styled.div`
   width: ${(props) => props.width};
   margin-right: ${(props) => props.marginRight};
   cursor: pointer;
-  padding-bottom: 5px;
+  padding-bottom: ${(props) => props.paddingBottom};
+  padding-top: ${(props) => props.paddingTop};
 `;
 
 const GoogleImg = styled.img`
@@ -52,6 +53,8 @@ export default function GoogleButton({ onSocial }) {
           <Wrapper
             width={checkPC ? "52px" : "35px"}
             marginRight={checkPC ? "7px" : "2px"}
+            paddingBottom={checkPC ? "5px" : "0px"}
+            paddingTop={checkPC ? "0px" : "2px"}
             onClick={props.onClick}
           >
             <GoogleImg src={require("../Image/google_small_white.png")} />

@@ -7,6 +7,7 @@ const Wrapper = styled.div`
   width: ${(props) => props.width};
   margin-right: ${(props) => props.marginRight};
   cursor: pointer;
+  padding-bottom: 5px;
 `;
 
 const GoogleImg = styled.img`

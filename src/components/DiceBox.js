@@ -251,7 +251,13 @@ export default class DiceBox extends React.Component {
             <MapRow>
               <Box value={0} screenPos={this.state.screenPos} />
               <Box value={1} screenPos={this.state.screenPos} />
-              <Box value={2} screenPos={this.state.screenPos} />
+              <Box value={2} screenPos={this.state.screenPos}>
+                <Prize>
+                  <span role="img" aria-label="prize">
+                    🎉
+                  </span>
+                </Prize>
+              </Box>
               <Box value={3} screenPos={this.state.screenPos} />
               <Box value={4} screenPos={this.state.screenPos} />
               <Box value={5} screenPos={this.state.screenPos} />
@@ -304,7 +310,7 @@ export default class DiceBox extends React.Component {
                 </SmallInfo>
               </>
             ) : 0 === this.state.betPoint ? (
-              <SmallInfo>배팅 좋아요 수를 입력해주세요. 당첨시 4배.</SmallInfo>
+              <SmallInfo>배팅 좋아요 수를 입력해주세요. 당첨시 2배.</SmallInfo>
             ) : (
               <SmallInfo>
                 최소 1개, 최대 {window.sessionStorage.getItem("point")}개의

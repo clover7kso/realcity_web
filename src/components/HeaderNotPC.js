@@ -101,7 +101,6 @@ const InWrapper = styled.div`
 const IdWrapper = styled.div`
   display: flex;
   justify-content: flex-end;
-  margin-bottom: 5px;
   width: 100%;
 `;
 

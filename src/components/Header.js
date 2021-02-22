@@ -109,6 +109,7 @@ const InfoOutWrapper = styled.div`
   display: flex;
   flex-direction: row;
   margin-right: 15px;
+  margin-bottom: 10px;
 `;
 
 const InfoWrapper = styled.div`

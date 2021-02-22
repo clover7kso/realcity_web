@@ -250,7 +250,13 @@ export default class DiceBox extends React.Component {
             <MapRow>
               <Box value={0} screenPos={this.state.screenPos} />
               <Box value={1} screenPos={this.state.screenPos} />
-              <Box value={2} screenPos={this.state.screenPos} />
+              <Box value={2} screenPos={this.state.screenPos}>
+                <Prize>
+                  <span role="img" aria-label="prize">
+                    🎉
+                  </span>
+                </Prize>
+              </Box>
               <Box value={3} screenPos={this.state.screenPos} />
               <Box value={4} screenPos={this.state.screenPos} />
               <Box value={5} screenPos={this.state.screenPos} />

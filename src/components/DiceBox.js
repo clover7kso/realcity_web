@@ -293,7 +293,7 @@ export default class DiceBox extends React.Component {
                   Lv.
                   {getLevel(
                     Number(window.sessionStorage.getItem("point")) +
-                      this.state.betPoint * 4
+                      this.state.betPoint * 2
                   )}{" "}
                   입니다.
                 </SmallInfo>

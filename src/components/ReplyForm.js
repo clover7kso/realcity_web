@@ -209,7 +209,7 @@ export default ({ data, refetch, alert, isGroup, group }) => {
       )}
       <ReplyContent>
         <Content
-          placeholder="댓글내용"
+          placeholder="댓글을 입력해주세요."
           type="text"
           onChange={(text) => {
             content = text.currentTarget.value;

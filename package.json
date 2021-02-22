@@ -81,6 +81,7 @@
     "react-dev-utils": "^8.0.0",
     "react-dice-complete": "^1.2.1",
     "react-dom": "^16.8.4",
+    "react-facebook-login": "^4.1.1",
     "react-ga": "^3.3.0",
     "react-google-login": "^5.2.2",
     "react-headroom": "^3.1.0",

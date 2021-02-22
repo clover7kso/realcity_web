@@ -4,6 +4,7 @@ import { Link, withRouter } from "react-router-dom";
 import { SmallLogo } from "./Icons";
 import Headroom from "react-headroom";
 import LoginGoogle from "./LoginGoogle";
+import LoginFacebook from "./LoginFacebook";
 import { useQuery, useMutation } from "@apollo/client";
 import { gql } from "@apollo/client";
 import { getLevel, getPercentage, getRemain } from "./Util";
@@ -302,6 +303,9 @@ export default withRouter(({ history, location }) => {
                   {show ? (
                     <LoginWrapper loginShow={show}>
                       <LoginGoogle
+                        onSocial={(onSocial) => socialLogin(onSocial)}
+                      />
+                      <LoginFacebook
                         onSocial={(onSocial) => socialLogin(onSocial)}
                       />
                     </LoginWrapper>

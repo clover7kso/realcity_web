@@ -13,11 +13,26 @@ import { useMutation } from "@apollo/client";
 
 const Title = styled.h1`
   font-family: BMJUA;
-  font-size: ${(props) => (props.PCcheck ? "3rem" : "2rem")};
+  font-size: ${(props) => (props.PCcheck ? "2rem" : "1.2rem")};
   margin-top: ${(props) => (props.PCcheck ? "2rem" : ".7rem")};
   text-align: center;
   color: #000;
   margin-bottom: 20px;
+`;
+
+const Content = styled.h2`
+  font-family: BMJUA;
+  font-size: ${(props) => (props.PCcheck ? "1.5rem" : "0.7rem")};
+  margin-top: ${(props) => (props.PCcheck ? "2rem" : ".7rem")};
+  text-align: center;
+  color: #000;
+  margin-bottom: 20px;
+`;
+
+const PreviewImage = styled.img`
+  resize-mode: contain;
+  width: 100%;
+  height: 100%;
 `;
 
 const Wrapper = styled.div`
@@ -110,9 +125,10 @@ const Ban = ({ history }) => {
         ) : (
           <>
             <Title PCcheck={PCcheck}>로그인이 필요한 기능입니다.</Title>
-            <Title PCcheck={PCcheck}>
+            <PreviewImage src={require("../Image/gamePreview.png")} />
+            <Content PCcheck={PCcheck}>
               로그인하면 액션쾌감 부르마블 시스템을 즐기실 수 있습니다.
-            </Title>
+            </Content>
           </>
         )}
       </DiceWrapper>

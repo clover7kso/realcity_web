@@ -191,15 +191,15 @@ export default class DiceBox extends React.Component {
     this.reactDice1.rollAll([this.state.dice1]);
     this.reactDice2.rollAll([this.state.dice2]);
 
-    console.log(this.state.dice1);
-    console.log(this.state.dice2);
-    console.log(this.state.pos);
-    console.log(this.state.message);
-    console.log("-----------------");
+    //console.log(this.state.dice1);
+    //console.log(this.state.dice2);
+    //console.log(this.state.pos);
+    //console.log(this.state.message);
+    //console.log("-----------------");
   };
 
   rollDoneCallback = (num) => {
-    console.log("roll done");
+    //console.log("roll done");
     setTimeout(() => {
       this.setState({ message: "" });
       this.mapEffect(this.state.dice1 + this.state.dice2);

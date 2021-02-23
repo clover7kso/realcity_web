@@ -252,7 +252,7 @@ export default withRouter(({ history, location }) => {
 
   const refreshLevel = async () => {
     await refetch();
-    console.log(data);
+    //console.log(data);
     window.sessionStorage.setItem("nickname", data.getMe.nickname);
     window.sessionStorage.setItem("point", data.getMe.point);
     setToggle(!toggle);

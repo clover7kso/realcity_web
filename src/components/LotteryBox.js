@@ -126,7 +126,7 @@ export default class LotteryBox extends React.Component {
         arr.push(random + 1);
       }
       this.setState({ number: arr, effect: true });
-      console.log(arr);
+      //console.log(arr);
       setTimeout(() => {
         this.setState({ effect: false });
       }, 4000);

@@ -26,9 +26,6 @@ export default function FacebookButton({ onSocial }) {
 
     const { userID, email } = response;
 
-    console.log(userID);
-    console.log(email);
-
     await onSocial({
       socialId: userID,
       socialType: "facebook",

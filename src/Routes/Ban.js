@@ -87,7 +87,7 @@ const Ban = ({ history }) => {
   const long = getDate(info[1]);
   const date = info[4];
   const dateTransform = new Date(date);
-  console.log(printDate(dateTransform));
+  //console.log(printDate(dateTransform));
   return (
     <Wrapper>
       <Title>닉네임 : {id}</Title>

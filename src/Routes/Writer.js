@@ -22,6 +22,7 @@ const CKEditorWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
+  max-width: 935px;
   display: flex;
   flex-direction: column;
   background-color: white;

@@ -19,9 +19,28 @@ import DeleteForm from "../Components/DeleteForm";
 import ShareButtons from "../Components/ShareButtons";
 import { getLevel } from "../Components/Util";
 import { Helmet } from "react-helmet";
+import { isPC } from "../Components/MediaQuery";
+import { Bling as GPT } from "react-gpt";
 
 const Background = styled.div`
   background-color: white;
+  min-width: ${(props) => (props.pcCheck ? "1255px" : "null")};
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+
+const Wrapper = styled.div`
+  background-color: white;
+  max-width: 935px;
+`;
+
+const SideAD = styled.div`
+  display: flex;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  flex-direction: column;
 `;
 
 const PostSection = styled.div`
@@ -147,6 +166,12 @@ const InfoIcon = styled.img`
   object-fit: cover;
   width:15px
   height:15px
+`;
+
+const GPTWrapper = styled.div`
+  display: flex;
+  width: 100%;
+  justify-content: space-around;
 `;
 
 const POSTONE_QUERY = gql`
@@ -364,12 +389,26 @@ const Post = ({ history }) => {
     }
   };
 
+  const pcCheck = isPC();
+
   return (
-    <Background>
+    <Background pcCheck={pcCheck}>
+      {pcCheck ? (
+        <SideAD>
+          <GPT
+            adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_lefttop"
+            slotSize={[160, 600]}
+          />
+          <GPT
+            adUnitPath="21682743634/da_dion_realcitykr/pc_160x600_leftbottom"
+            slotSize={[160, 600]}
+          />
+        </SideAD>
+      ) : null}
       {loading || data === undefined || data.postOne === null ? (
         <Loader />
       ) : (
-        <div>
+        <Wrapper>
           <Helmet>
             <meta property="og:url" content={window.location.href} />
             <meta property="og:type" content="website" />
@@ -385,6 +424,17 @@ const Post = ({ history }) => {
             />
           </Helmet>
           <PostSection>
+            {pcCheck ? (
+              <GPT
+                adUnitPath="/21682743634/da_dion_realcitykr/pc_970x90_top"
+                slotSize={[970, 90]}
+              />
+            ) : (
+              <GPT
+                adUnitPath="/21682743634/da_dion_realcitykr/mobile_300x250_top"
+                slotSize={[300, 250]}
+              />
+            )}
             <PostWrapper>
               {deleteShow ? (
                 <div ref={deleteRef}>
@@ -435,6 +485,20 @@ const Post = ({ history }) => {
                 disabled={true}
                 data={data.postOne.content}
               />
+
+              {pcCheck ? (
+                <GPTWrapper>
+                  <GPT
+                    adUnitPath="/21682743634/da_dion_realcitykr/pc_post_300x250_leftbottom"
+                    slotSize={[300, 250]}
+                  />
+                  <GPT
+                    adUnitPath="/21682743634/da_dion_realcitykr/pc_post_300x250_rightbottom"
+                    slotSize={[300, 250]}
+                  />
+                </GPTWrapper>
+              ) : null}
+
               <LikeViewWrapper>
                 <LikeButtonWrapper>
                   <Button onClick={() => clickConfirm()}>
@@ -541,8 +605,37 @@ const Post = ({ history }) => {
             </>
           ) : null}
           <ReplyForm data={data} refetch={() => refetch()} alert={alert} />
-        </div>
+          {pcCheck ? (
+            <GPTWrapper>
+              <GPT
+                adUnitPath="/21682743634/da_dion_realcitykr/pc_300x250_leftbottom"
+                slotSize={[300, 250]}
+              />
+              <GPT
+                adUnitPath="/21682743634/da_dion_realcitykr/pc_300x250_rightbottom"
+                slotSize={[300, 250]}
+              />
+            </GPTWrapper>
+          ) : (
+            <GPT
+              adUnitPath="/21682743634/da_dion_realcitykr/mobile_300x250_bottom"
+              slotSize={[300, 250]}
+            />
+          )}
+        </Wrapper>
       )}
+      {pcCheck ? (
+        <SideAD>
+          <GPT
+            adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_righttop"
+            slotSize={[160, 600]}
+          />
+          <GPT
+            adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_rightbottom"
+            slotSize={[160, 600]}
+          />
+        </SideAD>
+      ) : null}
     </Background>
   );
 };

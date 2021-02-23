@@ -85,16 +85,18 @@ const ButtonReverse = styled.button`
 `;
 
 const HeaderWrapper = styled.div`
+  width: 100%;
   background: white;
   height: 120px;
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
 `;
 
 const InWrapper = styled.div`
   display: flex;
-  width: ${(props) => props.theme.maxWidth};
+  max-width: 935px;
+  width: 100%;
   justify-content: space-between;
 `;
 

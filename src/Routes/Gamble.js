@@ -36,6 +36,7 @@ const PreviewImage = styled.img`
 `;
 
 const Wrapper = styled.div`
+  max-width: 935px;
   display: flex;
   flex-direction: column;
 `;

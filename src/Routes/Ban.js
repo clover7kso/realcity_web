@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { withRouter } from "react-router-dom";
 
 const Wrapper = styled.div`
+  max-width: 935px;
   display: flex;
   flex-direction: column;
   min-height: 80vh;

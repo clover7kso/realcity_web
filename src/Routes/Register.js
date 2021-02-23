@@ -14,6 +14,7 @@ import {
 } from "../Components/Util";
 
 const Wrapper = styled.div`
+  max-width: 935px;
   display: flex;
   flex-direction: column;
   min-height: 80vh;

@@ -10,6 +10,7 @@ import HomeNotice from "../Components/HomeNotice";
 import { PC, isPC } from "../Components/MediaQuery";
 
 const Wrapper = styled.div`
+  max-width: 935px;
   display: flex;
   flex-direction: column;
   min-height: 80vh;

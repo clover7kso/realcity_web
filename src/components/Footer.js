@@ -3,6 +3,8 @@ import styled from "styled-components";
 import { isPC, PC } from "../Components/MediaQuery";
 
 const Footer = styled.footer`
+  max-width: 935px;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;

@@ -20,6 +20,7 @@ const ZzalWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
+  max-width: 935px;
   display: flex;
   flex-direction: row;
   min-height: 80vh;

@@ -19,6 +19,10 @@ const Wrapper = styled.div`
   padding-left: ${(props) => (props.paddingLeft ? props.paddingLeft : "auto")};
   padding-right: ${(props) =>
     props.paddingRight ? props.paddingRight : "auto"};
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: ${(props) => props.alignItems};
 `;
 
 export default () => {
@@ -32,6 +36,7 @@ export default () => {
             <Wrapper
               paddingLeft={isPC() ? null : "3%"}
               paddingRight={isPC() ? null : "3%"}
+              alignItems={isPC() ? "center" : null}
             >
               <MyRoutes />
               <Footer />

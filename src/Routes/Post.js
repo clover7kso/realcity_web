@@ -6,6 +6,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { withRouter } from "react-router-dom";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import ClassicEditor from "@ckeditor/ckeditor5-editor-classic/src/classiceditor.js";
+import StickyBox from "react-sticky-box";
 
 import { installedPlugins } from "../Components/CKEditorPlugin";
 import ThreeDotButton from "../Components/ThreeDotButton";
@@ -28,6 +29,7 @@ const Background = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-around;
+  align-items: flex-start;
 `;
 
 const Wrapper = styled.div`
@@ -36,9 +38,9 @@ const Wrapper = styled.div`
 `;
 
 const SideAD = styled.div`
+  background-color: white;
   display: flex;
   width: 100%;
-  height: 100%;
   align-items: center;
   flex-direction: column;
 `;
@@ -394,16 +396,18 @@ const Post = ({ history }) => {
   return (
     <Background pcCheck={pcCheck}>
       {pcCheck ? (
-        <SideAD>
-          <GPT
-            adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_lefttop"
-            slotSize={[160, 600]}
-          />
-          <GPT
-            adUnitPath="21682743634/da_dion_realcitykr/pc_160x600_leftbottom"
-            slotSize={[160, 600]}
-          />
-        </SideAD>
+        <StickyBox offsetTop={120} offsetBottom={20}>
+          <SideAD>
+            <GPT
+              adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_lefttop"
+              slotSize={[160, 600]}
+            />
+            <GPT
+              adUnitPath="21682743634/da_dion_realcitykr/pc_160x600_leftbottom"
+              slotSize={[160, 600]}
+            />
+          </SideAD>
+        </StickyBox>
       ) : null}
       {loading || data === undefined || data.postOne === null ? (
         <Loader />
@@ -625,16 +629,18 @@ const Post = ({ history }) => {
         </Wrapper>
       )}
       {pcCheck ? (
-        <SideAD>
-          <GPT
-            adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_righttop"
-            slotSize={[160, 600]}
-          />
-          <GPT
-            adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_rightbottom"
-            slotSize={[160, 600]}
-          />
-        </SideAD>
+        <StickyBox offsetTop={120} offsetBottom={20}>
+          <SideAD>
+            <GPT
+              adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_righttop"
+              slotSize={[160, 600]}
+            />
+            <GPT
+              adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_rightbottom"
+              slotSize={[160, 600]}
+            />
+          </SideAD>
+        </StickyBox>
       ) : null}
     </Background>
   );

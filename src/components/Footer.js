@@ -11,7 +11,8 @@ const Footer = styled.footer`
   text-transform: uppercase;
   font-weight: ${(props) => props.fontWeight};
   font-size: ${(props) => props.fontSize};
-  margin: 50px 0px;
+  margin-top: 50px;
+  margin-bottom: ${(props) => props.marginBottom};
 `;
 
 const List = styled.ul`
@@ -39,6 +40,7 @@ export default () => {
   var PCcheck = isPC();
   return (
     <Footer
+      marginBottom={PCcheck ? "100px" : "90px"}
       fontSize={PCcheck ? "12px" : "10px"}
       fontWeight={PCcheck ? "600" : "400"}
     >

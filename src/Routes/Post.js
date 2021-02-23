@@ -33,8 +33,10 @@ const Background = styled.div`
 `;
 
 const Wrapper = styled.div`
+  min-width: ${(props) => (props.pcCheck ? "935px" : null)};
   background-color: white;
-  max-width: 935px;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const SideAD = styled.div`
@@ -412,7 +414,7 @@ const Post = ({ history }) => {
       {loading || data === undefined || data.postOne === null ? (
         <Loader />
       ) : (
-        <Wrapper>
+        <Wrapper pcCheck={pcCheck}>
           <Helmet>
             <meta property="og:url" content={window.location.href} />
             <meta property="og:type" content="website" />

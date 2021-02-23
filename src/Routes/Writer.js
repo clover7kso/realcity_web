@@ -22,7 +22,7 @@ const CKEditorWrapper = styled.div`
 `;
 
 const Wrapper = styled.div`
-  max-width: 935px;
+  min-width: ${(props) => (props.pcCheck ? "935px" : null)};
   display: flex;
   flex-direction: column;
   background-color: white;
@@ -332,7 +332,7 @@ const Writer = ({ history }) => {
   var pcCheck = isPC();
 
   return (
-    <Wrapper>
+    <Wrapper pcCheck={pcCheck}>
       <DropDownContainer width={pcCheck ? null : "100%"}>
         <DropDownHeader onClick={toggling}>
           {selectedOption.name || "⏬ 카테고리"}

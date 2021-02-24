@@ -35,8 +35,6 @@ const Background = styled.div`
 const Wrapper = styled.div`
   min-width: ${(props) => (props.pcCheck ? "935px" : null)};
   background-color: white;
-  padding-left: 10px;
-  padding-right: 10px;
 `;
 
 const SideAD = styled.div`
@@ -124,6 +122,8 @@ const LikeView = styled.div`
 `;
 
 const CommentWrapper = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
   border-top: 1px solid #cecece;
   display: flex;
   flex-direction: column;
@@ -131,6 +131,8 @@ const CommentWrapper = styled.div`
 `;
 
 const BestCommentWrapper = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
   border-top: 1px solid #cecece;
   display: flex;
   flex-direction: column;
@@ -150,6 +152,8 @@ const CommentTitle = styled.div`
 `;
 
 const CommentTitleWrapper = styled.div`
+  padding-left: 10px;
+  padding-right: 10px;
   display: flex;
   justify-content: space-between;
 `;
@@ -421,11 +425,9 @@ const Post = ({ history }) => {
     "&s=509584&psb=99' scrolling='no' frameborder=0 width=0 height=0></iframe>";
   //MOBILE:하단플로팅
   const ad_bottom_mobile =
-    "<scr" +
-    'ipt src="//www.mediacategory.com/servlet/adbnMobileFloating?from=' +
+    '<script src="//www.mediacategory.com/servlet/adbnMobileFloating?from=' +
     escape(document.referrer) +
-    '&s=509586&bntype=51&cntad=1&cntsr=1&iwh=320_75&fType=13&mChk=75&fixed=1&btnx=" type="text/javascript"></scr' +
-    "ipt>";
+    '&s=509586&bntype=51&cntad=1&cntsr=1&iwh=320_75&fType=13&mChk=75&fixed=1&btnx=" type="text/javascript"></script>';
 
   return (
     <Background pcCheck={pcCheck}>
@@ -572,7 +574,9 @@ const Post = ({ history }) => {
           </PostSection>
           {TopComment.length > 0 ? (
             <>
-              <CommentTitle>베스트댓글</CommentTitle>
+              <CommentTitleWrapper>
+                <CommentTitle>베스트댓글</CommentTitle>
+              </CommentTitleWrapper>
               <BestCommentWrapper>
                 {TopComment.map((item, idx) => {
                   if (item.likeAll !== 0)

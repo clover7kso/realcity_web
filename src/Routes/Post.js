@@ -32,6 +32,13 @@ const Background = styled.div`
   align-items: flex-start;
 `;
 
+const ContentWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding-left: 10px;
+  padding-right: 10px;
+`;
+
 const Wrapper = styled.div`
   min-width: ${(props) => (props.pcCheck ? "935px" : null)};
   background-color: white;
@@ -54,8 +61,6 @@ const PostSection = styled.div`
 
 const PostWrapper = styled.div`
   min-width: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
 `;
 
 const TimeAuthorWrapper = styled.div`
@@ -491,45 +496,47 @@ const Post = ({ history }) => {
                   />
                 </div>
               ) : null}
-              <TitleThreeDotWrapper>
-                <Title>{data.postOne.title}</Title>
-                <ThreeDotButton data={ThreeDotButtonData} />
-              </TitleThreeDotWrapper>
+              <ContentWrapper>
+                <TitleThreeDotWrapper>
+                  <Title>{data.postOne.title}</Title>
+                  <ThreeDotButton data={ThreeDotButtonData} />
+                </TitleThreeDotWrapper>
 
-              <TimeAuthorViewWrapper>
-                <TimeAuthorWrapper>
-                  <Time>{data.postOne.timeFromToday}</Time>&nbsp;&nbsp;
-                  <div>
-                    {data.postOne.user === null
-                      ? data.postOne.author
-                      : " Lv." +
-                        getLevel(data.postOne.user.point) +
-                        "  " +
-                        data.postOne.user.nickname}
-                  </div>
-                  &nbsp;&nbsp;
-                  {data.postOne.user === null ? (
-                    <IP>{data.postOne.ip}</IP>
-                  ) : null}
-                </TimeAuthorWrapper>
-                <Info>
-                  <LikeView>
-                    조회 :{" "}
-                    {data.postOne.viewAll.toLocaleString(undefined, {
-                      maximumFractionDigits: 0,
-                    })}
-                  </LikeView>
-                </Info>
-              </TimeAuthorViewWrapper>
+                <TimeAuthorViewWrapper>
+                  <TimeAuthorWrapper>
+                    <Time>{data.postOne.timeFromToday}</Time>&nbsp;&nbsp;
+                    <div>
+                      {data.postOne.user === null
+                        ? data.postOne.author
+                        : " Lv." +
+                          getLevel(data.postOne.user.point) +
+                          "  " +
+                          data.postOne.user.nickname}
+                    </div>
+                    &nbsp;&nbsp;
+                    {data.postOne.user === null ? (
+                      <IP>{data.postOne.ip}</IP>
+                    ) : null}
+                  </TimeAuthorWrapper>
+                  <Info>
+                    <LikeView>
+                      조회 :{" "}
+                      {data.postOne.viewAll.toLocaleString(undefined, {
+                        maximumFractionDigits: 0,
+                      })}
+                    </LikeView>
+                  </Info>
+                </TimeAuthorViewWrapper>
 
-              <CKEditor
-                editor={ClassicEditor}
-                config={{
-                  plugins: [...installedPlugins],
-                }}
-                disabled={true}
-                data={data.postOne.content}
-              />
+                <CKEditor
+                  editor={ClassicEditor}
+                  config={{
+                    plugins: [...installedPlugins],
+                  }}
+                  disabled={true}
+                  data={data.postOne.content}
+                />
+              </ContentWrapper>
 
               {pcCheck ? (
                 <GPTWrapper>

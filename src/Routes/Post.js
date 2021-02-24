@@ -397,8 +397,46 @@ const Post = ({ history }) => {
 
   const pcCheck = isPC();
 
+  //PC:하단프리미엄 띠배너
+  const ad_bottom =
+    "<d" +
+    "iv style='width:100%;position:fixed;bottom:5px;z-index:10000000;'><d" +
+    "iv style='width:970px;margin:0 160px;'><d" +
+    "iv id='mobonDivBanner_509575' style='width: 970px; height: 90px;'><d" +
+    "iv style='position:absolute;margin-top:-25px;width:970px;'><d" +
+    "iv style='position: absolute; top: 5px; right: 0px; width: 20px; height: 20px; background: #333; cursor: pointer; z-index: 30;'onclick='document.getElementById(\"mobonDivBanner_509575\").setAttribute(\"style\",\"display:none\")'><img src='//img.mobon.net/image/btn_x.png' style='width:100%; height: 90%;'/></d" +
+    "iv></d" +
+    "iv><d" +
+    "iv><iframe name='ifrad' width='970' height='90' id='mobonIframe_509575' src='//www.mediacategory.com/servlet/adBanner?from=" +
+    escape(document.referrer) +
+    "&s=509575&igb=75&cntsr=2&cntad=1&iwh=970_90' frameBorder='0' marginWidth='0' marginHeight='0' scrolling='no' ></iframe></d" +
+    "iv></d" +
+    "iv></d" +
+    "iv></d" +
+    "iv>";
+  //PC:아이커버
+  const ad_icover =
+    "<iframe src='//www.mediacategory.com/servlet/iadbn?from=" +
+    escape(document.referrer) +
+    "&s=509584&psb=99' scrolling='no' frameborder=0 width=0 height=0></iframe>";
+  //MOBILE:하단플로팅
+  const ad_bottom_mobile =
+    "<scr" +
+    'ipt src="//www.mediacategory.com/servlet/adbnMobileFloating?from=' +
+    escape(document.referrer) +
+    '&s=509586&bntype=51&cntad=1&cntsr=1&iwh=320_75&fType=13&mChk=75&fixed=1&btnx=" type="text/javascript"></scr' +
+    "ipt>";
+
   return (
     <Background pcCheck={pcCheck}>
+      {pcCheck ? (
+        <>
+          <div dangerouslySetInnerHTML={{ __html: ad_icover }} />
+          <div dangerouslySetInnerHTML={{ __html: ad_bottom }} />
+        </>
+      ) : (
+        <div dangerouslySetInnerHTML={{ __html: ad_bottom_mobile }} />
+      )}
       {pcCheck ? (
         <StickyBox offsetTop={120} offsetBottom={20}>
           <SideAD>
@@ -427,6 +465,7 @@ const Post = ({ history }) => {
               }
             />
           </Helmet>
+
           <PostSection>
             {pcCheck ? (
               <GPT

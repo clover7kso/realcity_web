@@ -56,6 +56,8 @@ const PostSection = styled.div`
 
 const PostWrapper = styled.div`
   min-width: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const TimeAuthorWrapper = styled.div`
@@ -401,10 +403,6 @@ const Post = ({ history }) => {
         <StickyBox offsetTop={120} offsetBottom={20}>
           <SideAD>
             <GPT
-              adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_lefttop"
-              slotSize={[160, 600]}
-            />
-            <GPT
               adUnitPath="21682743634/da_dion_realcitykr/pc_160x600_leftbottom"
               slotSize={[160, 600]}
             />
@@ -633,10 +631,6 @@ const Post = ({ history }) => {
       {pcCheck ? (
         <StickyBox offsetTop={120} offsetBottom={20}>
           <SideAD>
-            <GPT
-              adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_righttop"
-              slotSize={[160, 600]}
-            />
             <GPT
               adUnitPath="/21682743634/da_dion_realcitykr/pc_160x600_rightbottom"
               slotSize={[160, 600]}

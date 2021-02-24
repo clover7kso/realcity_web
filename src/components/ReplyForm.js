@@ -11,6 +11,8 @@ import Loader from "./Loader";
 const ReplyWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  padding-left: 10px;
+  padding-right: 10px;
 `;
 
 const ReplyInfo = styled.div`

@@ -434,11 +434,6 @@ const Post = ({ history }) => {
     "<iframe src='//www.mediacategory.com/servlet/iadbn?from=" +
     escape(document.referrer) +
     "&s=509584&psb=99' scrolling='no' frameborder=0 width=0 height=0></iframe>";
-  //MOBILE:하단플로팅
-  const ad_bottom_mobile =
-    '<script src="//www.mediacategory.com/servlet/adbnMobileFloating?from=' +
-    escape(document.referrer) +
-    '&s=509586&bntype=51&cntad=1&cntsr=1&iwh=320_75&fType=13&mChk=75&fixed=1&btnx=" type="text/javascript"></script>';
 
   return (
     <Background pcCheck={pcCheck}>

@@ -189,6 +189,12 @@ const GPTWrapper = styled.div`
   justify-content: space-around;
 `;
 
+const GPTWrapper2 = styled.div`
+  display: flex;
+  width: 100%;
+  margin-top: 30px;
+`;
+
 const POSTONE_QUERY = gql`
   query postOne($id: String!) {
     postOne(id: $id) {
@@ -441,9 +447,7 @@ const Post = ({ history }) => {
           <div dangerouslySetInnerHTML={{ __html: ad_icover }} />
           <div dangerouslySetInnerHTML={{ __html: ad_bottom }} />
         </>
-      ) : (
-        <div dangerouslySetInnerHTML={{ __html: ad_bottom_mobile }} />
-      )}
+      ) : null}
       {pcCheck ? (
         <StickyBox offsetTop={120} offsetBottom={20}>
           <SideAD>
@@ -671,10 +675,12 @@ const Post = ({ history }) => {
               />
             </GPTWrapper>
           ) : (
-            <GPT
-              adUnitPath="/21682743634/da_dion_realcitykr/mobile_300x250_bottom"
-              slotSize={[300, 250]}
-            />
+            <GPTWrapper2>
+              <GPT
+                adUnitPath="/21682743634/da_dion_realcitykr/mobile_300x250_bottom"
+                slotSize={[300, 250]}
+              />
+            </GPTWrapper2>
           )}
         </Wrapper>
       )}

@@ -153,7 +153,8 @@ const Logout = styled.div`
 export default withRouter(({ history, location }) => {
   const [toggle, setToggle] = useState(true);
   const [show, setShow] = useState(
-    history.location.hash.includes("access_token")
+    history.location.hash.includes("access_token") ||
+      history.location.search.includes("code")
   );
 
   const showLogin = (event) => {

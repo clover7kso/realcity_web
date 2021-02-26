@@ -193,6 +193,7 @@ const GPTWrapper2 = styled.div`
   display: flex;
   width: 100%;
   margin-top: 30px;
+  justify-content: space-around;
 `;
 
 const POSTONE_QUERY = gql`
@@ -659,7 +660,7 @@ const Post = ({ history }) => {
           ) : null}
           <ReplyForm data={data} refetch={() => refetch()} alert={alert} />
           {pcCheck ? (
-            <GPTWrapper>
+            <GPTWrapper2>
               <GPT
                 adUnitPath="/21682743634/da_dion_realcitykr/pc_300x250_leftbottom"
                 slotSize={[300, 250]}
@@ -668,7 +669,7 @@ const Post = ({ history }) => {
                 adUnitPath="/21682743634/da_dion_realcitykr/pc_300x250_rightbottom"
                 slotSize={[300, 250]}
               />
-            </GPTWrapper>
+            </GPTWrapper2>
           ) : (
             <GPTWrapper2>
               <GPT

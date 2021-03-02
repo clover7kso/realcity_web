@@ -316,7 +316,7 @@ export default class DiceBox extends React.Component {
                 좋아요 수가 입력가능합니다.
               </SmallInfo>
             )}
-            <SmallInfo>주사위 기회는 매주 토요일 5회 충전됩니다.</SmallInfo>
+            <SmallInfo>주사위 기회는 매일 5회 충전됩니다.</SmallInfo>
           </InfoWrapper>
         ) : null}
         <DiceWrapper>

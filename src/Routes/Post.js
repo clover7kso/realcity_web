@@ -479,12 +479,7 @@ const Post = ({ history }) => {
                 adUnitPath="/21682743634/da_dion_realcitykr/pc_970x90_top"
                 slotSize={[970, 90]}
               />
-            ) : (
-              <GPT
-                adUnitPath="/21682743634/da_dion_realcitykr/mobile_300x250_top"
-                slotSize={[300, 250]}
-              />
-            )}
+            ) : null}
             <PostWrapper>
               {deleteShow ? (
                 <div ref={deleteRef}>
